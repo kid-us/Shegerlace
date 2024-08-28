@@ -1,12 +1,13 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import "animate.css";
+import Home from "./components/Pages/Home";
 
 function App() {
   return (
-    <>
-      <div className="container mx-auto">
-        <p>Welcome to Shegerlace</p>
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 }
 

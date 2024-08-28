@@ -1,1 +1,41 @@
+/* Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+/* Nanum */
+/* @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+p,
+label,
+button,
+input {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.font-poppins {
+  font-family: "Poppins", sans-serif !important;
+}
+
+a {
+  font-family: "Cousine", monospace;
+}
+
+a:hover {
+  font-family: "Cousine", monospace;
+}
+
+.font-cousine {
+  font-family: "Cousine", monospace;
+}
+
+.btn-bg {
+  background-color: #8aaae5;
+}
