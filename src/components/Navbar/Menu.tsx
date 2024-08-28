@@ -19,8 +19,23 @@ const Menu = ({ menu, onMenu }: Props) => {
           menu
             ? "animate__animated animate__fadeInLeft"
             : "animate__animated animate__fadeOutLeft"
-        }  w-full bg-white h-[85vh] z-20 bg lg:rounded lg:px-10 px-5`}
+        }  w-full bg-white top-0 h-[100vh] z-20 bg lg:rounded lg:px-10 px-5`}
       >
+        <div className="flex justify-between lg:pt-5 pt-4 border-b pb-4 border-gray-100">
+          <div>
+            <p className="font-bold lg:text-2xl text-xl">Shegerlace</p>
+          </div>
+          <div>
+            {/* Small Device */}
+            <div className="lg:hidden md:hidden flex gap-x-4">
+              <button className="bi-bag-fill text-xl"></button>
+              <button
+                onClick={() => onMenu(false)}
+                className={`${menu ? "bi-x-lg" : "bi-list "} text-2xl`}
+              ></button>
+            </div>
+          </div>
+        </div>
         {menuNav.map((menus) => (
           <Link
             key={menus.id}
@@ -37,7 +52,7 @@ const Menu = ({ menu, onMenu }: Props) => {
           </Link>
         ))}
 
-        <div className="absolute bottom-0 mt-8 cursor-pointer">
+        <div className="absolute bottom-5 cursor-pointer">
           <Link to={"/login"}>
             <p className="font-poppins text-white py-[6px] bg-zinc-900 rounded-lg w-32 text-center">
               Login

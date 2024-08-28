@@ -13,7 +13,7 @@ const Navbar = () => {
             menu ? "border-b pb-5 px-3" : "px-3"
           }`}
         >
-          <div className="flex justify-between lg:pt-5 pt-4">
+          <div className="flex justify-between lg:pt-5 pt-4 border-b pb-4 border-gray-100">
             <div>
               <p className="font-bold lg:text-2xl text-xl">Shegerlace</p>
             </div>
