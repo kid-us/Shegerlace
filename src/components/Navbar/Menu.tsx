@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import menuNav from "../../services/navbar";
 import { useState } from "react";
+import { useCartStore } from "../../stores/useCartStore";
 
 interface Props {
   username?: string;
@@ -11,6 +12,8 @@ interface Props {
 const Menu = ({ menu, onMenu }: Props) => {
   const location = useLocation();
   const path = location.pathname;
+
+  const { cart } = useCartStore();
 
   const [animationClass, setAnimationClass] = useState<string>(
     "animate__fadeInLeft"
@@ -35,7 +38,16 @@ const Menu = ({ menu, onMenu }: Props) => {
           <div>
             {/* Small Device */}
             <div className="lg:hidden md:hidden flex gap-x-4">
-              <button className={`bi-bag text-xl`}></button>
+              <div className="relative">
+                <button
+                  className={`${
+                    cart.length > 0 ? "bi-bag-fill" : "bi-bag"
+                  } text-xl`}
+                ></button>
+                <p className="absolute -top-[5px] text-[8px] pt-[2px] -right-2 bg-red-500 text-white shadow rounded-full w-[16px] h-[16px] text-center">
+                  {cart.length}
+                </p>
+              </div>
               <button
                 onClick={() => handleClose()}
                 className={`${menu ? "bi-x-lg" : "bi-list "} text-2xl`}

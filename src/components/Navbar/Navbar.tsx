@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import menuNav from "../../services/navbar";
 import { useState } from "react";
 import Menu from "./Menu";
+import { useCartStore } from "../../stores/useCartStore";
 
 const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
+  const { cart } = useCartStore();
+
   return (
     <>
       <header className="lg:relative sticky top-0 bg z-10">
@@ -27,7 +30,17 @@ const Navbar = () => {
             </div>
             <div>
               {/* Large Device */}
-              <div className="lg:flex md:flex hidden">
+              <div className="lg:flex md:flex hidden gap-x-10">
+                <div className="relative">
+                  <button
+                    className={`${
+                      cart.length > 0 ? "bi-bag-fill" : "bi-bag"
+                    } text-xl`}
+                  ></button>
+                  <p className="absolute -top-[5px] text-[8px] pt-[2px] -right-2 bg-red-500 text-white shadow rounded-full w-[16px] h-[16px] text-center">
+                    {cart.length}
+                  </p>
+                </div>
                 <Link to={"/login"}>
                   <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
                     Sign In
@@ -36,7 +49,16 @@ const Navbar = () => {
               </div>
               {/* Small Device */}
               <div className="lg:hidden md:hidden flex gap-x-4">
-                <button className={`bi-bag text-xl`}></button>
+                <div className="relative">
+                  <button
+                    className={`${
+                      cart.length > 0 ? "bi-bag-fill" : "bi-bag"
+                    } text-xl`}
+                  ></button>
+                  <p className="absolute -top-[5px] text-[8px] pt-[2px] -right-2 bg-red-500 text-white shadow rounded-full w-[16px] h-[16px] text-center">
+                    {cart.length}
+                  </p>
+                </div>
                 <button
                   onClick={() => setMenu(!menu)}
                   className={`bi-list text-2xl`}
