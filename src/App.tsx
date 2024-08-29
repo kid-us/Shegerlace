@@ -6,6 +6,7 @@ import Login from "./components/Pages/Login";
 import Register from "./components/Pages/Register";
 import ForgotPassword from "./components/Pages/ForgotPassword";
 import Verify from "./components/Pages/Verify";
+import Product from "./components/Pages/Product";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/verify" element={<Verify />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/shoes/:id" element={<Product />} />
     </Routes>
   );
 }

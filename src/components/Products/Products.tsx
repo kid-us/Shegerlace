@@ -6,7 +6,7 @@ const Products = () => {
     <>
       {shoes.map((shoe) => (
         <div key={shoe.id} className="bg-gray-50 rounded-2xl shadow p-5">
-          <Link to={"/"}>
+          <Link to={`/shoes/${shoe.id}`}>
             <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner">
               <img
                 src={shoe.img}

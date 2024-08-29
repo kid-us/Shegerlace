@@ -5,11 +5,12 @@ import shoes from "../../services/shoes";
 import { hero1 } from "../../assets";
 import { Link } from "react-router-dom";
 
-interface Shoes {
+export interface Shoes {
   id: number;
   name: string;
   color: string;
   img: string;
+  price: number;
 }
 
 const Hero = () => {
@@ -18,6 +19,7 @@ const Hero = () => {
     name: "Nike Dunk High",
     color: "547D27",
     img: hero1,
+    price: 4999,
   });
 
   useEffect(() => {
