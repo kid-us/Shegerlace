@@ -16,12 +16,14 @@ const Products = () => {
             </div>
           </Link>
 
-          <div className="mt-7">
+          <div className="mt-5">
             <div className="flex justify-between">
-              <p className="font-extrabold text-lg">{shoe.name}</p>
-              <button className="font-extrabold text-lg bi-bag"></button>
+              <p className="font-extrabold text-xl">{shoe.name}</p>
+              <button className="font-extrabold text-xl bi-bag"></button>
             </div>
-            <p className="mt-2">{shoe.price}br</p>
+            <p className="mt-1 font-bold">
+              <span className="bi-cash text-xl me-1"></span> {shoe.price}br
+            </p>
           </div>
         </div>
       ))}
