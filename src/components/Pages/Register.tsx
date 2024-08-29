@@ -138,7 +138,7 @@ const Register = () => {
                   {...register("username")}
                   type="text"
                   name="username"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-400 text-md w-full pe-3`}
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full pe-3`}
                   placeholder="Username"
                 />
               </div>
@@ -159,7 +159,7 @@ const Register = () => {
                   {...register("phone")}
                   type="tel"
                   name="phone"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-400 text-md w-full`}
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full`}
                   placeholder="Phone"
                 />
               </div>
@@ -180,7 +180,7 @@ const Register = () => {
                   {...register("password")}
                   type={!passwordType ? "text" : "password"}
                   name="password"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-400 text-md w-full pe-3`}
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full pe-3`}
                   placeholder="Password"
                 />
               </div>
@@ -210,7 +210,7 @@ const Register = () => {
                 <input
                   type="password"
                   name="password"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-400 text-md w-full pe-3`}
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full pe-3`}
                   placeholder="Confirm Password"
                   onChange={(e) => setConfirmPassword(e.currentTarget.value)}
                 />
@@ -231,7 +231,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="referral"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-400 text-md w-full pe-3`}
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full pe-3`}
                   placeholder="Referral Code"
                 />
               </div>

@@ -94,7 +94,7 @@ const Login = () => {
                   {...register("username")}
                   type="text"
                   name="username"
-                  className={`focus:outline-none px-3 lg:bg-primary md:bg-white bg-white h-full placeholder:text-gray-400 text-md w-full`}
+                  className={`focus:outline-none px-3 lg:bg-primary md:bg-white bg-white h-full placeholder:text-gray-500 text-md w-full`}
                   placeholder="Username"
                 />
               </div>
@@ -115,7 +115,7 @@ const Login = () => {
                   {...register("password")}
                   type={!passwordType ? "text" : "password"}
                   name="password"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-400 text-md w-full`}
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full`}
                   placeholder="Password"
                 />
               </div>
