@@ -31,17 +31,17 @@ const Hero = () => {
       }
     };
 
-    const timer = setTimeout(changeIntro, 5000);
+    const timer = setTimeout(changeIntro, 10000);
     return () => clearTimeout(timer);
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2 mb-20">
+    <div className="lg:grid grid-cols-2">
       <div className="lg:pt-20 pt-10 lg:ps-28 lg:px-0 px-4">
-        <h1 className="font-cousine font-extrabold lg:text-5xl text-xl">
+        <h1 className="font-cousine font-extrabold lg:text-6xl text-xl uppercase">
           Unleash Your Sole, Discover Your Style.
         </h1>
-        <p className="mt-8">
+        <p className="mt-8 font-bold">
           Discover the Perfect Pair: Explore Our Extensive Collection of Stylish
           and Comfortable Footwear, Available Online for Every Occasion and
           Lifestyle.
@@ -62,7 +62,11 @@ const Hero = () => {
 
         <h1
           className="font-extrabold text-4xl mt-10 lg:block hidden"
-          style={{ color: `#${sliders.color}` }}
+          style={{
+            color: `#${sliders.color}`,
+            textShadow:
+              "1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000",
+          }}
         >
           {sliders.name}
         </h1>
@@ -74,7 +78,7 @@ const Hero = () => {
               key={s.color}
               className={`${index === 0 && "rounded-l-xl "}
               ${index === shoes.length - 1 && "rounded-r-xl"}
-              overflow-hidden cursor-pointer shadow shadow-zinc-900 `}
+              overflow-hidden cursor-pointer`}
               onClick={() => setSliders(s)}
               style={{
                 background: `#${s.color}`,
@@ -85,7 +89,7 @@ const Hero = () => {
                 alt="Shoes"
                 className={`${
                   sliders.color === s.color
-                    ? "w-44 h-20 scale-150 transition-all duration-500 ease-in-out"
+                    ? "w-44 h-20 -rotate-[20deg] transition-all duration-500 ease-in-out"
                     : "w-20 h-20"
                 } object-contain`}
               />
@@ -99,7 +103,7 @@ const Hero = () => {
         <img
           src={sliders.img}
           alt="hero"
-          className="absolute inset-0 m-auto lg:-rotate-[20deg] -rotate-[25deg] lg:me-auto me-8"
+          className="animation-swing absolute inset-0 m-auto lg:-rotate-[20deg] -rotate-[25deg] lg:me-auto me-8"
         />
       </div>
 

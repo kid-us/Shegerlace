@@ -4,6 +4,10 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700");
 
+body {
+  background-color: #f2ecdc;
+}
+
 h1,
 h2,
 h3,
@@ -50,4 +54,21 @@ a:hover {
 
 ::-webkit-scrollbar-thumb {
   background: #293132;
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(-18deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
+}
+
+.animation-swing {
+  animation: sway 2.4s infinite;
+  animation-timing-function: ease-in-out;
 }
