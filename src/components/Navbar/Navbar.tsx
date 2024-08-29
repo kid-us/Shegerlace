@@ -7,12 +7,8 @@ const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
   return (
     <>
-      <header>
-        <nav
-          className={`lg:container lg:mx-auto ${
-            menu ? "border-b pb-5 px-3" : "px-3"
-          }`}
-        >
+      <header className="lg:relative sticky top-0 bg z-10">
+        <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
           <div className="flex justify-between lg:pt-5 pt-4 border-b pb-4 border-gray-100">
             <div>
               <p className="font-bold lg:text-2xl text-xl">Shegerlace</p>
@@ -23,7 +19,7 @@ const Navbar = () => {
                 <Link
                   to={`${nav.link}`}
                   key={nav.id}
-                  className="font-bold transition-transform duration-500 ease-in-out hover:-translate-y-1"
+                  className="font-bold text-lg transition-transform duration-500 ease-in-out hover:-translate-y-1"
                 >
                   {nav.name}
                 </Link>
@@ -40,10 +36,10 @@ const Navbar = () => {
               </div>
               {/* Small Device */}
               <div className="lg:hidden md:hidden flex gap-x-4">
-                <button className="bi-bag-fill text-xl"></button>
+                <button className={`bi-bag text-xl`}></button>
                 <button
                   onClick={() => setMenu(!menu)}
-                  className={`${menu ? "bi-x-lg" : "bi-list "} text-2xl`}
+                  className={`bi-list text-2xl`}
                 ></button>
               </div>
             </div>

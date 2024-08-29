@@ -37,64 +37,66 @@ const Hero = () => {
 
   return (
     <div className="lg:grid grid-cols-2">
-      <div className="lg:pt-20 pt-10 lg:ps-28 lg:px-0 px-4">
-        <h1 className="font-cousine font-extrabold lg:text-6xl text-xl uppercase">
-          Unleash Your Sole, Discover Your Style.
-        </h1>
-        <p className="mt-8 font-bold">
-          Discover the Perfect Pair: Explore Our Extensive Collection of Stylish
-          and Comfortable Footwear, Available Online for Every Occasion and
-          Lifestyle.
-        </p>
+      <div className="flex h-full items-center pt-10 lg:ps-28 lg:px-0 px-4">
+        <div>
+          <h1 className="font-cousine font-extrabold lg:text-6xl text-3xl uppercase">
+            Unleash Your Sole, Discover Your Style.
+          </h1>
+          <p className="font-bold lg:text-lg mt-3">
+            Discover the Perfect Pair: Explore Our Extensive Collection of
+            Stylish and Comfortable Footwear, Available Online for Every
+            Occasion and Lifestyle.
+          </p>
 
-        <div className="w-44">
-          <Link to={"/login"}>
-            <p
-              className="rounded text-white w-44 h-10 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2"
-              style={{
-                background: `#${sliders.color}`,
-              }}
-            >
-              Join us Now
-            </p>
-          </Link>
-        </div>
+          <div className="w-44">
+            <Link to={"/login"}>
+              <p
+                className="rounded text-white w-44 h-10 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2"
+                style={{
+                  background: `#${sliders.color}`,
+                }}
+              >
+                Join us Now
+              </p>
+            </Link>
+          </div>
 
-        <h1
-          className="font-extrabold text-4xl mt-10 lg:block hidden"
-          style={{
-            color: `#${sliders.color}`,
-            textShadow:
-              "1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000",
-          }}
-        >
-          {sliders.name}
-        </h1>
+          <h1
+            className="font-extrabold text-4xl mt-10 lg:block hidden"
+            style={{
+              color: `#${sliders.color}`,
+              textShadow:
+                "1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000",
+            }}
+          >
+            {sliders.name}
+          </h1>
 
-        {/* Lg Sliders */}
-        <div className="lg:flex w-[80%] hidden mt-10">
-          {shoes.map((s, index) => (
-            <div
-              key={s.color}
-              className={`${index === 0 && "rounded-l-xl "}
+          {/* Lg Sliders */}
+          <div className="lg:flex w-[80%] hidden mt-10">
+            {shoes.map((s, index) => (
+              <div
+                key={s.color}
+                className={`${index === 0 && "rounded-l-xl "}
               ${index === shoes.length - 1 && "rounded-r-xl"}
               overflow-hidden cursor-pointer`}
-              onClick={() => setSliders(s)}
-              style={{
-                background: `#${s.color}`,
-              }}
-            >
-              <img
-                src={s.img}
-                alt="Shoes"
-                className={`${
-                  sliders.color === s.color
-                    ? "w-44 h-20 -rotate-[20deg] transition-all duration-500 ease-in-out"
-                    : "w-20 h-20"
-                } object-contain`}
-              />
-            </div>
-          ))}
+                onClick={() => setSliders(s)}
+                style={{
+                  background: `#${s.color}`,
+                }}
+              >
+                <img
+                  src={s.img}
+                  alt="Shoes"
+                  className={`${
+                    sliders.color === s.color
+                      ? "w-52 h-24 -rotate-[20deg] transition-all duration-500 ease-in-out"
+                      : "w-32 h-24"
+                  } object-contain`}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -126,8 +128,8 @@ const Hero = () => {
                 alt="Shoes"
                 className={`${
                   sliders.color === s.color
-                    ? "w-44 h-12 scale-150 transition-all duration-500 ease-in-out"
-                    : "w-20 h-12"
+                    ? "w-44 h-14 -rotate-[20deg] scale-150 transition-all duration-500 ease-in-out"
+                    : "w-20 h-14"
                 } object-contain`}
               />
             </div>

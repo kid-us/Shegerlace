@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import menuNav from "../../services/navbar";
+import { useState } from "react";
 
 interface Props {
   username?: string;
@@ -11,15 +12,21 @@ const Menu = ({ menu, onMenu }: Props) => {
   const location = useLocation();
   const path = location.pathname;
 
+  const [animationClass, setAnimationClass] = useState<string>(
+    "animate__fadeInLeft"
+  );
+
+  const handleClose = () => {
+    setAnimationClass("animate__fadeOutLeft");
+    setTimeout(() => {
+      onMenu(false);
+    }, 500);
+  };
   return (
     <>
-      <div onClick={() => onMenu(false)} className="overlay z-10"></div>
+      <div className="overlay z-10"></div>
       <div
-        className={`fixed ${
-          menu
-            ? "animate__animated animate__fadeInLeft"
-            : "animate__animated animate__fadeOutLeft"
-        }  w-full bg-white top-0 h-[100vh] z-20 bg lg:rounded lg:px-10 px-5`}
+        className={`fixed animate__animated ${animationClass} w-full bg-white top-0 h-full z-20 bg lg:rounded lg:px-10 px-5`}
       >
         <div className="flex justify-between lg:pt-5 pt-4 border-b pb-4 border-gray-100">
           <div>
@@ -28,14 +35,15 @@ const Menu = ({ menu, onMenu }: Props) => {
           <div>
             {/* Small Device */}
             <div className="lg:hidden md:hidden flex gap-x-4">
-              <button className="bi-bag-fill text-xl"></button>
+              <button className={`bi-bag text-xl`}></button>
               <button
-                onClick={() => onMenu(false)}
+                onClick={() => handleClose()}
                 className={`${menu ? "bi-x-lg" : "bi-list "} text-2xl`}
               ></button>
             </div>
           </div>
         </div>
+
         {menuNav.map((menus) => (
           <Link
             key={menus.id}

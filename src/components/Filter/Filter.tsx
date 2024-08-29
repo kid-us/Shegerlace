@@ -1,6 +1,6 @@
 const Filter = () => {
   return (
-    <div className="lg:block hidden sticky top-6 self-start col-span-2 border px-2 py-5">
+    <>
       <p className="text-2xl mb-5 font-bold">Filter</p>
 
       <div className="space-y-1">
@@ -152,7 +152,7 @@ const Filter = () => {
           <span className="font-bold">New Balance</span>
         </label>
       </div>
-    </div>
+    </>
   );
 };
 
