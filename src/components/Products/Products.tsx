@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import shoes from "../../services/shoes";
+import { useCartStore } from "../../stores/useCartStore";
 
 const Products = () => {
+  const { addToCart, cart } = useCartStore();
+
   return (
     <>
       {shoes.map((shoe) => (
@@ -19,7 +22,12 @@ const Products = () => {
           <div className="mt-5">
             <div className="flex justify-between">
               <p className="font-extrabold text-xl">{shoe.name}</p>
-              <button className="font-extrabold text-xl bi-bag"></button>
+              <button
+                onClick={() => addToCart({ id: shoe.id, quantity: 1 })}
+                className={`font-extrabold text-xl ${
+                  cart.some((c) => c.id === shoe.id) ? "bi-bag-fill" : "bi-bag"
+                }`}
+              ></button>
             </div>
             <p className="mt-1 font-bold">
               <span className="bi-cash text-xl me-1"></span> {shoe.price}br

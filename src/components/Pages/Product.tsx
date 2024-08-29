@@ -60,7 +60,7 @@ const Product = () => {
             <div className="col-span-4 w-full h-full">
               <img
                 src={defaultShoe.img}
-                className="bg-white w-full h-[550px] object-contain rounded shadow"
+                className="bg-white w-full h-[600px] object-contain rounded shadow"
                 alt=""
               />
             </div>
@@ -92,6 +92,7 @@ const Product = () => {
               <div className="flex mt-5 gap-x-3">
                 {size1.map((s) => (
                   <button
+                    key={s}
                     onClick={() => setSize(s)}
                     className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
                       size === s ? "bg-black text-white" : "bg-white"
@@ -104,6 +105,7 @@ const Product = () => {
               <div className="flex mt-3 gap-x-3">
                 {size2.map((s) => (
                   <button
+                    key={s}
                     onClick={() => setSize(s)}
                     className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
                       size === s ? "bg-black text-white" : "bg-white"
