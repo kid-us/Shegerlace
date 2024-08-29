@@ -39,3 +39,15 @@ a:hover {
 .btn-bg {
   background-color: #8aaae5;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #293132;
+}
