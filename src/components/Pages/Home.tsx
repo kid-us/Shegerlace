@@ -1,5 +1,7 @@
 import Hero from "../Home/Hero";
 import Navbar from "../Navbar/Navbar";
+import Filter from "../Filter/Filter";
+import Products from "../Products/Products";
 
 const Home = () => {
   return (
@@ -8,22 +10,20 @@ const Home = () => {
       {/* Hero */}
       <Hero />
       {/* Shoes */}
-      <div className="grid grid-cols-12 gap-x-5 mx-10 mt-5">
-        <div className="col-span-2 border border-black px-2 py-5">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Reprehenderit, dicta. Veritatis suscipit repellat quos
-            necessitatibus quisquam. Eos deleniti doloribus iure odio, excepturi
-            deserunt temporibus cupiditate ea, natus quas quos quo.
-          </p>
-        </div>
-        <div className="col-span-10 border border-black px-2 py-5">
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet
-            corporis vero iusto distinctio veniam quam ad aperiam nihil labore
-            est ab magni, explicabo expedita dolores esse minus qui, aut
-            exercitationem.
-          </p>
+      <div className="flex justify-between lg:mt-0 mt-10 mb-5">
+        <h1 className="lg:mx-14 mx-2 lg:text-3xl text-xl font-extrabold uppercase">
+          Shop By Classics
+        </h1>
+        <button className="text-xl">
+          {" "}
+          Filter <span className="bi-sliders text-xl"></span>{" "}
+        </button>
+      </div>
+      <div className="lg:grid grid-cols-12 gap-x-5 lg:mx-14">
+        <Filter />
+
+        <div className="lg:col-span-10 grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-10">
+          <Products />
         </div>
       </div>
     </>

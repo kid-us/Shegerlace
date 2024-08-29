@@ -36,6 +36,10 @@ a:hover {
   font-family: "Cousine", monospace;
 }
 
+.bg {
+  background-color: #f2ecdc;
+}
+
 .font-cousine {
   font-family: "Cousine", monospace;
 }
