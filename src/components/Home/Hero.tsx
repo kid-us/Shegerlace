@@ -51,10 +51,10 @@ const Hero = () => {
           <div className="w-44">
             <Link to={"/login"}>
               <p
-                className="rounded text-white w-44 h-10 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2"
-                style={{
-                  background: `#${sliders.color}`,
-                }}
+                className="rounded text-white w-44 h-11 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2 btn-bg"
+                // style={{
+                //   background: `#${sliders.color}`,
+                // }}
               >
                 Join us Now
               </p>

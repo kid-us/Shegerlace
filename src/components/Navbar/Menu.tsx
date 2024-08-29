@@ -62,7 +62,7 @@ const Menu = ({ menu, onMenu }: Props) => {
 
         <div className="absolute bottom-5 cursor-pointer">
           <Link to={"/login"}>
-            <p className="font-poppins text-white py-[6px] bg-zinc-900 rounded-lg w-32 text-center">
+            <p className="font-poppins text-white py-[6px] btn-bg rounded-lg w-32 text-center">
               Login
             </p>
           </Link>

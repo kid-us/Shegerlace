@@ -29,7 +29,7 @@ const Navbar = () => {
               {/* Large Device */}
               <div className="lg:flex md:flex hidden">
                 <Link to={"/login"}>
-                  <p className="bg-zinc-900 rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
+                  <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
                     Sign In
                   </p>
                 </Link>
