@@ -33,6 +33,9 @@ export default {
         19: "repeat(19, minmax(0, 1fr))",
         20: "repeat(20, minmax(0, 1fr))",
       },
+      colors: {
+        primary: "#f2ecdc",
+      },
     },
   },
   plugins: [],
