@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import baseUrl from "../../services/request";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import Button from "../Button/Button";
+import Loader from "../Button/Loader";
 
 const schema = z.object({
   password: z.string().min(4, {
@@ -236,15 +238,7 @@ const Register = () => {
             </div>
 
             <div className="mt-8 text-center">
-              {loader ? (
-                <p className="py-3 text-black btn-bg w-full rounded flex justify-center font-poppins text-lg shadow shadow-zinc-950">
-                  <span className="loader rounded"></span>
-                </p>
-              ) : (
-                <button className="py-3 text-black btn-bg w-full rounded font-poppins text-lg shadow shadow-zinc-950">
-                  Register
-                </button>
-              )}
+              {loader ? <Loader /> : <Button label="Register" />}
             </div>
 
             <p className="mt-5 text-sm font-poppins">

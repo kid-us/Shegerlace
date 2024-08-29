@@ -4,6 +4,7 @@ import "animate.css";
 import Home from "./components/Pages/Home";
 import Login from "./components/Pages/Login";
 import Register from "./components/Pages/Register";
+import ForgotPassword from "./components/Pages/ForgotPassword";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
     </Routes>
   );
 }

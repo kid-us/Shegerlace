@@ -7,6 +7,8 @@ import axios from "axios";
 import baseUrl from "../../services/request";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { account } from "../../assets";
+import Button from "../Button/Button";
+import Loader from "../Button/Loader";
 
 const schema = z.object({
   password: z.string().min(4, {
@@ -136,21 +138,16 @@ const Login = () => {
             )}
 
             <p className="text-sm text-end text-white">
-              <Link to="/request" className="font-poppins text-blue-600">
+              <Link
+                to="/forgot-password"
+                className="font-poppins text-blue-600"
+              >
                 Forgot Password?
               </Link>
             </p>
 
             <div className="mt-8 text-center">
-              {loader ? (
-                <p className="py-3 text-black btn-bg w-full rounded flex justify-center font-poppins text-lg shadow shadow-zinc-950">
-                  <span className="loader rounded"></span>
-                </p>
-              ) : (
-                <button className="py-3 text-black btn-bg w-full rounded font-poppins text-lg shadow shadow-zinc-950">
-                  Login
-                </button>
-              )}
+              {loader ? <Loader /> : <Button label="Login" />}
             </div>
             <p className="mt-5 text-sm font-poppins">
               Don't have an Account?{" "}
