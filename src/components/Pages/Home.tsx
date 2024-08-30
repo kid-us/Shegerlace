@@ -14,7 +14,7 @@ const Home = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
   });
 
   return (
@@ -27,7 +27,7 @@ const Home = () => {
       <Hero />
       {/* Shoes */}
       <div className="lg:hidden flex justify-between lg:mt-0 mt-14 mb-5">
-        <h1 className="lg:mx-20 mx-2 lg:text-3xl text-xl font-extrabold uppercase">
+        <h1 className="mx-2 lg:text-3xl text-xl font-extrabold uppercase">
           Shop By Classics
         </h1>
         <button onClick={() => setFilter(true)} className="me-2">

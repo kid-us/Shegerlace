@@ -7,7 +7,6 @@ import { hero1 } from "../../assets";
 import { Shoes } from "../Home/Hero";
 import { useCartStore } from "../../stores/useCartStore";
 import Footer from "../Footer/Footer";
-import { Link } from "react-router-dom";
 
 const size1 = [37, 38, 39, 40];
 const size2 = [41, 42, 43, 44];
@@ -37,6 +36,7 @@ const Product = () => {
   const [error, setError] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(1);
 
+  // Add to bag
   const handleAddToBag = () => {
     if (size === 0 || size === "") {
       setError(true);
@@ -171,7 +171,9 @@ const Product = () => {
                     type="number"
                     className="focus:outline-none h-12 text-center w-full"
                     value={quantity}
+                    onChange={(e) => setQuantity(Number(e.currentTarget.value))}
                     min={1}
+                    readOnly
                   />
                 </div>
                 <button
@@ -183,12 +185,16 @@ const Product = () => {
               {/* Button */}
               <div className="mt-6 space-y-4">
                 {/* Order */}
-                <Link
-                  to={`/checkout/${id}`}
+                <button
+                  onClick={() =>
+                    size === 0
+                      ? setError(true)
+                      : (window.location.href = `/checkout/${id}`)
+                  }
                   className="btn-bg block text-center pt-2 font-bold font-poppins text-lg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
                 >
                   Order
-                </Link>
+                </button>
                 {/* Add to cart */}
                 <button
                   onClick={() => handleAddToBag()}

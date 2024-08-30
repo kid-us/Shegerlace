@@ -41,7 +41,7 @@ const Hero = () => {
     <div className="lg:grid grid-cols-2">
       <div className="flex h-full items-center pt-10 lg:ps-28 lg:px-0 px-4">
         <div>
-          <h1 className="font-cousine font-extrabold lg:text-6xl text-3xl uppercase">
+          <h1 className="font-cousine font-extrabold lg:text-5xl text-3xl uppercase">
             Unleash Your Sole, Discover Your Style.
           </h1>
           <p className="font-bold lg:text-lg mt-3">
@@ -52,19 +52,14 @@ const Hero = () => {
 
           <div className="w-44">
             <Link to={"/login"}>
-              <p
-                className="rounded text-white w-44 h-11 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2 btn-bg"
-                // style={{
-                //   background: `#${sliders.color}`,
-                // }}
-              >
+              <p className="rounded text-white w-44 h-11 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2 btn-bg">
                 Join us Now
               </p>
             </Link>
           </div>
 
           <h1
-            className="font-extrabold text-4xl mt-10 lg:block hidden"
+            className="font-extrabold text-3xl mt-10 lg:block hidden"
             style={{
               color: `#${sliders.color}`,
               textShadow:
@@ -92,8 +87,8 @@ const Hero = () => {
                   alt="Shoes"
                   className={`${
                     sliders.color === s.color
-                      ? "w-52 h-24 -rotate-[20deg] transition-all duration-500 ease-in-out"
-                      : "w-32 h-24"
+                      ? "w-64 h-16 -rotate-[20deg] transition-all duration-500 ease-in-out"
+                      : "w-32 h-16"
                   } object-contain`}
                 />
               </div>
