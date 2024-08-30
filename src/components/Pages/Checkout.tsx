@@ -98,7 +98,7 @@ const Checkout = () => {
       <Navbar />
       <div className="container mx-auto">
         <div className="lg:grid grid-cols-2">
-          <div className="lg:px-20 sticky top-20 self-start border-r border-gray-300 text-white">
+          <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 text-white">
             <div className="lg:py-16 md:py-16 px-3 py-5">
               <h1 className="text-2xl text-black">{defaultShoe.name}</h1>
               <p className="text-black text-xl mt-2">
@@ -210,13 +210,7 @@ const Checkout = () => {
 
                 {/* Button */}
                 <div className="mt-8">
-                  {loader ? (
-                    <div className="btn-bg w-full text-white btn-bg rounded h-12 pt-3">
-                      <Loader />
-                    </div>
-                  ) : (
-                    <Button label="Submit Payment" />
-                  )}
+                  {loader ? <Loader /> : <Button label="Submit Payment" />}
                   <p className="text-xs text-gray-500 mt-4">
                     Your personal data will be used to process your order.
                   </p>
