@@ -41,6 +41,19 @@ const Cart = ({ onCart }: Props) => {
     updateCartItemSize(id, size);
   };
 
+  // Remove item from Cart
+  const handleRemoveCart = (id: number) => {
+    if (cart.length === 1) {
+      setAnimationClass("animate__fadeOutRight");
+      removeFromCart(id);
+      setTimeout(() => {
+        onCart();
+      }, 500);
+    } else {
+      removeFromCart(id);
+    }
+  };
+
   return (
     <>
       <div
@@ -120,9 +133,9 @@ const Cart = ({ onCart }: Props) => {
                     <option value="42">42</option>
                   </select>
                 </div>
-
+                {/* Remove Cart */}
                 <button
-                  onClick={() => removeFromCart(c.id)}
+                  onClick={() => handleRemoveCart(c.id)}
                   className="absolute -top-4 -right-2 bi-x bg-red-500 text-white rounded-full w-6 h-6 shadow shadow-zinc-900"
                 ></button>
               </div>

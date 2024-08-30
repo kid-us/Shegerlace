@@ -19,7 +19,7 @@ const items: Footer[] = [
     path: "/",
   },
   {
-    id: 2,
+    id: 3,
     name: "Privacy Policy",
     path: "/",
   },
