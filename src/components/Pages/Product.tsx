@@ -54,7 +54,7 @@ const Product = () => {
     <>
       <Navbar />
       <div className="container mx-auto">
-        <div className="lg:grid grid-cols-5 gap-x-10 lg:mt-20 mt-8">
+        <div className="lg:grid grid-cols-5 gap-x-10 lg:mt-14 mt-8">
           {/* Images */}
           <div className="sticky top-24 self-start col-span-3 lg:grid hidden grid-cols-5">
             <div>

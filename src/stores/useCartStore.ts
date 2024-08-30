@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export interface CartItem {
-  id: string | number;
+  id: number;
   quantity: number;
   size: number | string;
   price: string | number;
@@ -12,7 +12,8 @@ interface CartState {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string | number) => void;
-  updateCartItemQuantity: (id: string, quantity: number) => void;
+  updateCartItemQuantity: (id: number, quantity: number) => void;
+  updateCartItemSize: (id: number, size: string | number) => void;
   clearCart: () => void;
 }
 
@@ -51,6 +52,15 @@ export const useCartStore = create<CartState>((set) => ({
     set((state) => {
       const updatedCart = state.cart.map((item) =>
         item.id === id ? { ...item, quantity } : item
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return { cart: updatedCart };
+    }),
+
+  updateCartItemSize: (id, size) =>
+    set((state) => {
+      const updatedCart = state.cart.map((item) =>
+        item.id === id ? { ...item, size } : item
       );
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       return { cart: updatedCart };

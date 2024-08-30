@@ -3,13 +3,17 @@ import menuNav from "../../services/navbar";
 import { useState } from "react";
 import Menu from "./Menu";
 import { useCartStore } from "../../stores/useCartStore";
+import Cart from "../Cart/Cart";
 
 const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
   const { cart } = useCartStore();
+  const [onCart, setOnCart] = useState<boolean>(false);
 
   return (
     <>
+      {/* Cart */}
+      {onCart && <Cart onCart={() => setOnCart(false)} />}
       <header className="sticky top-0 bg z-20">
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
           <div className="flex justify-between lg:pt-4 pt-4 border-b pb-4 border-gray-100">
@@ -35,10 +39,12 @@ const Navbar = () => {
               <div className="lg:flex md:flex hidden gap-x-10">
                 <div className="relative">
                   <button
+                    onClick={() => cart.length > 0 && setOnCart(true)}
                     className={`${
                       cart.length > 0 ? "bi-bag-fill" : "bi-bag"
                     } text-xl`}
                   ></button>
+
                   <p className="absolute -top-[5px] text-[8px] pt-[2px] -right-2 bg-red-500 text-white shadow rounded-full w-[16px] h-[16px] text-center">
                     {cart.length}
                   </p>
