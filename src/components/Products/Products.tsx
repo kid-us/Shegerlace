@@ -10,8 +10,9 @@ const Products = () => {
       {shoes.map((shoe) => (
         <div
           key={shoe.id}
-          className="bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5"
+          className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5"
         >
+          <button className="absolute top-7 z-10 text-xl overflow-hidden cursor-default text-red-500 bi-heart right-2 w-20 h-10"></button>
           <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner p-2">
             <Link to={`/shoes/${shoe.id}`} className="w-full overflow-hidden">
               <img
