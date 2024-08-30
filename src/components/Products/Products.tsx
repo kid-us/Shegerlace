@@ -12,15 +12,15 @@ const Products = () => {
           key={shoe.id}
           className="bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5"
         >
-          <Link to={`/shoes/${shoe.id}`}>
-            <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner">
+          <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner p-2">
+            <Link to={`/shoes/${shoe.id}`} className="w-full overflow-hidden">
               <img
                 src={shoe.img}
                 alt="Shoe"
-                className={`h-72 w-full object-contain -rotate-[20deg] hover:rotate-0`}
+                className={`relative z-10 h-72 w-full object-contain -rotate-[20deg] hover:rotate-0`}
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
 
           <div className="mt-5">
             <div className="flex justify-between">
