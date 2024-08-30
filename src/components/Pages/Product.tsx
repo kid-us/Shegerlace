@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import shoes from "../../services/shoes";
 import { useState } from "react";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { hero1 } from "../../assets";
 import { Shoes } from "../Home/Hero";
+import { useCartStore } from "../../stores/useCartStore";
 
 const size1 = [37, 38, 39, 40];
 const size2 = [41, 42, 43, 44];
 
 const Product = () => {
-  const { id } = useParams();
+  const { addToCart, removeFromCart } = useCartStore();
+
+  //   const { id } = useParams();
 
   const [defaultShoe, setDefaultShoe] = useState<Shoes>({
     id: 1,
@@ -20,12 +23,30 @@ const Product = () => {
     price: 2999,
   });
 
-  console.log(id);
+  //   console.log(id);
 
   const [title] = useState(defaultShoe.name);
   useDocumentTitle(title);
 
   const [size, setSize] = useState<number | string>(0);
+  const [error, setError] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const handleAddToBag = () => {
+    if (size === 0 || size === "") {
+      setError(true);
+      return;
+    } else {
+      setError(false); // Reset the error if the size is valid
+
+      removeFromCart(defaultShoe.id);
+      addToCart({
+        id: defaultShoe.id,
+        quantity,
+        size,
+      });
+    }
+  };
 
   return (
     <>
@@ -87,43 +108,86 @@ const Product = () => {
               ))}
             </div>
             <div className="px-4">
-              <p className="mt-8">Select Size</p>
               {/* Size */}
-              <div className="flex mt-5 gap-x-3">
-                {size1.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSize(s)}
-                    className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
-                      size === s ? "bg-black text-white" : "bg-white"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+              <p className="mt-8">Select Size</p>
+              <div
+                className={`${
+                  error && "border border-red-500 pb-5 rounded p-1 mt-3 lg:w-72"
+                }`}
+              >
+                <div className="flex mt-5 gap-x-3">
+                  {size1.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => {
+                        setSize(s);
+                        setError(false);
+                      }}
+                      className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
+                        size === s ? "bg-black text-white" : "bg-white"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+                <div className="flex mt-3 gap-x-3">
+                  {size2.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => {
+                        setSize(s);
+                        setError(false);
+                      }}
+                      className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
+                        size === s ? "bg-black text-white" : "bg-white"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex mt-3 gap-x-3">
-                {size2.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSize(s)}
-                    className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
-                      size === s ? "bg-black text-white" : "bg-white"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+              {error && (
+                <p className="text-sm text-red-500 mt-2">Please select size</p>
+              )}
+
+              {/* Quantity */}
+              <p className="mt-8 mb-2 text-sm">Quantity</p>
+              <div className="grid grid-cols-6 lg:w-72 shadow shadow-zinc-900 rounded">
+                <button
+                  onClick={() => quantity !== 1 && setQuantity(quantity - 1)}
+                  className="bi-dash btn-bg h-12 rounded-l text-xl"
+                ></button>
+                <div className="col-span-4 h-12">
+                  <input
+                    type="number"
+                    className="focus:outline-none h-12 text-center w-full"
+                    value={quantity}
+                    min={1}
+                  />
+                </div>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="bi-plus btn-bg h-12 rounded-r text-xl"
+                ></button>
               </div>
+
               {/* Button */}
-              <div className="mt-10 space-y-4">
+              <div className="mt-6 space-y-4">
+                {/* Order */}
                 <button className="btn-bg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none">
                   Order
                 </button>
-                <button className="bg-black text-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none">
+                {/* Add to cart */}
+                <button
+                  onClick={() => handleAddToBag()}
+                  className="bg-black text-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
+                >
                   Add to Bag{" "}
                   <span className="bi-bag-fill ms-3 text-white"></span>
                 </button>
+                {/* Favorite */}
                 <button className="bg-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none">
                   Add to Favorite <span className="bi-heart-fill ms-3"></span>
                 </button>

@@ -23,7 +23,7 @@ const Products = () => {
             <div className="flex justify-between">
               <p className="font-extrabold text-xl">{shoe.name}</p>
               <button
-                onClick={() => addToCart({ id: shoe.id, quantity: 1 })}
+                onClick={() => addToCart({ id: shoe.id, quantity: 1, size: 0 })}
                 className={`font-extrabold text-2xl ${
                   cart.some((c) => c.id === shoe.id) ? "bi-bag-fill" : "bi-bag"
                 }`}

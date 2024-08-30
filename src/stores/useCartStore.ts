@@ -1,14 +1,15 @@
 import { create } from "zustand";
 
-interface CartItem {
+export interface CartItem {
   id: string | number;
   quantity: number;
+  size: number | string;
 }
 
 interface CartState {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (id: string | number) => void;
   updateCartItemQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 }

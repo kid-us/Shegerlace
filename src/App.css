@@ -60,6 +60,16 @@ a:hover {
   background: #293132;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 @keyframes sway {
   0% {
     transform: rotate(-20deg);
