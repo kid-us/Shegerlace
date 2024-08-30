@@ -23,6 +23,8 @@ const Cart = ({ onCart }: Props) => {
 
   //   Change Quantity
   const handleQuantityChange = (id: number, quantity: number) => {
+    console.log(quantity);
+
     if (quantity > 0) {
       updateCartItemQuantity(id, quantity);
     }
@@ -40,7 +42,7 @@ const Cart = ({ onCart }: Props) => {
         className="overlay w-full h-full z-30"
       ></div>
       <div
-        className={`fixed z-30 bottom-0 right-0 bg-white lg:w-[28%] w-full h-[91vh] rounded-tl-xl p-5
+        className={`fixed z-30 bottom-0 right-0 bg-white lg:w-[28%] w-full lg:h-[91vh] h-full rounded-tl-xl p-5
             animate__animated ${animationClass}
             `}
       >
@@ -74,21 +76,30 @@ const Cart = ({ onCart }: Props) => {
 
             <div>
               <p className="text-white pt-1 text-xs">Quantity</p>
-              <input
-                type="number"
-                name="quantity"
-                className="w-24 mt-2 focus:outline-none rounded h-9 text-center"
-                value={c.quantity}
-                onChange={(e) =>
-                  handleQuantityChange(c.id, parseInt(e.currentTarget.value))
-                }
-              />
+              <div className="flex mt-2">
+                <button
+                  onClick={() => handleQuantityChange(c.id, c.quantity - 1)}
+                  className="bi-dash btn-bg h-9 text-white rounded-l w-8 shadow shadow-zinc-900"
+                ></button>
+                <input
+                  type="number"
+                  name="quantity"
+                  className="w-12 focus:outline-none h-9 text-center"
+                  value={c.quantity}
+                  readOnly
+                  min={1}
+                />
+                <button
+                  onClick={() => handleQuantityChange(c.id, c.quantity + 1)}
+                  className="bi-plus btn-bg h-9 text-white rounded-r w-8 shadow shadow-zinc-900"
+                ></button>
+              </div>
             </div>
             <div>
               <p className="text-white pt-1 text-xs">Size</p>
               <select
                 onChange={(e) => handleSizeChange(c.id, e.currentTarget.value)}
-                className="w-20 text-center font-poppins mt-2 focus:outline-none rounded h-9"
+                className="lg:w-20 w-16 text-center font-poppins mt-2 focus:outline-none rounded h-9"
                 value={c.size}
               >
                 <option value="37">37</option>

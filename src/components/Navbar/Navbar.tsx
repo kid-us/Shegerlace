@@ -59,6 +59,7 @@ const Navbar = () => {
               <div className="lg:hidden md:hidden flex gap-x-4">
                 <div className="relative">
                   <button
+                    onClick={() => cart.length > 0 && setOnCart(true)}
                     className={`${
                       cart.length > 0 ? "bi-bag-fill" : "bi-bag"
                     } text-xl`}

@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import menuNav from "../../services/navbar";
 import { useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
+import Cart from "../Cart/Cart";
 
 interface Props {
   username?: string;
@@ -19,14 +20,20 @@ const Menu = ({ menu, onMenu }: Props) => {
     "animate__fadeInLeft"
   );
 
+  const [onCart, setOnCart] = useState<boolean>(false);
+
   const handleClose = () => {
     setAnimationClass("animate__fadeOutLeft");
     setTimeout(() => {
       onMenu(false);
     }, 500);
   };
+
   return (
     <>
+      {/* Cart */}
+      {onCart && <Cart onCart={() => setOnCart(false)} />}
+
       <div className="overlay z-10"></div>
       <div
         className={`fixed animate__animated ${animationClass} w-full bg-white top-0 h-full z-20 bg lg:rounded lg:px-10 px-5`}
@@ -40,6 +47,7 @@ const Menu = ({ menu, onMenu }: Props) => {
             <div className="lg:hidden md:hidden flex gap-x-4">
               <div className="relative">
                 <button
+                  onClick={() => cart.length > 0 && setOnCart(true)}
                   className={`${
                     cart.length > 0 ? "bi-bag-fill" : "bi-bag"
                   } text-xl`}
