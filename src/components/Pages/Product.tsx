@@ -44,6 +44,8 @@ const Product = () => {
         id: defaultShoe.id,
         quantity,
         size,
+        img: defaultShoe.img,
+        price: defaultShoe.price,
       });
     }
   };
