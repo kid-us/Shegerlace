@@ -2,14 +2,25 @@ import Hero from "../Home/Hero";
 import Navbar from "../Navbar/Navbar";
 import Filter from "../Filter/Filter";
 import Products from "../Products/Products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SmFilter from "../Filter/SmFilter";
 import Footer from "../Footer/Footer";
+import Loading from "../Loading/Loading";
 
 const Home = () => {
   const [filter, setFilter] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  });
+
   return (
     <>
+      {/* Loading */}
+      {loading && <Loading />}
       {filter && <SmFilter onFilter={() => setFilter(false)} />}
       <Navbar />
       {/* Hero */}
