@@ -7,6 +7,7 @@ import Register from "./components/Pages/Register";
 import ForgotPassword from "./components/Pages/ForgotPassword";
 import Verify from "./components/Pages/Verify";
 import Product from "./components/Pages/Product";
+import Checkout from "./components/Pages/Checkout";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
+      <Route path="/checkout/:id" element={<Checkout />} />
     </Routes>
   );
 }

@@ -1,11 +1,13 @@
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import shoes from "../../services/shoes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { hero1 } from "../../assets";
 import { Shoes } from "../Home/Hero";
 import { useCartStore } from "../../stores/useCartStore";
+import Footer from "../Footer/Footer";
+import { Link } from "react-router-dom";
 
 const size1 = [37, 38, 39, 40];
 const size2 = [41, 42, 43, 44];
@@ -13,7 +15,12 @@ const size2 = [41, 42, 43, 44];
 const Product = () => {
   const { addToCart, removeFromCart } = useCartStore();
 
-  //   const { id } = useParams();
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const { id } = useParams();
 
   const [defaultShoe, setDefaultShoe] = useState<Shoes>({
     id: 1,
@@ -22,8 +29,6 @@ const Product = () => {
     img: hero1,
     price: 2999,
   });
-
-  //   console.log(id);
 
   const [title] = useState(defaultShoe.name);
   useDocumentTitle(title);
@@ -178,9 +183,12 @@ const Product = () => {
               {/* Button */}
               <div className="mt-6 space-y-4">
                 {/* Order */}
-                <button className="btn-bg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none">
+                <Link
+                  to={`/checkout/${id}`}
+                  className="btn-bg block text-center pt-2 font-bold font-poppins text-lg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
+                >
                   Order
-                </button>
+                </Link>
                 {/* Add to cart */}
                 <button
                   onClick={() => handleAddToBag()}
@@ -218,6 +226,7 @@ const Product = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
