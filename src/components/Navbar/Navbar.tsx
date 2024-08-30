@@ -18,7 +18,10 @@ const Navbar = () => {
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
           <div className="flex justify-between lg:pt-4 pt-4 border-b pb-4 border-gray-100">
             <div>
-              <Link to={"/"} className="font-bold lg:text-2xl text-xl">
+              <Link
+                to={"/"}
+                className="font-bold font-poppins lg:text-2xl text-xl"
+              >
                 Shegerlace
               </Link>
             </div>

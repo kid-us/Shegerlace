@@ -36,7 +36,9 @@ const Products = () => {
                   })
                 }
                 className={`font-extrabold text-2xl ${
-                  cart.some((c) => c.id === shoe.id) ? "bi-bag-fill" : "bi-bag"
+                  cart.some((c) => c.id === shoe.id)
+                    ? "bi-bag-fill text-white bg-cyan-600 rounded-full w-8 h-8 text-lg"
+                    : "bi-bag"
                 }`}
               ></button>
             </div>
