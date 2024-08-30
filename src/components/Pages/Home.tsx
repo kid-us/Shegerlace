@@ -4,6 +4,7 @@ import Filter from "../Filter/Filter";
 import Products from "../Products/Products";
 import { useState } from "react";
 import SmFilter from "../Filter/SmFilter";
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   const [filter, setFilter] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const Home = () => {
           <Products />
         </div>
       </div>
+      <Footer />
     </>
   );
 };
