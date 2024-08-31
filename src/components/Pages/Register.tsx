@@ -102,8 +102,8 @@ const Register = () => {
   };
 
   return (
-    <div className="bg3 pb-14">
-      <div className="container mx-auto flex justify-center align-middle h-auto lg:pt-14 pt-8">
+    <div className="bg3">
+      <div className="container mx-auto flex justify-center items-center h-[100dvh]">
         <div className="lg:grid grid-cols-2 lg:w-[80%] w-full px-2">
           <div className="lg:flex hidden justify-center rounded-l-xl overflow-hidden">
             <img src={account} alt="Logo" className="w-full" />

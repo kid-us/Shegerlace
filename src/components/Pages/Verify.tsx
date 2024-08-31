@@ -85,7 +85,7 @@ const Verify: React.FC = () => {
 
   return (
     <div className="bg">
-      <div className="container mx-auto flex justify-center items-center h-[100vh]">
+      <div className="container mx-auto flex justify-center items-center h-[100dvh]">
         <div className="lg:w-[38%] w-full lg:px-2 px-5">
           <form className="mt-10" onSubmit={handleSubmit}>
             <h1 className="text-black text-2xl">Verify Phone Number</h1>
