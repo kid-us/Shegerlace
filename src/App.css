@@ -48,6 +48,10 @@ a:hover {
   background-color: #92c6d9;
 }
 
+.text-color {
+  color: #50bae0;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }

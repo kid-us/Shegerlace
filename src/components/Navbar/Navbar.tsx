@@ -9,6 +9,7 @@ const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
   const { cart } = useCartStore();
   const [onCart, setOnCart] = useState<boolean>(false);
+  const [dropdown, setDropdown] = useState<boolean>(false);
 
   return (
     <>
@@ -52,12 +53,40 @@ const Navbar = () => {
                     {cart.length}
                   </p>
                 </div>
-                <Link to={"/login"}>
-                  <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
-                    Sign In
-                  </p>
-                </Link>
+                <div className="relative">
+                  {/* <Link to={"/login"}>
+                    <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
+                      Sign In
+                    </p>
+                  </Link> */}
+
+                  <button onClick={() => setDropdown(!dropdown)}>
+                    <p className="text-center pe-10 ps-2 font-bold transition-shadow duration-500 ease-in-out hover:shadow-none text-color">
+                      <span className="bi-person-fill me-2"></span>
+                      Lorem
+                    </p>
+                  </button>
+
+                  {/* Dropdown */}
+                  {dropdown && (
+                    <div className="absolute right-8 top-10 bg rounded-lg p-3">
+                      <Link
+                        to={"/dashboard"}
+                        className="text-sm font-bold font-poppins block hover:text-gray-500"
+                      >
+                        Dashboard
+                      </Link>
+                      <Link
+                        to={"/dashboard"}
+                        className="text-sm font-bold font-poppins text-red-500 hover:text-gray-500"
+                      >
+                        Logout
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
+
               {/* Small Device */}
               <div className="lg:hidden md:hidden flex gap-x-4">
                 <div className="relative">
