@@ -41,7 +41,7 @@ a:hover {
 }
 
 .font-cousine {
-  font-family: "Cousine", monospace;
+  font-family: "Cousine", monospace !important;
 }
 
 .btn-bg {

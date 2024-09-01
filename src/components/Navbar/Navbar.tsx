@@ -61,7 +61,7 @@ const Navbar = () => {
                   </Link> */}
 
                   <button onClick={() => setDropdown(!dropdown)}>
-                    <p className="text-center pe-10 ps-2 font-bold transition-shadow duration-500 ease-in-out hover:shadow-none text-color">
+                    <p className="text-center pe-10 ps-2 font-bold transition-shadow duration-500 ease-in-out hover:shadow-none text-color font-cousine">
                       <span className="bi-person-fill me-2"></span>
                       Lorem
                     </p>
@@ -69,16 +69,28 @@ const Navbar = () => {
 
                   {/* Dropdown */}
                   {dropdown && (
-                    <div className="absolute -z-10 right-8 top-10 bg rounded-lg p-3 shadow">
+                    <div className="absolute -z-10 right- top-10 bg rounded-lg p-3 w-32 border-b border-r border-l border-gray-300">
                       <Link
-                        to={"/dashboard"}
-                        className="text-sm font-bold font-poppins block hover:text-gray-500 mb-1"
+                        to={"/my-orders"}
+                        className="text-sm font-bold block hover:text-gray-500 mb-2 mt-1"
                       >
-                        Dashboard
+                        My Orders
+                      </Link>
+                      <Link
+                        to={"/my-favorites"}
+                        className="text-sm font-bold block hover:text-gray-500 mb-2"
+                      >
+                        My Favorites
+                      </Link>
+                      <Link
+                        to={"/setting"}
+                        className="text-sm font-bold block hover:text-gray-500 mb-1"
+                      >
+                        Setting
                       </Link>
                       <Link
                         to={"/dashboard"}
-                        className="text-sm font-bold font-poppins text-red-500 hover:text-gray-500"
+                        className="text-sm font-bold text-red-500 hover:text-gray-500"
                       >
                         Logout
                       </Link>
