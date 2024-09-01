@@ -10,6 +10,7 @@ import Product from "./components/Pages/Product";
 import Checkout from "./components/Pages/Checkout";
 import MyOrders from "./components/Dashboard/Orders";
 import Favorite from "./components/Dashboard/Favorite";
+import Setting from "./components/Pages/Setting";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/my-orders" element={<MyOrders />} />
       <Route path="/my-favorites" element={<Favorite />} />
+      <Route path="/setting" element={<Setting />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
       <Route path="/checkout/:id" element={<Checkout />} />
