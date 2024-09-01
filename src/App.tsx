@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "animate.css";
 import Home from "./components/Pages/Home";
@@ -11,6 +11,7 @@ import Checkout from "./components/Pages/Checkout";
 import MyOrders from "./components/Dashboard/Orders";
 import Favorite from "./components/Dashboard/Favorite";
 import Setting from "./components/Pages/Setting";
+import Page404 from "./components/Pages/Page404";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
       <Route path="/checkout/:id" element={<Checkout />} />
+      {/* 404 Page */}
+      <Route path="/404" element={<Page404 />} />
+      <Route path="*" element={<Navigate to="/404" />}></Route>
     </Routes>
   );
 }
