@@ -17,6 +17,9 @@ const schema = z.object({
   transId: z.string().min(5, {
     message: "Transaction by must be at least than 5 chars.",
   }),
+  address: z.string().min(3, {
+    message: "Address must be at least than 5 chars.",
+  }),
   promo: z.string().optional(),
 });
 
@@ -159,7 +162,7 @@ const Checkout = () => {
                     htmlFor="id"
                     className="block text-sm mb-2 text-gray-600"
                   >
-                    Transaction ID - Txn ID
+                    Transaction Number / ID
                   </label>
                   <input
                     {...register("transId")}
@@ -169,6 +172,25 @@ const Checkout = () => {
                   {errors.transId && (
                     <p className="text-xs text-red-600 mb-5 mt-2">
                       {errors.transId.message}
+                    </p>
+                  )}
+                </div>
+                {/* Address */}
+                <div className="my-4">
+                  <label
+                    htmlFor="id"
+                    className="block text-sm mb-2 text-gray-600"
+                  >
+                    Address
+                  </label>
+                  <input
+                    {...register("address")}
+                    type="text"
+                    className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
+                  />
+                  {errors.address && (
+                    <p className="text-xs text-red-600 mb-5 mt-2">
+                      {errors.address.message}
                     </p>
                   )}
                 </div>
