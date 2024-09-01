@@ -15,7 +15,7 @@ const Navbar = () => {
     <>
       {/* Cart */}
       {onCart && <Cart onCart={() => setOnCart(false)} />}
-      <header className="sticky top-0 bg z-20">
+      <header className={`sticky top-0 bg z-20 ${dropdown && "shadow"}`}>
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
           <div className="flex justify-between lg:pt-4 pt-4 border-b pb-4 border-gray-100">
             <div>
@@ -69,10 +69,10 @@ const Navbar = () => {
 
                   {/* Dropdown */}
                   {dropdown && (
-                    <div className="absolute right-8 top-10 bg rounded-lg p-3">
+                    <div className="absolute -z-10 right-8 top-10 bg rounded-lg p-3 shadow">
                       <Link
                         to={"/dashboard"}
-                        className="text-sm font-bold font-poppins block hover:text-gray-500"
+                        className="text-sm font-bold font-poppins block hover:text-gray-500 mb-1"
                       >
                         Dashboard
                       </Link>
