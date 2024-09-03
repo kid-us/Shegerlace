@@ -11,8 +11,8 @@ const SmFilter = ({ onFilter }: Props) => {
   const handleClose = () => {
     setAnimationClass("animate__fadeOutDown");
     setTimeout(() => {
-      onFilter(); // Trigger the onFilter callback after the animation ends
-    }, 500); // Adjust the timeout to match the duration of the animation
+      onFilter();
+    }, 500);
   };
 
   return (

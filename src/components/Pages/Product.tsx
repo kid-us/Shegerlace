@@ -8,11 +8,33 @@ import { Shoes } from "../Home/Hero";
 import { useCartStore } from "../../stores/useCartStore";
 import Footer from "../Footer/Footer";
 
-const size1 = [37, 38, 39, 40];
-const size2 = [41, 42, 43, 44];
-
 const Product = () => {
   const { addToCart, removeFromCart } = useCartStore();
+
+  const [sizes, setSizes] = useState<number[]>([]);
+
+  //   Get Size Range
+  function getSizeRange(sizeRange: string): {
+    startSize: number;
+    endSize: number;
+  } {
+    const [startSize, endSize] = sizeRange.split("-").map(Number);
+    return { startSize, endSize };
+  }
+
+  let xx = "34 - 40";
+
+  useEffect(() => {
+    const newSizes = [];
+    for (
+      let i = getSizeRange(xx).startSize;
+      i <= getSizeRange(xx).endSize;
+      i++
+    ) {
+      newSizes.push(i);
+    }
+    setSizes(newSizes);
+  }, [xx]);
 
   // Scroll to top
   useEffect(() => {
@@ -122,31 +144,15 @@ const Product = () => {
                   error && "border border-red-500 pb-5 rounded p-1 mt-3 lg:w-72"
                 }`}
               >
-                <div className="flex mt-5 gap-x-3">
-                  {size1.map((s) => (
+                <div className="grid grid-cols-4 mt-5 gap-3 w-72">
+                  {sizes.map((s) => (
                     <button
                       key={s}
                       onClick={() => {
                         setSize(s);
                         setError(false);
                       }}
-                      className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
-                        size === s ? "bg-black text-white" : "bg-white"
-                      }`}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-                <div className="flex mt-3 gap-x-3">
-                  {size2.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => {
-                        setSize(s);
-                        setError(false);
-                      }}
-                      className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-300 rounded shadow ${
+                      className={`lg:w-16 lg:h-14 w-full h-14 border border-gray-800 rounded shadow ${
                         size === s ? "bg-black text-white" : "bg-white"
                       }`}
                     >
@@ -189,7 +195,7 @@ const Product = () => {
                   onClick={() =>
                     size === 0
                       ? setError(true)
-                      : (window.location.href = `/checkout/${id}`)
+                      : (window.location.href = `/checkout/${id}?size=${size}`)
                   }
                   className="btn-bg block text-center pt-1 font-bold font-poppins text-lg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
                 >
