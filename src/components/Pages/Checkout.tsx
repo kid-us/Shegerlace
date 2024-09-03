@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +26,11 @@ type FormData = z.infer<typeof schema>;
 
 const Checkout = () => {
   const { id } = useParams();
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const size = searchParams.get("size");
+  const qty = searchParams.get("qty");
 
   const [defaultShoe] = useState<Shoes>({
     id: 1,
@@ -138,8 +143,8 @@ const Checkout = () => {
               <p className="text-black text-xl mt-2">
                 <span className="bi-cash text-black"></span> {defaultShoe.price}
               </p>
-              <p className="text-black text-lg mt-2">Quantity: 1</p>
-              <p className="text-black text-lg mt-2">Size: 40</p>
+              <p className="text-black text-lg mt-2">Quantity: {qty}</p>
+              <p className="text-black text-lg mt-2">Size: {size}</p>
 
               <div className="flex justify-center bg-white mt-4 rounded-xl overflow-hidden shadow">
                 <img src={defaultShoe.img} alt="Shoe" className="h-96" />

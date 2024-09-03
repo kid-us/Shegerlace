@@ -195,7 +195,7 @@ const Product = () => {
                   onClick={() =>
                     size === 0
                       ? setError(true)
-                      : (window.location.href = `/checkout/${id}?size=${size}`)
+                      : (window.location.href = `/checkout/${id}?size=${size}&qty=${quantity}`)
                   }
                   className="btn-bg block text-center pt-1 font-bold font-poppins text-lg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
                 >
