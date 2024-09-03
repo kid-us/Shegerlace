@@ -8,6 +8,7 @@ import axios from "axios";
 import baseUrl from "../../services/request";
 import { StockShoes } from "../../hooks/useStock";
 import Loading from "../Loading/Loading";
+import Images from "../ProductDatail.tsx/Images";
 
 interface ShoeInfo {
   shoe: StockShoes;
@@ -108,38 +109,14 @@ const ProductDetail = () => {
       <div className="container mx-auto">
         <div className="lg:grid grid-cols-5 gap-x-10 lg:mt-14 mt-8">
           {/* Images */}
-          <div className="sticky top-24 self-start col-span-3 lg:grid hidden grid-cols-5">
-            <div>
-              {shoe?.images.map((shoe, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    activeImage === shoe ? "bg-gray-100" : "bg-white"
-                  } rounded-lg mb-1 mx-4 shadow`}
-                >
-                  <div
-                    onMouseEnter={() => setActiveImage(shoe)}
-                    className="flex justify-center"
-                  >
-                    <img
-                      src={shoe}
-                      alt="Shoe"
-                      className={`${
-                        activeImage === shoe && "-rotate-[20deg]"
-                      } h-[88.5px] w-16 object-contain`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="col-span-4 w-full h-full">
-              <img
-                src={shoe?.main_picture}
-                className="bg-white w-full h-[600px] object-contain rounded-xl shadow"
-                alt=""
-              />
-            </div>
-          </div>
+          {shoe && (
+            <Images
+              activeImage={activeImage}
+              images={shoe.images}
+              main={shoe.main_picture}
+              setActiveImage={(img: string) => setActiveImage(img)}
+            />
+          )}
 
           {/* Description */}
           <div className="col-span-2">
