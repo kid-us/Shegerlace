@@ -2,16 +2,26 @@ import { useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import shoes from "../../services/shoes";
 import { useEffect, useState } from "react";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { hero1 } from "../../assets";
-import { Shoes } from "../Home/Hero";
 import { useCartStore } from "../../stores/useCartStore";
 import Footer from "../Footer/Footer";
+import axios from "axios";
+import baseUrl from "../../services/request";
+import { StockShoes } from "../../hooks/useStock";
+import Loading from "../Loading/Loading";
+
+interface ShoeInfo {
+  shoe: StockShoes;
+}
 
 const ProductDetail = () => {
+  const { id } = useParams();
+
   const { addToCart, removeFromCart } = useCartStore();
 
+  const [shoe, setShoe] = useState<StockShoes>();
   const [sizes, setSizes] = useState<number[]>([]);
+  const [activeImage, setActiveImage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   //   Get Size Range
   function getSizeRange(sizeRange: string): {
@@ -22,37 +32,48 @@ const ProductDetail = () => {
     return { startSize, endSize };
   }
 
-  let xx = "34 - 40";
+  // Get Shoes
+  useEffect(() => {
+    axios
+      .get<ShoeInfo>(`${baseUrl}store/get-shoe?shoe_id=${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((response) => {
+        const data = response.data.shoe;
+        setShoe(data);
+        setActiveImage(data.main_picture);
+
+        // Sizes
+        const newSizes = [];
+        for (
+          let i = getSizeRange(response.data.shoe.size_range).startSize;
+          i <= getSizeRange(response.data.shoe.size_range).endSize;
+          i++
+        ) {
+          newSizes.push(i);
+        }
+        setSizes(newSizes);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
 
   useEffect(() => {
-    const newSizes = [];
-    for (
-      let i = getSizeRange(xx).startSize;
-      i <= getSizeRange(xx).endSize;
-      i++
-    ) {
-      newSizes.push(i);
+    if (shoe) {
+      document.title = shoe?.name;
     }
-    setSizes(newSizes);
-  }, [xx]);
+  }, [id, shoe]);
 
   // Scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const { id } = useParams();
-
-  const [defaultShoe, setDefaultShoe] = useState<Shoes>({
-    id: 1,
-    name: "Nike Dunk High",
-    color: "547D27",
-    img: hero1,
-    price: 2999,
-  });
-
-  const [title] = useState(defaultShoe.name);
-  useDocumentTitle(title);
 
   const [size, setSize] = useState<number | string>(0);
   const [error, setError] = useState<boolean>(false);
@@ -64,43 +85,47 @@ const ProductDetail = () => {
       setError(true);
       return;
     } else {
-      setError(false); // Reset the error if the size is valid
+      if (shoe) {
+        setError(false);
 
-      removeFromCart(defaultShoe.id);
-      addToCart({
-        id: defaultShoe.id,
-        quantity,
-        size,
-        img: defaultShoe.img,
-        price: defaultShoe.price,
-      });
+        removeFromCart(Number(shoe.id));
+        addToCart({
+          id: Number(shoe.id),
+          quantity,
+          size,
+          img: shoe.main_picture,
+          price: Number(shoe.price),
+        });
+      }
     }
   };
 
   return (
     <>
+      {/* Loading */}
+      {loading && <Loading />}
       <Navbar />
       <div className="container mx-auto">
         <div className="lg:grid grid-cols-5 gap-x-10 lg:mt-14 mt-8">
           {/* Images */}
           <div className="sticky top-24 self-start col-span-3 lg:grid hidden grid-cols-5">
             <div>
-              {shoes.map((shoe) => (
+              {shoe?.images.map((shoe, index) => (
                 <div
-                  key={shoe.id}
+                  key={index}
                   className={`${
-                    defaultShoe.id === shoe.id ? "bg-gray-100" : "bg-white"
-                  } rounded mb-1 mx-4 shadow`}
+                    activeImage === shoe ? "bg-gray-100" : "bg-white"
+                  } rounded-lg mb-1 mx-4 shadow`}
                 >
                   <div
-                    onMouseEnter={() => setDefaultShoe(shoe)}
-                    className="flex justify-center rounded"
+                    onMouseEnter={() => setActiveImage(shoe)}
+                    className="flex justify-center"
                   >
                     <img
-                      src={shoe.img}
+                      src={shoe}
                       alt="Shoe"
                       className={`${
-                        defaultShoe.id === shoe.id && "-rotate-[20deg]"
+                        activeImage === shoe && "-rotate-[20deg]"
                       } h-[88.5px] w-16 object-contain`}
                     />
                   </div>
@@ -109,19 +134,20 @@ const ProductDetail = () => {
             </div>
             <div className="col-span-4 w-full h-full">
               <img
-                src={defaultShoe.img}
-                className="bg-white w-full h-[600px] object-contain rounded shadow"
+                src={shoe?.main_picture}
+                className="bg-white w-full h-[600px] object-contain rounded-xl shadow"
                 alt=""
               />
             </div>
           </div>
+
           {/* Description */}
           <div className="col-span-2">
             <div className="ps-4">
-              <h1 className="text-2xl font-bold">{defaultShoe.name}</h1>
+              <h1 className="text-2xl font-bold">{shoe?.name}</h1>
               <p className="mt-4 font-poppins font-bold lg:text-xl">
-                <span className="bi-cash lg:text-2xl me-2"></span>{" "}
-                {defaultShoe.price}br
+                <span className="bi-cash lg:text-2xl me-2"></span> {shoe?.price}
+                br
               </p>
             </div>
 
@@ -136,6 +162,7 @@ const ProductDetail = () => {
                 />
               ))}
             </div>
+
             <div className="px-4">
               {/* Size */}
               <p className="mt-8">Select Size</p>
@@ -215,13 +242,7 @@ const ProductDetail = () => {
                 </button>
               </div>
               {/* Description */}
-              <p className="mt-5">
-                The Nike Tawa is quick, lightweight while still durable,
-                supportive and breathable. The zonal Flyknit construction and
-                rubber wrapped sole give you exactly that, along with everything
-                needed for quick shoots, sweeps and rotational movements during
-                practice and competition.
-              </p>
+              <p className="mt-5">{shoe?.description}</p>
             </div>
           </div>
         </div>

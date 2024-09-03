@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import baseUrl from "../services/request";
 
-export interface Shoes {
+export interface StockShoes {
   id: number;
   brand: string;
   category: string;
   main_picture: string;
   name: string;
+  images: string[];
   price: number;
   size_range: string;
   stock: string;
@@ -16,11 +17,11 @@ export interface Shoes {
 }
 
 export interface AllShoes {
-  shoes: Shoes[];
+  shoes: StockShoes[];
 }
 
 const useStock = () => {
-  const [stock, setStock] = useState<Shoes[]>([]);
+  const [stock, setStock] = useState<StockShoes[]>([]);
 
   useEffect(() => {
     // Fetch Brands
