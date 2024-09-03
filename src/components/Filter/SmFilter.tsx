@@ -17,7 +17,7 @@ const SmFilter = ({ onFilter }: Props) => {
 
   return (
     <div
-      className={`animate__animated ${animationClass} fixed bottom-0 z-10 h-[90vh] overflow-y-scroll bg-white w-full ps-10 py-8`}
+      className={`animate__animated ${animationClass} fixed bottom-0 z-30 h-[90vh] overflow-y-scroll bg-white w-full ps-10 py-8`}
     >
       <button
         onClick={handleClose}
