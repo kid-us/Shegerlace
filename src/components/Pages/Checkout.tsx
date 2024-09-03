@@ -9,6 +9,7 @@ import Button from "../Button/Button";
 import { Shoes } from "../Home/Hero";
 import { hero1 } from "../../assets";
 import Footer from "../Footer/Footer";
+import { useCartStore } from "../../stores/useCartStore";
 
 const schema = z.object({
   name: z.string().min(3, {
@@ -26,6 +27,8 @@ type FormData = z.infer<typeof schema>;
 
 const Checkout = () => {
   const { id } = useParams();
+
+  const { cart } = useCartStore();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -70,6 +73,8 @@ const Checkout = () => {
 
     console.log(data, id);
   };
+
+  console.log(cart);
 
   return (
     <>
@@ -134,23 +139,66 @@ const Checkout = () => {
           </div>
         </>
       )}
+
       <Navbar />
       <div className="container mx-auto">
         <div className="lg:grid grid-cols-2">
-          <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 text-white">
-            <div className="lg:py-16 md:py-16 px-3 py-5">
-              <h1 className="text-2xl text-black">{defaultShoe.name}</h1>
-              <p className="text-black text-xl mt-2">
-                <span className="bi-cash text-black"></span> {defaultShoe.price}
-              </p>
-              <p className="text-black text-lg mt-2">Quantity: {qty}</p>
-              <p className="text-black text-lg mt-2">Size: {size}</p>
+          {id !== "cart" ? (
+            <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 text-white">
+              <div className="lg:py-16 md:py-16 px-3 py-5">
+                <h1 className="text-2xl text-black">{defaultShoe.name}</h1>
+                <p className="text-black text-xl mt-2">
+                  <span className="bi-cash text-black"></span>{" "}
+                  {defaultShoe.price}
+                </p>
+                <p className="text-black text-lg mt-2">Quantity: {qty}</p>
+                <p className="text-black text-lg mt-2">Size: {size}</p>
 
-              <div className="flex justify-center bg-white mt-4 rounded-xl overflow-hidden shadow">
-                <img src={defaultShoe.img} alt="Shoe" className="h-96" />
+                <div className="flex justify-center bg-white mt-4 rounded-xl overflow-hidden shadow">
+                  <img src={defaultShoe.img} alt="Shoe" className="h-96" />
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300">
+              <p className="text-xl">Total {cart.length} items </p>
+              <div className="mt-5">
+                {cart.map((c) => (
+                  <div
+                    key={c.id}
+                    className="grid grid-cols-4 gap-x-5 bg-white rounded-lg p-3 mt-2 shadow shadow-zinc-300"
+                  >
+                    <div>
+                      <img
+                        src={c.img}
+                        alt="shoes"
+                        className="h-28 w-full object-contain"
+                      />
+                    </div>
+                    <div className="flex mt-10 text-sm">
+                      <p>Quantity : </p>
+                      <p className="ms-2"> {c.quantity} </p>
+                    </div>
+                    <div className="flex mt-10 text-sm">
+                      <p>Size : </p>
+                      <p className="ms-2"> {c.size} </p>
+                    </div>
+                    <div className="flex mt-10 text-sm">
+                      <p>Price : </p>
+                      <p className="ms-2"> {c.price} </p>
+                    </div>
+                  </div>
+                ))}
+
+                <p className="mt-4 text-xl">
+                  Total Payment:{" "}
+                  {cart.reduce((total, item) => {
+                    return total + Number(item.price) * item.quantity;
+                  }, 0)}
+                </p>
+              </div>
+            </div>
+          )}
 
           <div className="lg:px-20 lg:py-16 md:py-20 px-3 py-5">
             <h1 className="text-2xl text-black">Payment Info</h1>

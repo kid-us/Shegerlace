@@ -153,7 +153,7 @@ const Cart = ({ onCart }: Props) => {
               Clear Bag
               <span className="bi-trash-fill ms-3 text-white"></span>
             </button>
-            <Link to={"/checkout"}>
+            <Link to={"/checkout/cart"}>
               <p className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center pt-2">
                 Checkout
                 <span className="bi-check text-xl text-white"></span>
