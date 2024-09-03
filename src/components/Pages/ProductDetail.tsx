@@ -8,7 +8,7 @@ import { Shoes } from "../Home/Hero";
 import { useCartStore } from "../../stores/useCartStore";
 import Footer from "../Footer/Footer";
 
-const Product = () => {
+const ProductDetail = () => {
   const { addToCart, removeFromCart } = useCartStore();
 
   const [sizes, setSizes] = useState<number[]>([]);
@@ -244,4 +244,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductDetail;

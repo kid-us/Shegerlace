@@ -6,7 +6,7 @@ import Login from "./components/Pages/Login";
 import Register from "./components/Pages/Register";
 import ForgotPassword from "./components/Pages/ForgotPassword";
 import Verify from "./components/Pages/Verify";
-import Product from "./components/Pages/Product";
+import Product from "./components/Pages/ProductDetail";
 import Checkout from "./components/Pages/Checkout";
 import MyOrders from "./components/Dashboard/Orders";
 import Favorite from "./components/Dashboard/Favorite";
