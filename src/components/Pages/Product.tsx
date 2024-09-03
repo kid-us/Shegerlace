@@ -169,7 +169,7 @@ const Product = () => {
                 <div className="col-span-4 h-12">
                   <input
                     type="number"
-                    className="focus:outline-none h-12 text-center w-full"
+                    className="focus:outline-none h-12 text-center w-full text-xl"
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.currentTarget.value))}
                     min={1}
@@ -191,7 +191,7 @@ const Product = () => {
                       ? setError(true)
                       : (window.location.href = `/checkout/${id}`)
                   }
-                  className="btn-bg block text-center pt-2 font-bold font-poppins text-lg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
+                  className="btn-bg block text-center pt-1 font-bold font-poppins text-lg lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
                 >
                   Order
                 </button>
@@ -219,6 +219,7 @@ const Product = () => {
             </div>
           </div>
         </div>
+
         {/* Similar items */}
         <p className="mt-10 font-bold text-xl px-4">You might also like</p>
         <div className="flex gap-x-3 overflow-x-scroll scrollbar-hide mt-5 snap-x snap-mandatory mb-20 ps-1">
