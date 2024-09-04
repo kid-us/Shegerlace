@@ -4,6 +4,7 @@ import { useState } from "react";
 import Menu from "./Menu";
 import { useCartStore } from "../../stores/useCartStore";
 import Cart from "../Cart/Cart";
+import { logo_lg, logo_sm } from "../../assets";
 
 const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
@@ -17,17 +18,26 @@ const Navbar = () => {
       {onCart && <Cart onCart={() => setOnCart(false)} />}
       <header className={`sticky top-0 bg z-20 shadow-sm`}>
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
-          <div className="flex justify-between lg:pt-4 pt-4 border-b pb-4 border-gray-100">
+          <div className="flex justify-between border-b border-gray-100 pb-6">
             <div>
               <Link
                 to={"/"}
-                className="font-bold font-poppins lg:text-2xl text-xl"
+                className="font-bold font-poppins lg:text-2xl text-xl absolute"
               >
-                Shegerlace
+                <img
+                  src={logo_lg}
+                  alt="Logo"
+                  className="lg:block hidden w-20 pt-2"
+                />
+                <img
+                  src={logo_sm}
+                  alt="Logo"
+                  className="lg:hidden block w-20 pt-2"
+                />
               </Link>
             </div>
             {/* Visible only on Large */}
-            <div className="lg:flex md:flex hidden space-x-14">
+            <div className="lg:flex md:flex hidden space-x-14 pt-6">
               {menuNav.map((nav) => (
                 <Link
                   to={`${nav.link}`}
@@ -38,7 +48,7 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
-            <div>
+            <div className="lg:pt-6 pt-4">
               {/* Large Device */}
               <div className="lg:flex md:flex hidden gap-x-10">
                 <div className="relative">
