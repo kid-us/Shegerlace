@@ -27,12 +27,12 @@ const Navbar = () => {
                 <img
                   src={logo_lg}
                   alt="Logo"
-                  className="lg:block hidden w-20 pt-2"
+                  className="lg:block hidden w-16 pt-2"
                 />
                 <img
                   src={logo_sm}
                   alt="Logo"
-                  className="lg:hidden block w-20 pt-2"
+                  className="lg:hidden block w-14 pt-2"
                 />
               </Link>
             </div>

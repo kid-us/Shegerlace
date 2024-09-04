@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import menuNav from "../../services/navbar";
+import { logo_lg } from "../../assets";
 
 interface Footer {
   id: number;
@@ -30,9 +31,9 @@ const Footer = () => {
     <div className="w-full bg-white mt-14 lg:pt-14 pt-8 pb-5 px-4">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-6 grid-cols-2">
-          <h1 className="col-span-2 text-2xl font-bold lg:mb-0 mb-8">
-            Shegelace
-          </h1>
+          <div className="col-span-2 text-2xl font-bold lg:mb-0 mb-8">
+            <img src={logo_lg} alt="Logo" className="w-28" />
+          </div>
 
           <div>
             <p className="font-bold mb-4 lg:text-lg text-gray-500">Company</p>
