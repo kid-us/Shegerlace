@@ -1,2 +1,2 @@
-const baseUrl = "https://2dbf-102-218-51-55.ngrok-free.app/v1/";
+const baseUrl = "https://2960-102-218-51-144.ngrok-free.app/v1/";
 export default baseUrl;

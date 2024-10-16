@@ -2,33 +2,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import baseUrl from "../services/request";
 
-export interface StockShoes {
+export interface brandShoes {
   id: number;
-  brand: string;
-  category: string;
-  main_picture: string;
-  name: string;
-  images: string[];
-  price: number;
-  size_range: string;
-  stock: string;
-  uid: string;
-  description: string;
+  brand_names: string;
 }
 
 export interface AllShoes {
-  shoes: StockShoes[];
+  brands: brandShoes[];
 }
 
-const useStock = () => {
-  const [stock, setStock] = useState<StockShoes[]>([]);
+const useBrand = () => {
+  const [brand, setBrand] = useState<brandShoes[]>([]);
 
-  // Fetch Shoes
+  // Fetch Brands
   useEffect(() => {
-    const fetchStocks = async () => {
+    const fetchBrands = async () => {
       try {
         const response = await axios.get<AllShoes>(
-          `${baseUrl}store/get-shoes`,
+          `${baseUrl}store/get-brands`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -36,18 +27,18 @@ const useStock = () => {
             },
           }
         );
-        setStock(response.data.shoes);
+        setBrand(response.data.brands);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchStocks();
+    fetchBrands();
   }, []);
 
   return {
-    stock,
+    brand,
   };
 };
 
-export default useStock;
+export default useBrand;
