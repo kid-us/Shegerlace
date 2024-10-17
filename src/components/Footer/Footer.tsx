@@ -12,17 +12,17 @@ const items: Footer[] = [
   {
     id: 1,
     name: "About Us",
-    path: "/",
+    path: "/about-us",
   },
   {
     id: 2,
     name: "Contact",
-    path: "/",
+    path: "/contact",
   },
   {
     id: 3,
     name: "Privacy Policy",
-    path: "/",
+    path: "/privacy-policy",
   },
 ];
 

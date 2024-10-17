@@ -14,6 +14,7 @@ import Setting from "./components/Pages/Setting";
 import Page404 from "./components/Pages/Page404";
 import About from "./components/Pages/About";
 import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
+import Contact from "./components/Pages/Contact";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
       <Route path="/checkout/:id" element={<Checkout />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
