@@ -138,10 +138,7 @@ const Login = () => {
             )}
 
             <p className="text-sm text-end text-white">
-              <Link
-                to="/forgot-password"
-                className="font-poppins text-blue-600"
-              >
+              <Link to="/request" className="font-poppins text-blue-600">
                 Forgot Password?
               </Link>
             </p>

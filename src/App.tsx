@@ -15,6 +15,7 @@ import Page404 from "./components/Pages/Page404";
 import About from "./components/Pages/About";
 import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
 import Contact from "./components/Pages/Contact";
+import CheckEmail from "./components/Pages/CheckEmail";
 
 function App() {
   return (
@@ -26,10 +27,11 @@ function App() {
       <Route path="/my-orders" element={<MyOrders />} />
       <Route path="/my-favorites" element={<Favorite />} />
       <Route path="/setting" element={<Setting />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/request" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
       <Route path="/checkout/:id" element={<Checkout />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/new-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
