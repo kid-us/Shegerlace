@@ -1,4 +1,4 @@
-import { account } from "../../assets";
+import { account, logo_sm } from "../../assets";
 import z from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -108,11 +108,17 @@ const Register = () => {
     <div className="bg3">
       <div className="container mx-auto flex justify-center items-center h-[100dvh]">
         <div className="lg:grid grid-cols-2 lg:w-[80%] w-full px-2">
+          <div className="col-span-2 mb-6 w-10 lg:ms-0 ms-5">
+            <Link to={"/"}>
+              <img src={logo_sm} alt="Logo" className="w-10" />
+            </Link>
+          </div>
+
           <div className="lg:flex hidden justify-center rounded-l-xl overflow-hidden">
             <img src={account} alt="Logo" className="w-full" />
           </div>
           <form
-            className="lg:bg-white lg:p-10 py-10 px-6 rounded-r-xl overflow-hidden"
+            className="lg:bg-white lg:p-10 pb-10 px-6 rounded-r-xl overflow-hidden"
             onSubmit={handleSubmit(onSubmit)}
           >
             <p className="text-2xl font-bold mb-10">Sign in</p>

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import baseUrl from "../../services/request";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { account } from "../../assets";
+import { account, logo_sm } from "../../assets";
 import Button from "../Button/Button";
 import Loader from "../Button/Loader";
 
@@ -65,8 +65,14 @@ const Login = () => {
   };
   return (
     <div className="bg">
-      <div className="container mx-auto flex justify-center items-center lg:h-[100dvh] w-full">
+      <div className="container mx-auto flex justify-center items-center h-[100dvh] w-full">
         <div className="lg:grid grid-cols-2 lg:w-[80%] w-full lg:px-2 px-2 lg:mt-10">
+          <div className="col-span-2 mb-6 w-10 lg:ms-0 ms-5">
+            <Link to={"/"}>
+              <img src={logo_sm} alt="Logo" className="w-10" />
+            </Link>
+          </div>
+
           <div className="lg:flex hidden justify-center rounded-l-xl overflow-hidden">
             <img
               src={account}
@@ -75,7 +81,7 @@ const Login = () => {
             />
           </div>
           <form
-            className="lg:bg-white lg:p-10 py-10 px-6 rounded-r-xl overflow-hidden"
+            className="lg:bg-white lg:p-10 pb-10 px-6 rounded-r-xl overflow-hidden"
             onSubmit={handleSubmit(onSubmit)}
           >
             <p className="text-2xl font-bold mb-10">Sign up</p>
