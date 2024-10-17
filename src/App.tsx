@@ -12,6 +12,8 @@ import MyOrders from "./components/Dashboard/Orders";
 import Favorite from "./components/Dashboard/Favorite";
 import Setting from "./components/Pages/Setting";
 import Page404 from "./components/Pages/Page404";
+import About from "./components/Pages/About";
+import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
       <Route path="/checkout/:id" element={<Checkout />} />
+      <Route path="/about-us" element={<About />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
       {/* 404 Page */}
       <Route path="/404" element={<Page404 />} />
       <Route path="*" element={<Navigate to="/404" />}></Route>
