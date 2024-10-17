@@ -13,7 +13,7 @@ import { useCartStore } from "../../stores/useCartStore";
 
 const schema = z.object({
   name: z.string().min(3, {
-    message: "Transfer by must be at least than 3 chars.",
+    message: "Please insert your name.",
   }),
   transId: z.string().min(5, {
     message: "Transaction by must be at least than 5 chars.",
@@ -141,6 +141,7 @@ const Checkout = () => {
       )}
 
       <Navbar />
+
       <div className="container mx-auto">
         <div className="lg:grid grid-cols-2">
           {id !== "cart" ? (

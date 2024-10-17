@@ -5,12 +5,14 @@ import Menu from "./Menu";
 import { useCartStore } from "../../stores/useCartStore";
 import Cart from "../Cart/Cart";
 import { logo_lg, logo_sm } from "../../assets";
+import Search from "../Search/Search";
 
 const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
   const { cart } = useCartStore();
   const [onCart, setOnCart] = useState<boolean>(false);
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const [search, setSearch] = useState<boolean>(false);
 
   return (
     <>
@@ -19,6 +21,7 @@ const Navbar = () => {
       <header className={`sticky top-0 bg z-20 shadow-sm`}>
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
           <div className="flex justify-between border-b border-gray-100 pb-6">
+            {/* Logo */}
             <div>
               <Link
                 to={"/"}
@@ -36,6 +39,7 @@ const Navbar = () => {
                 />
               </Link>
             </div>
+
             {/* Visible only on Large */}
             <div className="lg:flex md:flex hidden space-x-14 pt-6">
               {menuNav.map((nav) => (
@@ -48,9 +52,16 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
+
             <div className="lg:pt-6 pt-4">
               {/* Large Device */}
               <div className="lg:flex md:flex hidden gap-x-10">
+                {/* Search */}
+                <button
+                  onClick={() => setSearch(!search)}
+                  className="bi-search text-lg"
+                ></button>
+                {/* Cart */}
                 <div className="relative">
                   <button
                     onClick={() => cart.length > 0 && setOnCart(true)}
@@ -63,6 +74,7 @@ const Navbar = () => {
                     {cart.length}
                   </p>
                 </div>
+                {/* Account */}
                 <div className="relative">
                   {/* <Link to={"/login"}>
                     <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
@@ -110,7 +122,13 @@ const Navbar = () => {
               </div>
 
               {/* Small Device */}
-              <div className="lg:hidden md:hidden flex gap-x-4">
+              <div className="lg:hidden md:hidden flex gap-x-8">
+                {/* Search */}
+                <button
+                  onClick={() => setSearch(!search)}
+                  className="bi-search text-lg"
+                ></button>
+                {/* Cart */}
                 <div className="relative">
                   <button
                     onClick={() => cart.length > 0 && setOnCart(true)}
@@ -122,6 +140,7 @@ const Navbar = () => {
                     {cart.length}
                   </p>
                 </div>
+                {/* Menu */}
                 <button
                   onClick={() => setMenu(!menu)}
                   className={`bi-list text-2xl`}
@@ -131,6 +150,8 @@ const Navbar = () => {
           </div>
         </nav>
       </header>
+
+      {/* Menu */}
       {menu && (
         <Menu
           username={"Lorem"}
@@ -138,6 +159,9 @@ const Navbar = () => {
           onMenu={(val: boolean) => setMenu(val)}
         />
       )}
+
+      {/* Search */}
+      {search && <Search onClose={() => setSearch(false)} />}
     </>
   );
 };
