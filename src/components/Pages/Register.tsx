@@ -14,6 +14,7 @@ const schema = z.object({
   password: z.string().min(4, {
     message: "Password must be at least than 4 chars.",
   }),
+  email: z.string().email({ message: "Email address required" }),
   phone: z.string().min(10, { message: "Phone number required." }),
   username: z
     .string()
@@ -51,12 +52,14 @@ const Register = () => {
       setConfirmPasswordError(true);
       return;
     }
+    setConfirmPasswordError(false);
     setLoader(true);
 
     const RegData = {
       username: data.username,
       password: data.password,
       phone_number: data.phone,
+      email: data.email,
     };
 
     axios
@@ -80,7 +83,7 @@ const Register = () => {
                 },
               })
               .then(() => {
-                navigate(`/verify?phone=${data.phone}`);
+                navigate(`/verify-email?email=${data.email}`);
               })
               .catch((error) => {
                 setLoader(false);
@@ -128,6 +131,7 @@ const Register = () => {
                 &nbsp; Phone number already exists!
               </p>
             )}
+
             {/* Username */}
             <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
               <div className="col-span-2">
@@ -146,6 +150,27 @@ const Register = () => {
             {errors.username && (
               <p className="text-xs mb-5 text-red-700 rounded ps-1">
                 {errors.username.message}
+              </p>
+            )}
+
+            {/* Email */}
+            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+              <div className="col-span-2">
+                <p className="bi-envelope-fill text-2xl text-center pt-3"></p>
+              </div>
+              <div className="col-span-11 border-l border-gray-300">
+                <input
+                  {...register("email")}
+                  type="email"
+                  name="email"
+                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full pe-3`}
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+            {errors.email && (
+              <p className="text-xs mb-5 text-red-700 rounded ps-1">
+                {errors.email.message}
               </p>
             )}
 
@@ -221,21 +246,6 @@ const Register = () => {
                 Password not match.
               </p>
             )}
-
-            {/* Referral Code */}
-            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
-              <div className="col-span-2">
-                <p className="bi-envelope-fill text-2xl text-center pt-3"></p>
-              </div>
-              <div className="col-span-11 border-l border-gray-300">
-                <input
-                  type="text"
-                  name="referral"
-                  className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full pe-3`}
-                  placeholder="Referral Code"
-                />
-              </div>
-            </div>
 
             <div className="mt-8 text-center">
               {loader ? <Loader /> : <Button label="Register" />}

@@ -18,7 +18,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/verify" element={<Verify />} />
+      <Route path="/verify-email" element={<Verify />} />
       <Route path="/register" element={<Register />} />
       <Route path="/my-orders" element={<MyOrders />} />
       <Route path="/my-favorites" element={<Favorite />} />
