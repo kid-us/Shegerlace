@@ -1,10 +1,22 @@
+import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const About = () => {
+  // Title
+  const [title] = useState("About us");
+  useDocumentTitle(title);
+
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <Navbar />
+
       <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
         <p className="mb-4 font-bold lg:text-2xl text-xl">About US</p>
         <p className="mb-4">
