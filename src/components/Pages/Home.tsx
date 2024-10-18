@@ -6,8 +6,12 @@ import { useEffect, useState } from "react";
 import SmFilter from "../Filter/SmFilter";
 import Footer from "../Footer/Footer";
 import Loading from "../Loading/Loading";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const Home = () => {
+  const [title] = useState("Shegeralce");
+  useDocumentTitle(title);
+
   const [filter, setFilter] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
