@@ -17,7 +17,7 @@ const items: Footer[] = [
   {
     id: 2,
     name: "Contact",
-    path: "/contact",
+    path: "/contact-us",
   },
   {
     id: 3,

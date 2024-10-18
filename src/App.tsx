@@ -14,8 +14,8 @@ import Setting from "./components/Pages/Setting";
 import Page404 from "./components/Pages/Page404";
 import About from "./components/Pages/About";
 import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
-import Contact from "./components/Pages/Contact";
 import CheckEmail from "./components/Pages/CheckEmail";
+import ContactUs from "./components/Pages/ContactUs";
 
 function App() {
   return (
@@ -30,10 +30,10 @@ function App() {
       <Route path="/request" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
       <Route path="/checkout/:id" element={<Checkout />} />
-      <Route path="/contact" element={<Contact />} />
       <Route path="/new-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/contact-us" element={<ContactUs />} />
 
       {/* 404 Page */}
       <Route path="/404" element={<Page404 />} />
