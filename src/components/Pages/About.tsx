@@ -6,7 +6,7 @@ const About = () => {
     <div>
       <Navbar />
       <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
-        <p className="mb-4 font-bold text-2xl">About US</p>
+        <p className="mb-4 font-bold lg:text-2xl text-xl">About US</p>
         <p className="mb-4">
           Welcome to ShegerLace, your one-stop destination for stylish and
           comfortable footwear. Founded with a passion for shoes and a
@@ -16,7 +16,7 @@ const About = () => {
           we’re here to lace you up with the best!
         </p>
 
-        <p className="mb-4 font-bold text-2xl">Our Story</p>
+        <p className="mb-4 font-bold lg:text-2xl text-xl">Our Story</p>
         <p className="mb-4">
           ShegerLace was born out of a love for shoes and a desire to bring
           top-quality, fashionable footwear to people everywhere. We started
@@ -26,7 +26,7 @@ const About = () => {
           customers.
         </p>
 
-        <p className="mb-4 font-bold text-2xl">Our Mission</p>
+        <p className="mb-4 font-bold lg:text-2xl text-xl">Our Mission</p>
         <p className="mb-4">
           At ShegerLace, our mission is to provide more than just shoes; we
           strive to create a shopping experience where fashion meets function.
@@ -36,7 +36,7 @@ const About = () => {
           craftsmanship, while keeping up with the latest trends.
         </p>
 
-        <p className="mb-4 font-bold text-2xl">What We Offer</p>
+        <p className="mb-4 font-bold lg:text-2xl text-xl">What We Offer</p>
         <p className="mb-4">
           From sleek sneakers to sophisticated formal shoes, we’ve got a pair
           for every step you take. Our collections are designed with both men
@@ -46,22 +46,30 @@ const About = () => {
           confidence all day long.
         </p>
 
-        <p className="mb-4 font-bold text-2xl">Why ShegerLace?</p>
-        <p className="mb-4">
-          Quality You Can Trust: We pay attention to every detail to ensure that
-          our shoes are made to last.
-        </p>
-        <p className="mb-4">
-          Affordable Prices: Fashion shouldn’t break the bank. We offer
-          competitive pricing without compromising on quality.
-        </p>
-        <p className="mb-4">
-          Customer-Centric Service: Our customers are at the heart of everything
-          we do. Whether you’re shopping online or visiting us in-store, we’re
-          here to provide you with a seamless experience from start to finish.
-        </p>
+        <p className="mb-4 font-bold lg:text-2xl text-xl">Why ShegerLace?</p>
+        <div className="ms-4">
+          <p className="mb-4 bi-star-fill">
+            <span className="me-2"></span>
+            Quality You Can Trust: We pay attention to every detail to ensure
+            that our shoes are made to last.
+          </p>
+          <p className="mb-4 bi-star-fill">
+            <span className="me-2"></span>
+            Affordable Prices: Fashion shouldn’t break the bank. We offer
+            competitive pricing without compromising on quality.
+          </p>
+          <p className="mb-4 bi-star-fill">
+            <span className="me-2"></span>
+            Customer-Centric Service: Our customers are at the heart of
+            everything we do. Whether you’re shopping online or visiting us
+            in-store, we’re here to provide you with a seamless experience from
+            start to finish.
+          </p>
+        </div>
 
-        <p className="mb-4 font-bold text-2xl">Join the ShegerLace Family</p>
+        <p className="mb-4 font-bold lg:text-2xl text-xl">
+          Join the ShegerLace Family
+        </p>
         <p className="mb-4">
           At ShegerLace, we believe in building a community of shoe lovers. We
           are constantly expanding our collection and looking for new ways to

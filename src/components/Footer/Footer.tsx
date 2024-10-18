@@ -32,7 +32,7 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-6 grid-cols-2">
           <div className="col-span-2 text-2xl font-bold lg:mb-0 mb-8">
-            <img src={logo_lg} alt="Logo" className="w-28" />
+            <img src={logo_lg} alt="Logo" className="lg:w-28 w-24" />
           </div>
 
           <div>

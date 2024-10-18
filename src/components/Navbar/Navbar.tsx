@@ -20,7 +20,7 @@ const Navbar = () => {
       {onCart && <Cart onCart={() => setOnCart(false)} />}
       <header className={`sticky top-0 bg z-20 shadow-sm`}>
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
-          <div className="flex justify-between border-b border-gray-100 pb-6">
+          <div className="flex justify-between border-b border-gray-100 pb-4">
             {/* Logo */}
             <div>
               <Link
@@ -35,7 +35,7 @@ const Navbar = () => {
                 <img
                   src={logo_sm}
                   alt="Logo"
-                  className="lg:hidden block w-14 pt-2"
+                  className="lg:hidden block w-12 pt-2"
                 />
               </Link>
             </div>
