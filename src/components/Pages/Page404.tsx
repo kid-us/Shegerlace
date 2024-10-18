@@ -1,6 +1,12 @@
+import { useState } from "react";
 import Navbar from "../Navbar/Navbar";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const Page404 = () => {
+  // Title
+  const [title] = useState("404 | Page not Found");
+  useDocumentTitle(title);
+
   return (
     <>
       <Navbar />

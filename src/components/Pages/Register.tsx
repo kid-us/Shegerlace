@@ -108,7 +108,7 @@ const Register = () => {
     <div className="bg3">
       <div className="container mx-auto flex justify-center items-center h-[100dvh]">
         <div className="lg:grid grid-cols-2 lg:w-[80%] w-full px-2">
-          <div className="col-span-2 mb-6 w-10 lg:ms-0 ms-5">
+          <div className="col-span-2 mb-6 w-10 lg:ms-0 ms-5 mt-28">
             <Link to={"/"}>
               <img src={logo_sm} alt="Logo" className="w-10" />
             </Link>
@@ -261,6 +261,14 @@ const Register = () => {
               Already have an Account?{" "}
               <Link to="/login" className="text-blue-600 font-poppins">
                 Login
+              </Link>
+            </p>
+
+            <p className="text-xs mt-5 text-gray-600">
+              By clicking the Sign In button below, you agree to the our terms
+              of service and acknowledge the{" "}
+              <Link to="/privacy-policy" className="text-blue-600 font-bold">
+                Privacy Policy.
               </Link>
             </p>
           </form>

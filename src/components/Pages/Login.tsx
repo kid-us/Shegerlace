@@ -158,6 +158,13 @@ const Login = () => {
                 Register
               </Link>
             </p>
+            <p className="text-xs mt-5 text-gray-600">
+              By clicking the Sign In button below, you agree to the our terms
+              of service and acknowledge the{" "}
+              <Link to="/privacy-policy" className="text-blue-600 font-bold">
+                Privacy Policy.
+              </Link>
+            </p>
           </form>
         </div>
       </div>
