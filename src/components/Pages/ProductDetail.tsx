@@ -10,7 +10,7 @@ import { StockShoes } from "../../hooks/useStock";
 import Loading from "../Loading/Loading";
 import Images from "../ProductDatail.tsx/Images";
 
-interface ShoeInfo {
+export interface ShoeInfo {
   shoe: StockShoes;
 }
 
@@ -217,7 +217,6 @@ const ProductDetail = () => {
                 <button className="bg-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none">
                   Add to Favorite <span className="bi-heart-fill ms-3"></span>
                 </button>
-                
               </div>
               {/* Description */}
               <p className="mt-5">{shoe?.description}</p>

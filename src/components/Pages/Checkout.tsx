@@ -1,26 +1,27 @@
 import { useLocation, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import Navbar from "../Navbar/Navbar";
 import Loader from "../Button/Loader";
 import Button from "../Button/Button";
-import { Shoes } from "../Home/Hero";
-import { hero1 } from "../../assets";
 import Footer from "../Footer/Footer";
 import { useCartStore } from "../../stores/useCartStore";
+import axios from "axios";
+import { ShoeInfo } from "./ProductDetail";
+import baseUrl from "../../services/request";
+import { StockShoes } from "../../hooks/useStock";
+import Loading from "../Loading/Loading";
 
 const schema = z.object({
   name: z.string().min(3, {
     message: "Please insert your name.",
   }),
-  transId: z.string().min(5, {
-    message: "Transaction by must be at least than 5 chars.",
-  }),
   address: z.string().min(3, {
     message: "Address must be at least than 5 chars.",
   }),
+  promo: z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -35,27 +36,48 @@ const Checkout = () => {
   const size = searchParams.get("size");
   const qty = searchParams.get("qty");
 
-  const [defaultShoe] = useState<Shoes>({
-    id: 1,
-    name: "Nike Dunk High",
-    color: "547D27",
-    img: hero1,
-    price: 2999,
-  });
+  const [shoe, setShoe] = useState<StockShoes>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const [promo, setPromo] = useState<boolean>(true);
-  const [promoCode, setPromoCode] = useState<string>("");
-  const [promoError, setPromoError] = useState<boolean>(false);
+  // Get Shoes
+  useEffect(() => {
+    axios
+      .get<ShoeInfo>(`${baseUrl}store/get-shoe?shoe_id=${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((response) => {
+        const data = response.data.shoe;
+        setShoe(data);
 
-  // Handle Promo Submit
-  const handlePromoSubmit = () => {
-    if (promoCode.length < 5) {
-      setPromoError(true);
-      return;
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
+
+  useEffect(() => {
+    if (shoe) {
+      document.title = shoe?.name;
     }
-    setPromoError(false);
-    setPromo(false);
-  };
+  }, [id, shoe]);
+
+  // const [promo, setPromo] = useState<boolean>(true);
+  // const [promoCode, setPromoCode] = useState<string>("");
+  // const [promoError, setPromoError] = useState<boolean>(false);
+
+  // // Handle Promo Submit
+  // const handlePromoSubmit = () => {
+  //   if (promoCode.length < 5) {
+  //     setPromoError(true);
+  //     return;
+  //   }
+  //   setPromoError(false);
+  //   setPromo(false);
+  // };
 
   const {
     register,
@@ -69,17 +91,46 @@ const Checkout = () => {
   // On form Submit
   const onSubmit = (data: FieldValues) => {
     setLoader(true);
-    setSuccess(true);
 
-    console.log(data, id);
+    const cartItems = cart.map((c) => ({
+      id: c.id,
+      size: c.size,
+      quantity: c.quantity,
+    }));
+
+    const singleItems = [{ id: id, size: size, quantity: qty }];
+
+    const orderData = {
+      customer_name: data.name,
+      address: data.address,
+      size: size,
+      order_items: id === "cart" ? cartItems : singleItems,
+    };
+
+    console.log(orderData);
+
+    return;
+
+    axios
+      .post(`${baseUrl}`, orderData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        setSuccess(true);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  console.log(cart);
 
   return (
     <>
+      {loading && <Loading />}
       {/* Promo */}
-      {promo && (
+      {/* {promo && (
         <>
           <div className="overlay top-0 z-50"></div>
           <div className="fixed top-0 flex z-50 justify-center items-center h-[100dvh] w-full lg:px-0 px-3">
@@ -118,7 +169,7 @@ const Checkout = () => {
             </div>
           </div>
         </>
-      )}
+      )} */}
 
       {/* Payment Done */}
       {success && (
@@ -147,16 +198,15 @@ const Checkout = () => {
           {id !== "cart" ? (
             <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 text-white">
               <div className="lg:py-16 md:py-16 px-3 py-5">
-                <h1 className="text-2xl text-black">{defaultShoe.name}</h1>
+                <h1 className="text-2xl text-black">{shoe?.name}</h1>
                 <p className="text-black text-xl mt-2">
-                  <span className="bi-cash text-black"></span>{" "}
-                  {defaultShoe.price}
+                  <span className="bi-cash text-black"></span> {shoe?.price}
                 </p>
                 <p className="text-black text-lg mt-2">Quantity: {qty}</p>
                 <p className="text-black text-lg mt-2">Size: {size}</p>
 
                 <div className="flex justify-center bg-white mt-4 rounded-xl overflow-hidden shadow">
-                  <img src={defaultShoe.img} alt="Shoe" className="h-96" />
+                  <img src={shoe?.main_picture} alt="Shoe" className="h-96" />
                 </div>
               </div>
             </div>
@@ -202,19 +252,13 @@ const Checkout = () => {
           )}
 
           <div className="lg:px-20 lg:py-16 md:py-20 px-3 py-5">
-            <h1 className="text-2xl text-black">Payment Info</h1>
+            <h1 className="text-2xl text-black">Order Information</h1>
 
             <hr className="my-4 border-gray-300" />
-            <h1 className="text-black font-bold mb-2">Pay with : Tele birr</h1>
+
             <p>
-              Send{" "}
-              <span className="text-green-600 font-bold text-xl">
-                {defaultShoe.price}
-              </span>{" "}
-              br to the phone number{" "}
-              <span className="text-blue-500 text-xl">099386658</span>, and from
-              the confirmation SMS, insert the transaction ID, your name as the
-              payer, and the date you made the payment. That's it.
+              Please fill out the order form correctly. We will use your
+              information to deliver the product.
             </p>
 
             <hr className="mt-4 border-gray-300" />
@@ -227,7 +271,7 @@ const Checkout = () => {
                   htmlFor="name"
                   className="block text-sm mb-2 text-gray-600"
                 >
-                  Transfer By
+                  Your Name
                 </label>
                 <input
                   {...register("name")}
@@ -238,26 +282,6 @@ const Checkout = () => {
                 {errors.name && (
                   <p className="text-xs text-red-600 mb-5 mt-2">
                     {errors.name.message}
-                  </p>
-                )}
-              </div>
-
-              {/* ID */}
-              <div className="my-4">
-                <label
-                  htmlFor="id"
-                  className="block text-sm mb-2 text-gray-600"
-                >
-                  Transaction Number / ID
-                </label>
-                <input
-                  {...register("transId")}
-                  type="text"
-                  className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
-                />
-                {errors.transId && (
-                  <p className="text-xs text-red-600 mb-5 mt-2">
-                    {errors.transId.message}
                   </p>
                 )}
               </div>
@@ -274,10 +298,31 @@ const Checkout = () => {
                   {...register("address")}
                   type="text"
                   className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
+                  maxLength={100}
                 />
                 {errors.address && (
                   <p className="text-xs text-red-600 mb-5 mt-2">
                     {errors.address.message}
+                  </p>
+                )}
+              </div>
+
+              {/* promo */}
+              <div className="my-4">
+                <label
+                  htmlFor="id"
+                  className="block text-sm mb-2 text-gray-600"
+                >
+                  Promo
+                </label>
+                <input
+                  {...register("promo")}
+                  type="text"
+                  className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
+                />
+                {errors.promo && (
+                  <p className="text-xs text-red-600 mb-5 mt-2">
+                    {errors.promo.message}
                   </p>
                 )}
               </div>
