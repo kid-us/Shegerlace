@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   onCart: () => void;
 }
 
 const Cart = ({ onCart }: Props) => {
+  const navigate = useNavigate();
+  const [error, setError] = useState<boolean>(false);
+
   const {
     cart,
     removeFromCart,
@@ -51,6 +54,19 @@ const Cart = ({ onCart }: Props) => {
       }, 500);
     } else {
       removeFromCart(id);
+    }
+  };
+
+  // Handle Checkout
+  const handleCheckout = () => {
+    const hasInvalidSize = cart.some((c) => c.size === 0);
+
+    if (hasInvalidSize) {
+      setError(true);
+      console.log("Invalid size found");
+    } else {
+      setError(false);
+      navigate("/checkout/cart");
     }
   };
 
@@ -141,8 +157,16 @@ const Cart = ({ onCart }: Props) => {
               </div>
             ))}
           </div>
+
+          {/* Size Error */}
+          {error && (
+            <p className="bg-red-500 mt-2 text-sm text-center rounded ps-2 text-white">
+              Please select a shoe size.
+            </p>
+          )}
+
           {/* Button */}
-          <div className="mt-5 px-1 h-[30%]">
+          <div className="mt-3 px-1 h-[30%]">
             <button
               onClick={() => {
                 handleClose();
@@ -153,12 +177,14 @@ const Cart = ({ onCart }: Props) => {
               Clear Bag
               <span className="bi-trash-fill ms-3 text-white"></span>
             </button>
-            <Link to={"/checkout/cart"}>
-              <p className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center pt-2">
-                Checkout
-                <span className="bi-check text-xl text-white"></span>
-              </p>
-            </Link>
+
+            <button
+              onClick={() => handleCheckout()}
+              className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center"
+            >
+              Checkout
+              <span className="bi-check text-xl text-white"></span>
+            </button>
           </div>
         </div>
       </div>
