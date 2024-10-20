@@ -37,16 +37,15 @@ const Navbar = () => {
         })
         .then((response) => {
           setUsername(response.data.user.username);
-
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
+          setLoading(false);
         })
         .catch(() => {
           setUsername(null);
+          setLoading(false);
         });
     } else {
       setUsername(null);
+      setLoading(false);
     }
   }, [access_token]);
 
