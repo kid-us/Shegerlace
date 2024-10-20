@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCartStore } from "../../stores/useCartStore";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import baseUrl from "../../services/request";
 import useFavorite from "../../hooks/useFavorite";
+import useAuth from "../../stores/useAuth";
 
 interface StockShoes {
   id: number;
@@ -32,15 +33,17 @@ interface AllShoes {
 
 const Products = () => {
   const { addToCart, cart } = useCartStore();
+  const { favorite } = useFavorite();
+  const { username } = useAuth();
+  const navigate = useNavigate();
+
+  const access_token = localStorage.getItem("token");
 
   const [allData, setAllData] = useState<AllShoes>();
   const [page, setPage] = useState<number>(1);
   const [stock, setStock] = useState<StockShoes[]>([]);
 
-  const access_token = localStorage.getItem("token");
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
-
-  const { favorite } = useFavorite();
 
   // Set Favorites
   useEffect(() => {
@@ -75,44 +78,48 @@ const Products = () => {
 
   // Adding Removing Favorite
   const handleFavorite = (id: number) => {
-    if (favoriteShoe.includes(id)) {
-      // Remove the id from the state
-      axios
-        .post(
-          `${baseUrl}auth/remove-from-favorite?id=${id}`,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        )
-        .then(() => {
-          setFavoriteShoe(favoriteShoe.filter((favId) => favId !== id));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (username) {
+      if (favoriteShoe.includes(id)) {
+        // Remove the id from the state
+        axios
+          .post(
+            `${baseUrl}auth/remove-from-favorite?id=${id}`,
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          )
+          .then(() => {
+            setFavoriteShoe(favoriteShoe.filter((favId) => favId !== id));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        // Add the id to the state
+        axios
+          .post(
+            `${baseUrl}auth/add-to-favorite?id=${id}`,
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          )
+          .then(() => {
+            setFavoriteShoe([...favoriteShoe, id]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     } else {
-      // Add the id to the state
-      axios
-        .post(
-          `${baseUrl}auth/add-to-favorite?id=${id}`,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        )
-        .then(() => {
-          setFavoriteShoe([...favoriteShoe, id]);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      navigate("/login");
     }
   };
 
