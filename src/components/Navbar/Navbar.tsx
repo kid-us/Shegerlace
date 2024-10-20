@@ -195,7 +195,7 @@ const Navbar = () => {
       {/* Menu */}
       {menu && (
         <Menu
-          username={"Lorem"}
+          username={username}
           menu={menu}
           onMenu={(val: boolean) => setMenu(val)}
         />

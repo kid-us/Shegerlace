@@ -5,12 +5,12 @@ import { useCartStore } from "../../stores/useCartStore";
 import Cart from "../Cart/Cart";
 
 interface Props {
-  username?: string;
+  username?: string | null;
   menu: boolean;
   onMenu: (val: boolean) => void;
 }
 
-const Menu = ({ menu, onMenu }: Props) => {
+const Menu = ({ menu, onMenu, username }: Props) => {
   const location = useLocation();
   const path = location.pathname;
 
@@ -64,15 +64,44 @@ const Menu = ({ menu, onMenu }: Props) => {
           </div>
         </div>
 
+        {username && (
+          <div>
+            <Link
+              to={"/my-orders"}
+              className={`${
+                path == "/my-orders" && "text-color"
+              } font-bold font-cousine text-lg block mt-6`}
+            >
+              My Orders
+            </Link>
+            <Link
+              to={"/my-favorites"}
+              className={`${
+                path == "/my-favorites" && "text-color"
+              } font-bold font-cousine text-lg block my-5`}
+            >
+              My Favorites
+            </Link>
+            <Link
+              to={"/setting"}
+              className={`${
+                path == "/setting" && "text-color"
+              } font-bold font-cousine text-lg block`}
+            >
+              Setting
+            </Link>
+          </div>
+        )}
+
         {menuNav.map((menus) => (
           <Link
             key={menus.id}
             to={menus.link}
-            className="flex lg:mb-8 mb-5 hover:text-gray-800 mt-6"
+            className="flex lg:mb-8 mb-5 mt-5"
           >
             <p
-              className={`lg:text-xl ${
-                menus.link == path && "text-white"
+              className={`${
+                menus.link == path && "text-color"
               } font-bold font-cousine text-lg`}
             >
               {menus.name}
@@ -81,11 +110,20 @@ const Menu = ({ menu, onMenu }: Props) => {
         ))}
 
         <div className="absolute bottom-5 cursor-pointer">
-          <Link to={"/login"}>
-            <p className="font-poppins text-white py-[6px] btn-bg rounded-lg w-32 text-center">
-              Login
-            </p>
-          </Link>
+          {username ? (
+            <Link
+              to={"/dashboard"}
+              className="font-bold text-red-500 hover:text-gray-500"
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link to={"/login"}>
+              <p className="font-poppins text-white py-[6px] btn-bg rounded-lg w-32 text-center">
+                Login
+              </p>
+            </Link>
+          )}
         </div>
       </div>
     </>
