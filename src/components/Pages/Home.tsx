@@ -32,7 +32,7 @@ const Home = () => {
         <div className="lg:block border-r border-gray-300 hidden sticky top-24 self-start col-span-2  px-2 my-6">
           <Filter />
         </div>
-        <div className="lg:col-span-10 grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-10">
+        <div className="lg:col-span-10 ">
           <Products />
         </div>
       </div>

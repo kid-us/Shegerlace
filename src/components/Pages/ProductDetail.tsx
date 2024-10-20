@@ -24,6 +24,11 @@ const ProductDetail = () => {
   const [activeImage, setActiveImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   //   Get Size Range
   function getSizeRange(sizeRange: string): {
     startSize: number;
