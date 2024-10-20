@@ -48,7 +48,7 @@ const Login = () => {
     };
 
     axios
-      .post(`${baseUrl}/auth/login`, logData, {
+      .post(`${baseUrl}auth/login`, logData, {
         headers: {
           "Content-Type": "application/json",
         },

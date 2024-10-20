@@ -32,9 +32,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const [usernameError, setUsernameError] = useState<boolean>(false);
   const [registerError, setRegisterError] = useState<boolean>(false);
-  const [phoneError, setPhoneError] = useState<boolean>(false);
   const [passwordType, setPasswordType] = useState<boolean>(true);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [confirmPasswordError, setConfirmPasswordError] =
@@ -63,44 +61,18 @@ const Register = () => {
     };
 
     axios
-      .get(`${baseUrl}/auth/check-username?username=${data.username}`, {
+      .post(`${baseUrl}auth/pre-register`, RegData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then(() => {
-        axios
-          .get(`${baseUrl}/auth/check-phone?phone_number=${data.phone}`, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then(() => {
-            axios
-              .post(`${baseUrl}/auth/pre-register`, RegData, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              })
-              .then(() => {
-                navigate(`/verify-email?email=${data.email}`);
-              })
-              .catch((error) => {
-                setLoader(false);
-                console.log(error);
-                setRegisterError(true);
-              });
-          })
-          .catch((error) => {
-            setLoader(false);
-            console.log(error);
-            setPhoneError(true);
-          });
+        navigate(`/verify-email?email=${data.email}`);
       })
       .catch((error) => {
         setLoader(false);
         console.log(error);
-        setUsernameError(true);
+        setRegisterError(true);
       });
   };
 
@@ -121,20 +93,9 @@ const Register = () => {
             className="lg:bg-white lg:p-10 pb-10 px-6 rounded-r-xl overflow-hidden"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <p className="text-2xl font-bold mb-10">Sign in</p>
-            {usernameError && (
-              <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak font-poppins">
-                &nbsp; Username already taken!
-              </p>
-            )}
             {registerError && (
               <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak font-poppins">
                 &nbsp; Something went wrong.
-              </p>
-            )}
-            {phoneError && (
-              <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak font-poppins">
-                &nbsp; Phone number already exists!
               </p>
             )}
 

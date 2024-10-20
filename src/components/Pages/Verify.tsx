@@ -24,8 +24,9 @@ const Verify: React.FC = () => {
             <img src={logo_lg} alt="Logo" className="w-28" />
           </div>
           <p className="text-lg bg-white p-4 rounded">
-            Check your email. We’ve sent a confirmation link to {email}, Please
-            complete your action.
+            Check your email. We’ve sent a confirmation link to{" "}
+            <span className="text-blue-500">{email}</span>, Please complete your
+            action.
           </p>
         </div>
       </div>
