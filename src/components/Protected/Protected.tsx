@@ -44,8 +44,7 @@ const Protected = ({ children }: ProtectedProps) => {
             response.data.user.id,
             response.data.user.username,
             response.data.user.email,
-            response.data.user.phone_number,
-            response.data.user.favorite
+            response.data.user.phone_number
           );
         })
         .catch(() => {
