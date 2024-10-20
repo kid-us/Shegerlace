@@ -111,7 +111,6 @@ const Checkout = () => {
     const orderData = {
       customer_name: data.name,
       address: data.address,
-      size: size,
       order_items: id === "cart" ? cartItems : singleItems,
     };
 

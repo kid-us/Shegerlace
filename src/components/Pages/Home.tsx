@@ -2,10 +2,9 @@ import Hero from "../Home/Hero";
 import Navbar from "../Navbar/Navbar";
 import Filter from "../Filter/Filter";
 import Products from "../Products/Products";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SmFilter from "../Filter/SmFilter";
 import Footer from "../Footer/Footer";
-import Loading from "../Loading/Loading";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const Home = () => {
@@ -13,18 +12,9 @@ const Home = () => {
   useDocumentTitle(title);
 
   const [filter, setFilter] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  });
 
   return (
     <>
-      {/* Loading */}
-      {loading && <Loading />}
       {filter && <SmFilter onFilter={() => setFilter(false)} />}
       <Navbar />
       {/* Hero */}

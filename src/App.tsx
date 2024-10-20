@@ -16,6 +16,7 @@ import About from "./components/Pages/About";
 import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
 import CheckEmail from "./components/Pages/CheckEmail";
 import ContactUs from "./components/Pages/ContactUs";
+import Protected from "./components/Protected/Protected";
 
 function App() {
   return (
@@ -24,12 +25,40 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/verify-email" element={<Verify />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/my-orders" element={<MyOrders />} />
-      <Route path="/my-favorites" element={<Favorite />} />
-      <Route path="/setting" element={<Setting />} />
+      <Route
+        path="/my-orders"
+        element={
+          <Protected>
+            <MyOrders />
+          </Protected>
+        }
+      />
+      <Route
+        path="/my-favorites"
+        element={
+          <Protected>
+            <Favorite />
+          </Protected>
+        }
+      />
+      <Route
+        path="/setting"
+        element={
+          <Protected>
+            <Setting />
+          </Protected>
+        }
+      />
       <Route path="/request" element={<ForgotPassword />} />
       <Route path="/shoes/:id" element={<Product />} />
-      <Route path="/checkout/:id" element={<Checkout />} />
+      <Route
+        path="/checkout/:id"
+        element={
+          <Protected>
+            <Checkout />
+          </Protected>
+        }
+      />
       <Route path="/new-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
