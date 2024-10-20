@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +29,8 @@ type FormData = z.infer<typeof schema>;
 const Checkout = () => {
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   const { cart } = useCartStore();
 
   const location = useLocation();
@@ -41,27 +43,31 @@ const Checkout = () => {
 
   // Get Shoes
   useEffect(() => {
-    axios
-      .get<ShoeInfo>(`${baseUrl}store/get-shoe?shoe_id=${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "69420",
-        },
-      })
-      .then((response) => {
-        const data = response.data.shoe;
-        setShoe(data);
+    id !== "cart" &&
+      axios
+        .get<ShoeInfo>(`${baseUrl}store/get-shoe?shoe_id=${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        })
+        .then((response) => {
+          const data = response.data.shoe;
+          setShoe(data);
 
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
   }, [id]);
 
+  // Title
   useEffect(() => {
     if (shoe) {
       document.title = shoe?.name;
+    } else {
+      document.title = "Shegerlace Multiple Order";
     }
   }, [id, shoe]);
 
@@ -92,12 +98,14 @@ const Checkout = () => {
   const onSubmit = (data: FieldValues) => {
     setLoader(true);
 
+    // Cart
     const cartItems = cart.map((c) => ({
       id: c.id,
       size: c.size,
       quantity: c.quantity,
     }));
 
+    // Single Item
     const singleItems = [{ id: id, size: size, quantity: qty }];
 
     const orderData = {
@@ -109,19 +117,20 @@ const Checkout = () => {
 
     console.log(orderData);
 
-    return;
-
     axios
-      .post(`${baseUrl}`, orderData, {
+      .post(`${baseUrl}order/create`, orderData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
+      .then(() => {
         setSuccess(true);
-        console.log(response);
+        setTimeout(() => {
+          navigate("/my-orders");
+        }, 3000);
       })
       .catch((error) => {
+        setLoader(false);
         console.log(error);
       });
   };
@@ -129,47 +138,6 @@ const Checkout = () => {
   return (
     <>
       {loading && <Loading />}
-      {/* Promo */}
-      {/* {promo && (
-        <>
-          <div className="overlay top-0 z-50"></div>
-          <div className="fixed top-0 flex z-50 justify-center items-center h-[100dvh] w-full lg:px-0 px-3">
-            <div className="bg-white w-[500px] p-5 rounded-lg pb-7 ">
-              <div className="flex justify-between mb-4">
-                <p className="font-bold text-lg">Notice</p>
-                <button
-                  onClick={() => setPromo(false)}
-                  className="bi-x-lg text-lg"
-                ></button>
-              </div>
-              <p className="mt-2 mb-4 text-sm font-bold">
-                Have a promo code? Enter it in the field below to enjoy an
-                exclusive{" "}
-                <span className="text-green-500 uppercase">discount</span> on
-                your purchase!
-              </p>
-
-              <input
-                name="promo_code"
-                type="text"
-                className="rounded focus:outline-none shadow shadow-zinc-900 h-12 text-gray-800 px-5 bg-white block w-full placeholder:text-gray-500"
-                placeholder="Promo code"
-                value={promoCode}
-                onChange={(e) => setPromoCode(e.currentTarget.value)}
-              />
-              {promoError && (
-                <p className="text-xs text-red-600 pt-1">Insert promo code</p>
-              )}
-              <button
-                onClick={handlePromoSubmit}
-                className="btn-bg w-full rounded mt-3 h-11 shadow shadow-zinc-900"
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </>
-      )} */}
 
       {/* Payment Done */}
       {success && (
@@ -211,7 +179,7 @@ const Checkout = () => {
               </div>
             </div>
           ) : (
-            <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300">
+            <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 mt-14">
               <p className="text-xl">Total {cart.length} items </p>
               <div className="mt-5">
                 {cart.map((c) => (
@@ -329,7 +297,7 @@ const Checkout = () => {
 
               {/* Button */}
               <div className="mt-8">
-                {loader ? <Loader /> : <Button label="Submit Payment" />}
+                {loader ? <Loader /> : <Button label="Order" />}
                 <p className="text-xs text-gray-500 mt-4">
                   Your personal data will be used to process your order.
                 </p>
