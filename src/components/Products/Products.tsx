@@ -76,7 +76,7 @@ const Products = () => {
 
   return (
     <>
-      <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-10">
+      <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-5">
         {stock.map((shoe) => (
           <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
             <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5 overflow-hidden">
@@ -87,7 +87,7 @@ const Products = () => {
                 }}
                 className={`${
                   favoriteShoe.includes(shoe.id) ? "bi-heart-fill" : "bi-heart"
-                } absolute top-7 z-50 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
+                } absolute top-7 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
               ></button>
 
               <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner p-2">
