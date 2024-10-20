@@ -5,31 +5,7 @@ import axios from "axios";
 import baseUrl from "../../services/request";
 import useFavorite from "../../hooks/useFavorite";
 import useAuth from "../../stores/useAuth";
-
-interface StockShoes {
-  id: number;
-  brand: string;
-  category: string;
-  main_picture: string;
-  name: string;
-  images: string[];
-  price: number;
-  size_range: string;
-  stock: string;
-  uid: string;
-  description: string;
-}
-
-interface AllShoes {
-  shoes: StockShoes[];
-  current_page: 1;
-  has_next: boolean;
-  has_prev: boolean;
-  next_num: number | null;
-  prev_num: number | null;
-  total_pages: number;
-  total_shoes: number;
-}
+import useStock from "../../hooks/useStock";
 
 const Products = () => {
   const { addToCart, cart } = useCartStore();
@@ -37,11 +13,9 @@ const Products = () => {
   const { username } = useAuth();
   const navigate = useNavigate();
 
-  const access_token = localStorage.getItem("token");
+  const { allData, page, stock, handlePagination } = useStock();
 
-  const [allData, setAllData] = useState<AllShoes>();
-  const [page, setPage] = useState<number>(1);
-  const [stock, setStock] = useState<StockShoes[]>([]);
+  const access_token = localStorage.getItem("token");
 
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
 
@@ -52,29 +26,6 @@ const Products = () => {
       setFavoriteShoe(favoriteIds); // Directly set the favoriteShoe state with the array of IDs
     }
   }, [favorite]);
-
-  // Fetch Shoes
-  useEffect(() => {
-    const fetchStocks = async () => {
-      try {
-        const response = await axios.get<AllShoes>(
-          `${baseUrl}store/get-shoes`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "ngrok-skip-browser-warning": "69420",
-            },
-          }
-        );
-        setAllData(response.data);
-        setStock(response.data.shoes);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchStocks();
-  }, []);
 
   // Adding Removing Favorite
   const handleFavorite = (id: number) => {
@@ -183,7 +134,7 @@ const Products = () => {
             {/* prev */}
             <button
               onClick={() =>
-                allData?.has_prev && setPage(allData ? page - 1 : 0)
+                allData?.has_prev && handlePagination(allData ? page - 1 : 0)
               }
               disabled={allData?.has_prev === false ? true : false}
               className={`${
@@ -201,7 +152,7 @@ const Products = () => {
             {/*next  */}
             <button
               onClick={() =>
-                allData?.has_next && setPage(allData ? page + 1 : 0)
+                allData?.has_next && handlePagination(allData ? page + 1 : 0)
               }
               disabled={allData?.has_next === false ? true : false}
               className={`${
