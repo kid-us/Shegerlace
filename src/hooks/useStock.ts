@@ -17,7 +17,7 @@ export interface StockShoes {
   description: string;
 }
 
-interface AllShoes {
+export interface AllShoes {
   shoes: StockShoes[];
   current_page: number;
   has_next: boolean;
@@ -28,7 +28,7 @@ interface AllShoes {
   total_shoes: number;
 }
 
-interface FilterData {
+export interface FilterData {
   min_price?: number;
   max_price?: number;
   size?: string;

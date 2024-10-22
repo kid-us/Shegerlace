@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useBrand from "../../hooks/useBrand";
-import useStock from "../../hooks/useStock";
+import { useFilter } from "../../stores/useFilter";
 
 export interface Size {
   start: string;
@@ -13,7 +13,6 @@ export interface Price {
 }
 
 const category = [
-  { id: 1, name: "all", label: "All" },
   { id: 2, name: "men", label: "Men" },
   { id: 3, name: "women", label: "Women" },
   { id: 4, name: "kid", label: "Kid" },
@@ -36,7 +35,8 @@ const size = [
 
 const Filter = () => {
   const { brand } = useBrand();
-  const { handleFilter } = useStock();
+
+  const { updateBrand, updateCategory, updatePrice, updateSize } = useFilter();
 
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [priceFilter, setPriceFilter] = useState<Price | null>(null);
@@ -46,7 +46,10 @@ const Filter = () => {
   // Handle filter when the user clicks the filter options
   const handleFilterBtn = () => {
     if (categoryFilter || priceFilter || brandFilter || sizeFilter) {
-      handleFilter(categoryFilter, priceFilter, brandFilter, sizeFilter);
+      updateBrand(brandFilter);
+      updateCategory(categoryFilter);
+      updatePrice(priceFilter);
+      updateSize(sizeFilter);
     }
   };
 
