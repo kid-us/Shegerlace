@@ -11,7 +11,7 @@ const Favorite = () => {
   const { addToCart, cart } = useCartStore();
 
   const { favorite } = useFavorite();
-  
+
   const access_token = localStorage.getItem("token");
 
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
@@ -89,67 +89,70 @@ const Favorite = () => {
             My Favorite
           </Link>
         </div>
-        <p className="mb-4">You favorite shoes are here</p>
         {favorite.length > 0 ? (
-          <div className="lg:grid grid-cols-3 gap-5">
-            {favorite.map((shoe) => (
-              <div
-                key={shoe.id}
-                className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5 lg:mb-0 mb-10"
-              >
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleFavorite(shoe.id);
-                  }}
-                  className={`${
-                    favoriteShoe.includes(shoe.id)
-                      ? "bi-heart-fill"
-                      : "bi-heart"
-                  } absolute top-7 z-50 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
-                ></button>
+          <>
+            <p className="mb-4">You favorite shoes are here</p>
+            <div className="lg:grid grid-cols-3 gap-5">
+              {favorite.map((shoe) => (
+                <div
+                  key={shoe.id}
+                  className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5 lg:mb-0 mb-10"
+                >
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleFavorite(shoe.id);
+                    }}
+                    className={`${
+                      favoriteShoe.includes(shoe.id)
+                        ? "bi-heart-fill"
+                        : "bi-heart"
+                    } absolute top-7 z-50 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
+                  ></button>
 
-                <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner p-2">
-                  <Link
-                    to={`/shoes/${shoe.id}`}
-                    className="w-full overflow-hidden"
-                  >
-                    <img
-                      src={shoe.main_picture}
-                      alt="Shoe"
-                      className={`relative z-10 h-72 w-full object-contain -rotate-[20deg] hover:rotate-0`}
-                    />
-                  </Link>
-                </div>
-
-                <div className="mt-5">
-                  <div className="flex justify-between">
-                    <p className="font-extrabold text-xl">{shoe.name}</p>
-                    <button
-                      onClick={() =>
-                        addToCart({
-                          id: shoe.id,
-                          quantity: 1,
-                          size: 0,
-                          img: shoe.main_picture,
-                          price: shoe.price,
-                        })
-                      }
-                      className={`font-extrabold text-2xl ${
-                        cart.some((c) => c.id === shoe.id)
-                          ? "bi-bag-fill text-white bg-cyan-600 rounded-full w-8 h-8 text-lg"
-                          : "bi-bag"
-                      }`}
-                    ></button>
+                  <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner p-2">
+                    <Link
+                      to={`/shoes/${shoe.id}`}
+                      className="w-full overflow-hidden"
+                    >
+                      <img
+                        src={shoe.main_picture}
+                        alt="Shoe"
+                        className={`relative z-10 h-72 w-full object-contain -rotate-[20deg] hover:rotate-0`}
+                      />
+                    </Link>
                   </div>
-                  <p className="mt-1 font-bold">
-                    <span className="bi-cash text-xl me-1"></span> {shoe.price}
-                    br
-                  </p>
+
+                  <div className="mt-5">
+                    <div className="flex justify-between">
+                      <p className="font-extrabold text-xl">{shoe.name}</p>
+                      <button
+                        onClick={() =>
+                          addToCart({
+                            id: shoe.id,
+                            quantity: 1,
+                            size: 0,
+                            img: shoe.main_picture,
+                            price: shoe.price,
+                          })
+                        }
+                        className={`font-extrabold text-2xl ${
+                          cart.some((c) => c.id === shoe.id)
+                            ? "bi-bag-fill text-white bg-cyan-600 rounded-full w-8 h-8 text-lg"
+                            : "bi-bag"
+                        }`}
+                      ></button>
+                    </div>
+                    <p className="mt-1 font-bold">
+                      <span className="bi-cash text-xl me-1"></span>{" "}
+                      {shoe.price}
+                      br
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         ) : (
           <div className="flex justify-center items-center h-[40dvh]">
             <div className="bg-white rounded px-3 py-5 shadow shadow-zinc-900">

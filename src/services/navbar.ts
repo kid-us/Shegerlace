@@ -5,11 +5,11 @@ interface Menu {
 }
 
 const menuNav: Menu[] = [
-  {
-    id: 1,
-    name: "New Release",
-    link: "/new-release",
-  },
+  // {
+  //   id: 1,
+  //   name: "New Release",
+  //   link: "/new-release",
+  // },
   {
     id: 2,
     name: "Mens",

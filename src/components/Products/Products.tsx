@@ -179,22 +179,23 @@ const Products = () => {
                   />
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 leading-tight">
                   <div className="flex justify-between">
                     <p className="font-extrabold text-lg">{shoe.name}</p>
                     <button
-                      onClick={() =>
+                      onClick={(e) => {
+                        e.preventDefault();
                         addToCart({
                           id: shoe.id,
                           quantity: 1,
                           size: 0,
                           img: shoe.main_picture,
                           price: shoe.price,
-                        })
-                      }
-                      className={`font-extrabold text-2xl ${
+                        });
+                      }}
+                      className={`font-extrabold text-2xl w-9 h-9 ${
                         cart.some((c) => c.id === shoe.id)
-                          ? "bi-bag-fill text-white bg-cyan-600 rounded-full w-8 h-8 text-lg"
+                          ? "bi-bag-fill text-white bg-cyan-600 rounded-full  text-lg"
                           : "bi-bag"
                       }`}
                     ></button>
