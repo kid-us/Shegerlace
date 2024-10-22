@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import menuNav from "../../services/navbar";
 import { useEffect, useState } from "react";
 import Menu from "./Menu";
@@ -23,6 +23,8 @@ const Navbar = () => {
   const [username, setUsername] = useState<string | null>("");
   const [loading, setLoading] = useState<boolean>(true);
 
+  const navigate = useNavigate();
+
   // Get username
   useEffect(() => {
     if (access_token) {
@@ -31,7 +33,6 @@ const Navbar = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${access_token}`,
-            "ngrok-skip-browser-warning": "69420",
             "Access-Control-Allow-Origin": "*",
           },
         })
@@ -150,12 +151,15 @@ const Navbar = () => {
                       >
                         Setting
                       </Link>
-                      <Link
-                        to={"/dashboard"}
+                      <button
+                        onClick={() => {
+                          localStorage.clear();
+                          navigate("/login");
+                        }}
                         className="text-sm font-bold text-red-500 hover:text-gray-500"
                       >
                         Logout
-                      </Link>
+                      </button>
                     </div>
                   )}
                 </div>

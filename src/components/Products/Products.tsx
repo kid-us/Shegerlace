@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import baseUrl from "../../services/request";
 import useFavorite from "../../hooks/useFavorite";
-import useAuth from "../../stores/useAuth";
 import { AllShoes, StockShoes } from "../../hooks/useStock";
 import { useFilter } from "../../stores/useFilter";
 import { logo_sm } from "../../assets";
 import Loading from "../Loading/Loading";
+import useUsername from "../../hooks/useUsername";
 
 interface FilterData {
   min_price?: number;
@@ -21,7 +21,9 @@ interface FilterData {
 const Products = () => {
   const { addToCart, cart } = useCartStore();
   const { favorite } = useFavorite();
-  const { username } = useAuth();
+
+  const { username } = useUsername();
+
   const navigate = useNavigate();
 
   const { brand, category, price, size } = useFilter();
@@ -74,7 +76,6 @@ const Products = () => {
         .get<AllShoes>(`${baseUrl}store/get-shoes?page=${page}`, {
           headers: {
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "69420",
           },
         })
         .then((response) => {
@@ -147,6 +148,7 @@ const Products = () => {
     <>
       {/* Loading */}
       {loading && <Loading />}
+
       <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-5">
         {/* simpleLoading */}
         {simpleLoading ? (

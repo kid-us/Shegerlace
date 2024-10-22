@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logo_sm } from "../../assets";
 import { useState } from "react";
 
@@ -19,11 +19,21 @@ const Search = ({ onClose }: Props) => {
     "animate__fadeInDown"
   );
 
+  const navigate = useNavigate();
+
+  const [search, setSearch] = useState<string>("");
+
   const handleClose = () => {
     setAnimationClass("animate__fadeOutUp");
     setTimeout(() => {
       onClose();
     }, 500);
+  };
+
+  const handleSearch = () => {
+    if (search === "") return;
+
+    navigate(`/search/${search}`);
   };
 
   return (
@@ -44,8 +54,13 @@ const Search = ({ onClose }: Props) => {
                 type="search"
                 className="border w-full bg py-3 rounded-lg shadow-inner ps-5 focus:outline-none overflow-hidden placeholder:text-gray-600"
                 placeholder="Search shoes here"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
-              <button className="bi-search absolute right-0 btn-bg rounded-r-xl h-full lg:w-14 w-10 text-white"></button>
+              <button
+                onClick={() => handleSearch()}
+                className="bi-search absolute right-0 btn-bg rounded-r-xl h-full lg:w-14 w-10 text-white"
+              ></button>
             </div>
 
             <div className="mt-4">

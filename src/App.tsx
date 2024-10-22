@@ -17,6 +17,7 @@ import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
 import CheckEmail from "./components/Pages/CheckEmail";
 import ContactUs from "./components/Pages/ContactUs";
 import Protected from "./components/Protected/Protected";
+import Search from "./components/Pages/Search";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           </Protected>
         }
       />
+      <Route path="/search/:id" element={<Search />} />
       <Route path="/new-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />

@@ -69,7 +69,7 @@ const MyOrders = () => {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, [page]);
 
   // Format date
   const formatDate = (dateString: string): string => {
