@@ -7,6 +7,8 @@ import useFavorite from "../../hooks/useFavorite";
 import useAuth from "../../stores/useAuth";
 import { AllShoes, StockShoes } from "../../hooks/useStock";
 import { useFilter } from "../../stores/useFilter";
+import { logo_sm } from "../../assets";
+import Loading from "../Loading/Loading";
 
 interface FilterData {
   min_price?: number;
@@ -31,7 +33,8 @@ const Products = () => {
   const [allData, setAllData] = useState<AllShoes>();
   const [stock, setStock] = useState<StockShoes[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [simpleLoading, setSimpleLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // Fetch items
   useEffect(() => {
@@ -46,7 +49,7 @@ const Products = () => {
         ...(category && { category }),
       };
 
-      setLoading(true);
+      setSimpleLoading(true);
       axios
         .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter`, {
           params: filterData,
@@ -56,7 +59,7 @@ const Products = () => {
           },
         })
         .then((response) => {
-          setLoading(false);
+          setSimpleLoading(false);
 
           setAllData(response.data);
           setStock(response.data.shoes);
@@ -75,6 +78,7 @@ const Products = () => {
           },
         })
         .then((response) => {
+          setLoading(false);
           setAllData(response.data);
           setStock(response.data.shoes);
         })
@@ -142,11 +146,16 @@ const Products = () => {
   return (
     <>
       {/* Loading */}
-      {loading && (
-        <p className="fixed text-6xl top-0 z-50 left-0">Loading.....</p>
-      )}
+      {loading && <Loading />}
       <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-5">
-        {stock.length > 0 ? (
+        {/* simpleLoading */}
+        {simpleLoading ? (
+          <div className="bg col-span-3 h-[60dvh]">
+            <div className="flex justify-center items-center h-full">
+              <img src={logo_sm} alt="logo" className="w-24 animate-pulse" />
+            </div>
+          </div>
+        ) : stock.length > 0 ? (
           stock.map((shoe) => (
             <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
               <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5">
@@ -198,7 +207,10 @@ const Products = () => {
             </Link>
           ))
         ) : (
-          <p>Shoes products not found</p>
+          <p className="col-span-3 lg:px-20 p-4 text-xl mt-5 bg-white rounded py-5">
+            Sorry, no items match your current filter selections. Try modifying
+            the filters or clearing them to explore a wider range of options.
+          </p>
         )}
       </div>
 
