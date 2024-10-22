@@ -11,6 +11,7 @@ import Loading from "../Loading/Loading";
 import Images from "../ProductDatail.tsx/Images";
 import useFavorite from "../../hooks/useFavorite";
 import useUsername from "../../hooks/useUsername";
+import SimilarItem from "../SimilarItem/SimilarItem";
 
 export interface ShoeInfo {
   shoe: StockShoes;
@@ -320,16 +321,7 @@ const ProductDetail = () => {
 
         {/* Similar items */}
         <p className="mt-10 font-bold text-xl px-4">You might also like</p>
-        <div className="flex gap-x-3 overflow-x-scroll scrollbar-hide mt-5 snap-x snap-mandatory mb-20 ps-1">
-          {shoes.map((s) => (
-            <img
-              key={s.id}
-              src={s.img}
-              alt="shoes"
-              className="bg-white h-96 w-full object-cover snap-center rounded"
-            />
-          ))}
-        </div>
+        {shoe && <SimilarItem brand={shoe?.brand} />}
       </div>
       <Footer />
     </>
