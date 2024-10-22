@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import menuNav from "../../services/navbar";
 import { useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
@@ -13,6 +13,8 @@ interface Props {
 const Menu = ({ menu, onMenu, username }: Props) => {
   const location = useLocation();
   const path = location.pathname;
+
+  const navigate = useNavigate();
 
   const { cart } = useCartStore();
 
@@ -111,12 +113,15 @@ const Menu = ({ menu, onMenu, username }: Props) => {
 
         <div className="absolute bottom-5 cursor-pointer">
           {username ? (
-            <Link
-              to={"/dashboard"}
-              className="font-bold text-red-500 hover:text-gray-500"
+            <button
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+              }}
+              className="text-sm font-bold text-red-500 hover:text-gray-500"
             >
               Logout
-            </Link>
+            </button>
           ) : (
             <Link to={"/login"}>
               <p className="font-poppins text-white py-[6px] btn-bg rounded-lg w-32 text-center">
