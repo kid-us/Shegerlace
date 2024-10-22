@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import shoes from "../../services/shoes";
 import { useEffect, useState } from "react";
@@ -9,6 +9,8 @@ import baseUrl from "../../services/request";
 import { StockShoes } from "../../hooks/useStock";
 import Loading from "../Loading/Loading";
 import Images from "../ProductDatail.tsx/Images";
+import useFavorite from "../../hooks/useFavorite";
+import useUsername from "../../hooks/useUsername";
 
 export interface ShoeInfo {
   shoe: StockShoes;
@@ -50,7 +52,7 @@ const ProductDetail = () => {
       .then((response) => {
         const data = response.data.shoe;
         setShoe(data);
-        setActiveImage(data.main_picture);
+        setActiveImage(response.data.shoe.main_picture);
 
         // Sizes
         const newSizes = [];
@@ -70,6 +72,7 @@ const ProductDetail = () => {
       });
   }, [id]);
 
+  // Title
   useEffect(() => {
     if (shoe) {
       document.title = shoe?.name;
@@ -106,6 +109,71 @@ const ProductDetail = () => {
     }
   };
 
+  const { favorite } = useFavorite();
+
+  const { username } = useUsername();
+
+  const navigate = useNavigate();
+
+  const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
+
+  const access_token = localStorage.getItem("token");
+
+  // Set Favorites
+  useEffect(() => {
+    if (favorite.length > 0) {
+      const favoriteIds = favorite.map((f) => f.id); // Extract IDs from the favorite array
+      setFavoriteShoe(favoriteIds); // Directly set the favoriteShoe state with the array of IDs
+    }
+  }, [favorite]);
+
+  // Adding Removing Favorite
+  const handleFavorite = (id: number) => {
+    if (username) {
+      if (favoriteShoe.includes(id)) {
+        // Remove the id from the state
+        axios
+          .post(
+            `${baseUrl}auth/remove-from-favorite?id=${id}`,
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          )
+          .then(() => {
+            setFavoriteShoe(favoriteShoe.filter((favId) => favId !== id));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        // Add the id to the state
+        axios
+          .post(
+            `${baseUrl}auth/add-to-favorite?id=${id}`,
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          )
+          .then(() => {
+            setFavoriteShoe([...favoriteShoe, id]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       {/* Loading */}
@@ -118,7 +186,7 @@ const ProductDetail = () => {
             <Images
               activeImage={activeImage}
               images={shoe.images}
-              main={shoe.main_picture}
+              main={activeImage}
               setActiveImage={(img: string) => setActiveImage(img)}
             />
           )}
@@ -219,9 +287,30 @@ const ProductDetail = () => {
                   <span className="bi-bag-fill ms-3 text-white"></span>
                 </button>
                 {/* Favorite */}
-                <button className="bg-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none">
-                  Add to Favorite <span className="bi-heart-fill ms-3"></span>
-                </button>
+                {shoe && favoriteShoe.includes(shoe.id) && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleFavorite(shoe.id);
+                    }}
+                    className="bg-red-600 text-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
+                  >
+                    Remove for Favorite{" "}
+                    <span className="bi-heart-fill ms-3"></span>
+                  </button>
+                )}
+
+                {shoe && !favoriteShoe.includes(shoe.id) && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleFavorite(shoe.id);
+                    }}
+                    className="bg-white lg:w-72 w-full rounded-lg lg:h-12 h-14 shadow shadow-zinc-950 active:shadow-none"
+                  >
+                    Add to Favorite <span className="bi-heart-fill ms-3"></span>
+                  </button>
+                )}
               </div>
               {/* Description */}
               <p className="mt-5">{shoe?.description}</p>

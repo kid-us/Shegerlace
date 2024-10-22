@@ -28,6 +28,13 @@ const Search = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
 
+  // Title
+  useEffect(() => {
+    if (id) {
+      document.title = id;
+    }
+  }, [id]);
+
   // Fetch searched shoes
   useEffect(() => {
     axios
