@@ -18,6 +18,7 @@ import CheckEmail from "./components/Pages/CheckEmail";
 import ContactUs from "./components/Pages/ContactUs";
 import Protected from "./components/Protected/Protected";
 import Search from "./components/Pages/Search";
+import Mens from "./components/Pages/Mens";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
           </Protected>
         }
       />
+      <Route path="/mens" element={<Mens />} />
       <Route path="/search/:id" element={<Search />} />
       <Route path="/new-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />
