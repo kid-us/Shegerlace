@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { notFound } from "../../assets";
+import { Link } from "react-router-dom";
 
 const Page404 = () => {
   // Title
@@ -11,7 +13,18 @@ const Page404 = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-center h-[90dvh]">
-        <p>Page Not Found</p>
+        <div className="">
+          <img src={notFound} alt="" />
+
+          <div className="text-center mt-5">
+            <Link
+              to={"/"}
+              className="btn-bg px-5 py-2 shadow rounded font-bold"
+            >
+              Back to Home
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

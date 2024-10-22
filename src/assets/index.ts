@@ -7,5 +7,17 @@ import hero6 from "./hero6.png";
 import account from "./account.jpg";
 import logo_lg from "./logo_large.png";
 import logo_sm from "./logo_small.png";
+import notFound from "./404.png";
 
-export { hero1, hero2, hero3, hero4, hero5, hero6, account, logo_lg, logo_sm };
+export {
+  hero1,
+  hero2,
+  hero3,
+  hero4,
+  hero5,
+  hero6,
+  account,
+  logo_lg,
+  logo_sm,
+  notFound,
+};

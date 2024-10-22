@@ -3,6 +3,7 @@ import menuNav from "../../services/navbar";
 import { useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
 import Cart from "../Cart/Cart";
+import { logo_sm } from "../../assets";
 
 interface Props {
   username?: string | null;
@@ -38,11 +39,11 @@ const Menu = ({ menu, onMenu, username }: Props) => {
 
       <div className="overlay z-10"></div>
       <div
-        className={`fixed animate__animated ${animationClass} w-full bg-white top-0 h-full z-20 bg lg:rounded lg:px-10 px-5`}
+        className={`fixed animate__animated ${animationClass} w-full bg top-0 h-full z-50 bg-white lg:rounded lg:px-10 px-5`}
       >
-        <div className="flex justify-between lg:pt-5 pt-4 border-b pb-4 border-gray-100">
+        <div className="flex justify-between pt-4 border-b pb-4 border-gray-100">
           <div>
-            <p className="font-bold lg:text-2xl text-xl">Shegerlace</p>
+            <img src={logo_sm} alt="Logo" className="lg:hidden block w-12" />
           </div>
           <div>
             {/* Small Device */}
