@@ -28,12 +28,10 @@ export const useCartStore = create<CartState>((set) => ({
 
       let updatedCart;
       if (existingItemIndex >= 0) {
-        updatedCart = state.cart.map((item, index) =>
-          index === existingItemIndex
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+        // Remove the item if it already exists in the cart
+        updatedCart = state.cart.filter((item) => item.id !== newItem.id);
       } else {
+        // Add the new item to the cart if it's not there
         updatedCart = [...state.cart, newItem];
       }
 
