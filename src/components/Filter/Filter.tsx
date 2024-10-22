@@ -25,31 +25,65 @@ const price = [
   { id: 4, min: "5000", max: "6000" },
 ];
 
-const size = [
-  { id: 1, start: "36", end: "37" },
-  { id: 2, start: "37", end: "38" },
-  { id: 3, start: "39", end: "40" },
-  { id: 4, start: "41", end: "42" },
-  { id: 5, start: "43", end: "44" },
-];
+// const size = [
+//   { id: 1, start: "36", end: "37" },
+//   { id: 2, start: "37", end: "38" },
+//   { id: 3, start: "39", end: "40" },
+//   { id: 4, start: "41", end: "42" },
+//   { id: 5, start: "43", end: "44" },
+// ];
 
 const Filter = () => {
   const { brand } = useBrand();
 
-  const { updateBrand, updateCategory, updatePrice, updateSize } = useFilter();
+  const { updateBrand, updateCategory, updatePrice } = useFilter();
 
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [priceFilter, setPriceFilter] = useState<Price | null>(null);
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
-  const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
+  // const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
 
-  // Handle filter when the user clicks the filter options
-  const handleFilterBtn = () => {
-    if (categoryFilter || priceFilter || brandFilter || sizeFilter) {
-      updateBrand(brandFilter);
-      updateCategory(categoryFilter);
-      updatePrice(priceFilter);
-      updateSize(sizeFilter);
+  // Handle Brand Filter
+  const handleBrandFilter = (filter: string) => {
+    if (filter === brandFilter) {
+      setBrandFilter(null);
+      updateBrand(null);
+    } else {
+      setBrandFilter(filter);
+      updateBrand(filter);
+    }
+  };
+
+  // Handle Category Filter
+  const handleCategoryFilter = (category: string) => {
+    if (category === categoryFilter) {
+      setCategoryFilter(null);
+      updateCategory(null);
+    } else {
+      setCategoryFilter(category);
+      updateCategory(category);
+    }
+  };
+
+  // // Handle Size
+  // const handleSizeFilter = (start: string, end: string) => {
+  //   if (start === sizeFilter?.start) {
+  //     setSizeFilter(null);
+  //     updateSize(null);
+  //   } else {
+  //     setSizeFilter({ start, end });
+  //     updateSize({ start, end });
+  //   }
+  // };
+
+  // Handle Price filter
+  const handlePriceFilter = (min: string, max: string) => {
+    if (min === priceFilter?.min) {
+      setPriceFilter(null);
+      updatePrice(null);
+    } else {
+      setPriceFilter({ min, max });
+      updatePrice({ min, max });
     }
   };
 
@@ -58,99 +92,89 @@ const Filter = () => {
       <p className="text-2xl mb-5 font-bold">Filter</p>
 
       {/* Category */}
-      <form className="space-y-1">
+      <div className="space-y-1">
         <p
-          onClick={() => window.location.reload()}
-          className="cursor-pointer space-x-4 mb-2 ms-9"
+          onClick={() => {
+            setBrandFilter(null);
+            // setSizeFilter(null);
+            setPriceFilter(null);
+            setCategoryFilter(null);
+            updateBrand(null);
+            updateCategory(null);
+            updatePrice(null);
+          }}
+          className="cursor-pointer mb-2"
         >
           Default
         </p>
         {category.map((c) => (
-          <label
-            onClick={() => {
-              setCategoryFilter(c.name);
-              handleFilterBtn(); // Apply filter immediately after state change
-            }}
+          <div
+            onClick={() => handleCategoryFilter(c.label)}
             key={c.id}
-            className="flex items-center space-x-4"
+            className="cursor-pointer flex gap-x-3"
           >
-            <input
-              type="radio"
-              name="category"
-              className="form-checkbox h-5 w-5 text-blue-600"
-            />
-            <span className="cursor-pointer">{c.label}</span>
-          </label>
+            <button
+              className={`${
+                categoryFilter === c.label ? "btn-bg" : "bg-white"
+              } border border-gray-600 rounded h-5 w-5`}
+            ></button>
+            <p>{c.label}</p>
+          </div>
         ))}
-      </form>
+      </div>
 
       {/* Price */}
       <p className="my-5 font-bold text-lg">Price</p>
-      <form className="space-y-1">
+      <div className="space-y-1">
         {price.map((p) => (
-          <label
-            onClick={() => {
-              setPriceFilter({ min: p.min, max: p.max });
-              handleFilterBtn(); // Apply filter immediately after state change
-            }}
+          <div
+            onClick={() => handlePriceFilter(p.min, p.max)}
             key={p.id}
-            className="flex items-center space-x-4"
+            className="cursor-pointer flex gap-x-3"
           >
-            <input
-              type="radio"
-              name="price"
-              className="form-checkbox h-5 w-5 text-blue-600"
-            />
-            <span className="cursor-pointer">
-              {p.min}br - {p.max}br
-            </span>
-          </label>
+            <button
+              className={`${
+                priceFilter?.min === p.min ? "btn-bg" : "bg-white"
+              } border border-gray-600 rounded h-5 w-5`}
+            ></button>
+            <p>{p.min + " - " + p.max}</p>
+          </div>
         ))}
-      </form>
+      </div>
 
       {/* Size */}
-      <p className="my-5 font-bold text-lg">Size</p>
-      <form className="space-y-1">
-        {size.map((s) => (
-          <label
-            onClick={() => {
-              setSizeFilter({ start: s.start, end: s.end });
-              handleFilterBtn(); // Apply filter immediately after state change
-            }}
-            key={s.id}
-            className="flex items-center space-x-4"
-          >
-            <input
-              type="radio"
-              name="size"
-              className="form-checkbox h-5 w-5 text-blue-600"
-            />
-            <span className="cursor-pointer">
-              {s.start} - {s.end}
-            </span>
-          </label>
-        ))}
-      </form>
+      {/* <p className="my-5 font-bold text-lg">Size</p>
+      {size.map((s) => (
+        <div
+          onClick={() => handleSizeFilter(s.start, s.end)}
+          key={s.id}
+          className="cursor-pointer flex gap-x-3"
+        >
+          <button
+            className={`${
+              sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
+            } border border-gray-600 rounded h-5 w-5`}
+          ></button>
+          <p>{s.start + " - " + s.end}</p>
+        </div>
+      ))} */}
 
       {/* Brand */}
       <p className="my-5 font-bold text-lg">Brand</p>
       <div className="space-y-1">
         {brand.map((b) => (
-          <label
-            onClick={() => {
-              setBrandFilter(b.brand_names);
-              handleFilterBtn(); // Apply filter immediately after state change
-            }}
+          <div
+            onClick={() => handleBrandFilter(b.brand_names)}
             key={b.id}
-            className="flex items-center space-x-4"
+            className="cursor-pointer flex gap-x-3"
           >
-            <input
-              type="radio"
-              name="brand"
-              className="form-checkbox h-5 w-5 text-blue-600"
-            />
-            <span className="cursor-pointer">{b.brand_names}</span>
-          </label>
+            <button
+              className={`${
+                brandFilter === b.brand_names ? "btn-bg" : "bg-white"
+              } border border-gray-600 rounded h-5 w-5`}
+            ></button>
+            <p>{b.brand_names}</p>
+          </div>
         ))}
       </div>
     </>

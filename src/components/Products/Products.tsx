@@ -31,6 +31,7 @@ const Products = () => {
   const [allData, setAllData] = useState<AllShoes>();
   const [stock, setStock] = useState<StockShoes[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Fetch items
   useEffect(() => {
@@ -45,6 +46,7 @@ const Products = () => {
         ...(category && { category }),
       };
 
+      setLoading(true);
       axios
         .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter`, {
           params: filterData,
@@ -54,6 +56,8 @@ const Products = () => {
           },
         })
         .then((response) => {
+          setLoading(false);
+
           setAllData(response.data);
           setStock(response.data.shoes);
         })
@@ -138,6 +142,9 @@ const Products = () => {
   return (
     <>
       {/* Loading */}
+      {loading && (
+        <p className="fixed text-6xl top-0 z-50 left-0">Loading.....</p>
+      )}
       <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-5">
         {stock.length > 0 ? (
           stock.map((shoe) => (
