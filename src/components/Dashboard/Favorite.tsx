@@ -11,7 +11,9 @@ const Favorite = () => {
   const { addToCart, cart } = useCartStore();
 
   const { favorite } = useFavorite();
+  
   const access_token = localStorage.getItem("token");
+
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
 
   // Set Favorites

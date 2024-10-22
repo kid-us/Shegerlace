@@ -29,6 +29,8 @@ type FormData = z.infer<typeof schema>;
 const Checkout = () => {
   const { id } = useParams();
 
+  const access_token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const { cart } = useCartStore();
@@ -71,20 +73,6 @@ const Checkout = () => {
     }
   }, [id, shoe]);
 
-  // const [promo, setPromo] = useState<boolean>(true);
-  // const [promoCode, setPromoCode] = useState<string>("");
-  // const [promoError, setPromoError] = useState<boolean>(false);
-
-  // // Handle Promo Submit
-  // const handlePromoSubmit = () => {
-  //   if (promoCode.length < 5) {
-  //     setPromoError(true);
-  //     return;
-  //   }
-  //   setPromoError(false);
-  //   setPromo(false);
-  // };
-
   const {
     register,
     handleSubmit,
@@ -106,7 +94,7 @@ const Checkout = () => {
     }));
 
     // Single Item
-    const singleItems = [{ id: id, size: size, quantity: qty }];
+    const singleItems = [{ id: shoe?.id, size: size, quantity: qty }];
 
     const orderData = {
       customer_name: data.name,
@@ -114,12 +102,11 @@ const Checkout = () => {
       order_items: id === "cart" ? cartItems : singleItems,
     };
 
-    console.log(orderData);
-
     axios
       .post(`${baseUrl}order/create`, orderData, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
         },
       })
       .then(() => {

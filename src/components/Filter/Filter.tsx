@@ -4,7 +4,7 @@ import useStock from "../../hooks/useStock";
 
 export interface Size {
   start: string;
-  end: String;
+  end: string;
 }
 
 export interface Price {
@@ -36,7 +36,6 @@ const size = [
 
 const Filter = () => {
   const { brand } = useBrand();
-
   const { handleFilter } = useStock();
 
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
@@ -44,14 +43,11 @@ const Filter = () => {
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
   const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
 
-  // Handle Filter
+  // Handle filter when the user clicks the filter options
   const handleFilterBtn = () => {
-    handleFilter(
-      categoryFilter && categoryFilter,
-      priceFilter && priceFilter,
-      brandFilter && brandFilter,
-      sizeFilter && sizeFilter
-    );
+    if (categoryFilter || priceFilter || brandFilter || sizeFilter) {
+      handleFilter(categoryFilter, priceFilter, brandFilter, sizeFilter);
+    }
   };
 
   return (
@@ -70,7 +66,7 @@ const Filter = () => {
           <label
             onClick={() => {
               setCategoryFilter(c.name);
-              handleFilterBtn();
+              handleFilterBtn(); // Apply filter immediately after state change
             }}
             key={c.id}
             className="flex items-center space-x-4"
@@ -91,8 +87,8 @@ const Filter = () => {
         {price.map((p) => (
           <label
             onClick={() => {
-              setPriceFilter({ max: p.max, min: p.min });
-              handleFilterBtn();
+              setPriceFilter({ min: p.min, max: p.max });
+              handleFilterBtn(); // Apply filter immediately after state change
             }}
             key={p.id}
             className="flex items-center space-x-4"
@@ -116,7 +112,7 @@ const Filter = () => {
           <label
             onClick={() => {
               setSizeFilter({ start: s.start, end: s.end });
-              handleFilterBtn();
+              handleFilterBtn(); // Apply filter immediately after state change
             }}
             key={s.id}
             className="flex items-center space-x-4"
@@ -140,7 +136,7 @@ const Filter = () => {
           <label
             onClick={() => {
               setBrandFilter(b.brand_names);
-              handleFilterBtn();
+              handleFilterBtn(); // Apply filter immediately after state change
             }}
             key={b.id}
             className="flex items-center space-x-4"

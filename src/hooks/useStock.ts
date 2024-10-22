@@ -3,7 +3,7 @@ import axios from "axios";
 import baseUrl from "../services/request";
 import { Price, Size } from "../components/Filter/Filter";
 
-interface StockShoes {
+export interface StockShoes {
   id: number;
   brand: string;
   category: string;
@@ -19,7 +19,7 @@ interface StockShoes {
 
 interface AllShoes {
   shoes: StockShoes[];
-  current_page: 1;
+  current_page: number;
   has_next: boolean;
   has_prev: boolean;
   next_num: number | null;
@@ -37,18 +37,15 @@ interface FilterData {
 }
 
 const useStock = () => {
-  // const [stock, setStock] = useState<StockShoes[]>([]);
   const [allData, setAllData] = useState<AllShoes>();
-
-  const [page, setPage] = useState<number>(1);
-
   const [stock, setStock] = useState<StockShoes[]>([]);
-
+  const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null); // New error state
 
-  // First fetch
   useEffect(() => {
     const fetchStocks = async () => {
+      setLoading(true); // Ensure loading is true when fetch starts
       try {
         const response = await axios.get<AllShoes>(
           `${baseUrl}store/get-shoes?page=${page}`,
@@ -61,30 +58,29 @@ const useStock = () => {
         );
         setAllData(response.data);
         setStock(response.data.shoes);
-        setLoading(false);
       } catch (error) {
+        setError("Failed to fetch stock data");
         console.error(error);
+      } finally {
+        setLoading(false); // Ensure loading is set to false after fetching
       }
     };
 
     fetchStocks();
   }, [page]);
 
-  // Handle Pagination
   const handlePagination = (num: number) => {
-    setLoading(true);
     setPage(num);
   };
 
-  // Handle Filter
   const handleFilter = (
     category: string | null,
     price: Price | null,
     brand: string | null,
     size: Size | null
   ) => {
-
     setLoading(true);
+    setError(null);
 
     const filterData: FilterData = {
       ...(price && {
@@ -96,25 +92,28 @@ const useStock = () => {
       ...(category && { category }),
     };
 
-    console.log(filterData);
+    filterData &&
+      axios
+        .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter`, {
+          params: filterData,
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+        })
+        .then((response) => {
+          console.log(filterData.brand, response.data);
 
-    axios
-      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter`, {
-        params: filterData,
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "69420",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setAllData(response.data);
-        setStock(response.data.shoes);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
+          setAllData(response.data);
+          setStock(response.data.shoes);
+        })
+        .catch((error) => {
+          setError("Failed to apply filter");
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false); // Ensure loading is set to false after filtering
+        });
   };
 
   return {
@@ -122,6 +121,7 @@ const useStock = () => {
     allData,
     page,
     loading,
+    error, // Expose error to be used in UI
     handlePagination,
     handleFilter,
   };

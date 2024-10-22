@@ -79,7 +79,7 @@ const Products = () => {
       <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-5">
         {stock.map((shoe) => (
           <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
-            <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5 overflow-hidden">
+            <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5">
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -90,11 +90,11 @@ const Products = () => {
                 } absolute top-7 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
               ></button>
 
-              <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner p-2">
+              <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner overflow-hidden">
                 <img
                   src={shoe.main_picture}
                   alt="Shoe"
-                  className={`relative z-10 h-64 w-full object-contain -rotate-[20deg] hover:rotate-0`}
+                  className={`h-64 w-full object-contain -rotate-[20deg] hover:rotate-0`}
                 />
               </div>
 
@@ -118,7 +118,7 @@ const Products = () => {
                     }`}
                   ></button>
                 </div>
-                <p className="">
+                <p>
                   <span className="bi-cash me-1"></span> {shoe.price}br
                 </p>
               </div>
