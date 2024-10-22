@@ -2,14 +2,38 @@ import { Link } from "react-router-dom";
 import { hero1 } from "../../assets";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import useAuth from "../../stores/useAuth";
+import { useEffect } from "react";
+import axios from "axios";
+import baseUrl from "../../services/request";
 
 const MyOrders = () => {
+  const { username } = useAuth();
+
+  const access_token = localStorage.getItem("token");
+
+  useEffect(() => {
+    axios
+      .get(`${baseUrl}order/my-orders`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   return (
     <>
       <Navbar />
       <div className="container mx-auto lg:px-0 px-4">
         <p className="mt-8 text-lg">
-          Welcome <span className="text-color font-bold">Lorem</span>
+          Welcome <span className="text-color font-bold">{username}</span>
         </p>
 
         <div className="flex my-5 gap-x-10">
