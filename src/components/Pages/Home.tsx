@@ -2,7 +2,7 @@ import Hero from "../Home/Hero";
 import Navbar from "../Navbar/Navbar";
 import Filter from "../Filter/Filter";
 import Products from "../Products/Products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SmFilter from "../Filter/SmFilter";
 import Footer from "../Footer/Footer";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
@@ -10,6 +10,11 @@ import useDocumentTitle from "../../hooks/useDocumentTitle";
 const Home = () => {
   const [title] = useState("Shegeralce");
   useDocumentTitle(title);
+
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [filter, setFilter] = useState<boolean>(false);
 

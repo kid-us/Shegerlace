@@ -20,6 +20,7 @@ import Protected from "./components/Protected/Protected";
 import Search from "./components/Pages/Search";
 import Mens from "./components/Pages/Mens";
 import Women from "./components/Pages/Women";
+import Kids from "./components/Pages/Kids";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
       />
       <Route path="/mens" element={<Mens />} />
       <Route path="/women" element={<Women />} />
+      <Route path="/kids" element={<Kids />} />
       <Route path="/search/:id" element={<Search />} />
       <Route path="/new-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />

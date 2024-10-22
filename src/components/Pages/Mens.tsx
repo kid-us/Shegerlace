@@ -9,8 +9,13 @@ import Loading from "../Loading/Loading";
 import { useCartStore } from "../../stores/useCartStore";
 import useFavorite from "../../hooks/useFavorite";
 import useUsername from "../../hooks/useUsername";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const Mens = () => {
+  // Title
+  const [title] = useState("Mens");
+  useDocumentTitle(title);
+
   const { username } = useUsername();
 
   const { addToCart, cart } = useCartStore();
@@ -25,6 +30,11 @@ const Mens = () => {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
+
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Fetch searched shoes
   useEffect(() => {
@@ -166,10 +176,12 @@ const Mens = () => {
             ))}
           </div>
         ) : (
-          <p className="mt-8">
-            It looks like we sell every men's shoe. We will post the new ones
-            here, so stay tuned!
-          </p>
+          <div className="mt-5 h-[40dvh]">
+            <p>
+              It looks like we sell every men's shoe. We will post the new ones
+              here, so stay tuned!
+            </p>
+          </div>
         )}
 
         {/* Pagination */}

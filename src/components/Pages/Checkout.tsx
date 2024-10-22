@@ -43,6 +43,11 @@ const Checkout = () => {
   const [shoe, setShoe] = useState<StockShoes>();
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Get Shoes
   useEffect(() => {
     id !== "cart" &&

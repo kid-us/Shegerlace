@@ -11,9 +11,9 @@ import useFavorite from "../../hooks/useFavorite";
 import useUsername from "../../hooks/useUsername";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 
-const Women = () => {
+const Kids = () => {
   // Title
-  const [title] = useState("Women");
+  const [title] = useState("Kids");
   useDocumentTitle(title);
 
   const { username } = useUsername();
@@ -39,7 +39,7 @@ const Women = () => {
   // Fetch searched shoes
   useEffect(() => {
     axios
-      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Women`, {
+      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Kid`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -119,7 +119,7 @@ const Women = () => {
       <Navbar />
 
       <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
-        <p className="text-xl font-bold">Women</p>
+        <p className="text-xl font-bold">Kids</p>
 
         {stock.length > 0 ? (
           <div className="grid lg:grid-cols-3 gap-8 mt-10">
@@ -178,8 +178,8 @@ const Women = () => {
         ) : (
           <div className="mt-5 h-[40dvh]">
             <p>
-              It looks like we sell every women's shoe. We will post the new
-              ones here, so stay tuned!
+              It looks like we sell every kids's shoe. We will post the new ones
+              here, so stay tuned!
             </p>
           </div>
         )}
@@ -230,4 +230,4 @@ const Women = () => {
   );
 };
 
-export default Women;
+export default Kids;

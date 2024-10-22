@@ -43,6 +43,11 @@ const Setting = () => {
   const [loader, setLoader] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<boolean>(false);
 
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     setPhone(phone_numberNum || "");
     setUserName(usernameName || "");
