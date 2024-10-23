@@ -64,27 +64,27 @@ const SimilarItem = ({ brand }: Props) => {
             <img
               src={s.main_picture}
               alt="shoes"
-              className="bg-white h-96 w-full object-cover snap-center rounded"
+              className="bg-white h-80 w-full  object-cover snap-center rounded"
             />
           </Link>
         ))}
       </div>
 
       {/* Small device */}
-      <div className="lg:hidden md:hidden overflow-hidden mt-10">
+      <div className="lg:hidden md:hidden overflow-hidden mt-3">
         {/* Prevents overflow */}
         <div className="embla" ref={emblaRef}>
           <div className="embla__container flex">
             {stock.map((s) => (
               <div
                 key={s.id}
-                className="embla__slide w-[92vw] flex-shrink-0 relative border border-gray-300 rounded-lg p-2"
+                className="embla__slide w-[99vw] flex-shrink-0 relative border border-gray-300 rounded-lg p-2"
               >
                 <Link key={s.id} to={`/${s.uid}`}>
                   <img
                     src={s.main_picture}
                     alt="shoes"
-                    className="bg-white h-96 w-full object-cover snap-center rounded"
+                    className="bg-white h-80 w-full object-cover snap-center rounded"
                   />
                 </Link>
               </div>
