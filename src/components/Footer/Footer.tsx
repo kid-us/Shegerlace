@@ -64,16 +64,16 @@ const Footer = () => {
           </div>
         </div>
         <div className="lg:flex justify-between lg:mt-0 mt-5">
-          <div className="flex gap-x-5">
+          {/* <div className="flex gap-x-5">
             <p className="font-bold lg:text-md text-sm">Follow us</p>
             <div className="flex gap-x-4">
               <Link to={"/"} className="bi-telegram text-lg text-cyan-500" />
               <Link to={"/"} className="bi-instagram text-lg text-pink-600" />
               <Link to={"/"} className="bi-facebook text-lg text-blue-600" />
             </div>
-          </div>
-          <p className="lg:text-sm text-xs lg:mt- mt-3">
-            <span className="font-bold">&copy;</span> 2024 Shegerlace
+          </div> */}
+          <p className="lg:text-sm lg:mt-0 mt-3 font-bold text-xs">
+            <span>&copy;</span> 2024 Shegerlace
           </p>
         </div>
       </div>
