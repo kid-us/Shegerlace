@@ -82,7 +82,7 @@ const CheckEmail = () => {
                 <p className="text-sm mt-6">
                   We've sent you a link to reset your password to{" "}
                   <span className="text-blue-600">{emailAddress}</span> email
-                  address. The link expires in 6 hours.
+                  address. The link expires in 10 minutes.
                 </p>
                 <p className="text-sm mt-2">
                   Didn't get an email? Check your junk folder or request another

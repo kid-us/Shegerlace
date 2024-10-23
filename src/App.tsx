@@ -67,7 +67,7 @@ function App() {
       <Route path="/women" element={<Women />} />
       <Route path="/kids" element={<Kids />} />
       <Route path="/search/:id" element={<Search />} />
-      <Route path="/new-password" element={<CheckEmail />} />
+      <Route path="/reset-password" element={<CheckEmail />} />
       <Route path="/about-us" element={<About />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/contact-us" element={<ContactUs />} />

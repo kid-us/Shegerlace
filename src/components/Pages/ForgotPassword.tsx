@@ -36,7 +36,7 @@ const ForgotPassword = () => {
     setLoader(true);
     axios
       .post(
-        `${baseUrl}/auth/reset-verify?email=${data.email}}`,
+        `${baseUrl}auth/reset-verify?email=${data.email}`,
         {},
         {
           headers: {
@@ -46,12 +46,16 @@ const ForgotPassword = () => {
       )
       .then((response) => {
         console.log(response);
-        navigate(`/check-email?email=${data.email}`);
+        navigate(`/reset-password?email=${data.email}`);
       })
       .catch((error) => {
-        setLoader(false);
-        setEmailNotFound(true);
-        console.log(error);
+        if (error.response && error.response.status === 500) {
+          setLoader(false);
+          setEmailNotFound(true);
+          console.log(error);
+        } else {
+          navigate(`/reset-password?email=${data.email}`);
+        }
       });
   };
 
@@ -67,7 +71,7 @@ const ForgotPassword = () => {
             <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
               {emailNotFound && (
                 <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak">
-                  &nbsp; Invalid email address!
+                  &nbsp; something went wrong.
                 </p>
               )}
 
@@ -94,6 +98,7 @@ const ForgotPassword = () => {
                   />
                 </div>
               </div>
+
               {errors.email && (
                 <p className="text-xs mb-5 text-red-700 rounded">
                   {errors.email.message}
