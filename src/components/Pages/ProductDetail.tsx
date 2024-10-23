@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import shoes from "../../services/shoes";
+// import shoes from "../../services/shoes";
 import { useEffect, useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
 import Footer from "../Footer/Footer";
@@ -12,6 +12,7 @@ import Images from "../ProductDatail.tsx/Images";
 import useFavorite from "../../hooks/useFavorite";
 import useUsername from "../../hooks/useUsername";
 import SimilarItem from "../SimilarItem/SimilarItem";
+import SmallImage from "../Products/SmallImage";
 
 export interface ShoeInfo {
   shoe: StockShoes;
@@ -203,16 +204,9 @@ const ProductDetail = () => {
             </div>
 
             {/* Small device Images */}
-            <div className="lg:hidden flex overflow-x-scroll scrollbar-hide mt-5 bg-white snap-x snap-mandatory">
-              {shoes.map((s) => (
-                <img
-                  key={s.id}
-                  src={s.img}
-                  alt="shoes"
-                  className="mx-10 h-96 w-full object-cover snap-center"
-                />
-              ))}
-            </div>
+            {shoe && (
+              <SmallImage mainImg={shoe.main_picture} images={shoe.images} />
+            )}
 
             <div className="px-4">
               {/* Size */}
