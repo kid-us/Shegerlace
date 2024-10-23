@@ -5,9 +5,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 import Button from "../Button/Button";
-// import axios from "axios";
+import axios from "axios";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-// import { baseUrl } from "@/services/request";
+import baseUrl from "../../services/request";
+import Loader from "../Button/Loader";
 
 const schema = z.object({
   username: z
@@ -30,9 +31,9 @@ const ContactUs = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  //   const [errorMsg, setErrorMsg] = useState(false);
-  //   const [successMsg, setSuccessMsg] = useState(false);
-  //   const [loader, setLoader] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const {
     register,
@@ -41,31 +42,29 @@ const ContactUs = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    const contact = {
+      name: data.username,
+      email: data.email,
+      message: data.message,
+    };
 
-    // const contact = {
-    //   username: data.username,
-    //   email: data.email,
-    //   message: data.message,
-    // };
+    setLoader(true);
 
-    // setLoader(true);
-
-    // axios
-    //   .post(`${baseUrl}/api/v1/auth/contact-us`, contact, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     withCredentials: true,
-    //   })
-    //   .then(() => {
-    //     setSuccessMsg(true);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setErrorMsg(true);
-    //     setLoader(false);
-    //   });
+    axios
+      .post(`${baseUrl}auth/contact-us`, contact, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(() => {
+        setSuccessMsg(true);
+        setLoader(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMsg(true);
+        setLoader(false);
+      });
   };
 
   return (
@@ -73,27 +72,28 @@ const ContactUs = () => {
       <Navbar />
 
       {/* Modal */}
-      {/* {successMsg && (
+      {successMsg && (
         <>
-          <div className="overlay w-full z-50"></div>
+          <div className="overlay bg-neutral-900/50 w-full z-50"></div>
           <div className="flex justify-center align-center">
-            <div className="fixed lg:top-60 top-44 z-50 lg:w-[30%] lg:mx-0 mx-1 secondary-bg rounded-xl border-gradient-2">
+            <div className="fixed lg:top-60 top-44 z-50 bg-white lg:w-[30%] lg:mx-0 mx-1 secondary-bg rounded-xl border-gradient-2">
               <button
                 onClick={() => setSuccessMsg(false)}
-                className="absolute right-5 top-3 bi-x-lg text-white"
+                className="absolute right-5 top-3 bi-x-lg text-black"
               ></button>
               <div className="p-8">
                 <div className="text-center mt-4">
                   <p className="bi-check-circle-fill text-green-500 text-4xl"></p>
-                  <p className="text-white mt-5 text-xl chakra">
-                    Thank you for sending us a message Message send Successfully!
+                  <p className="text-black mt-5 text-xl chakra">
+                    Thank you for sending us a message Message send
+                    Successfully!
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </>
-      )} */}
+      )}
 
       <div className="lg:container mx-auto px-3 lg:mt-24 mt-10">
         <p className="text-4xl font-extrabold text-center">Let's chat!</p>
@@ -105,9 +105,11 @@ const ContactUs = () => {
             </p>
           </div>
         </div>
-        {/* {errorMsg && (
-          <p className="text-center mt-10 text-red-500">We couldn't accept messages right now!</p>
-        )} */}
+        {errorMsg && (
+          <p className="text-center mt-10 text-red-500">
+            We couldn't accept messages right now!
+          </p>
+        )}
         <div className="flex justify-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -175,7 +177,7 @@ const ContactUs = () => {
 
             <div className="mt-8">
               {/* Button */}
-              <Button label="Submit" />
+              {loader ? <Loader /> : <Button label="Submit" />}
             </div>
           </form>
         </div>
