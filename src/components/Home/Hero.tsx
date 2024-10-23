@@ -4,6 +4,7 @@ import "./wave.css";
 import shoes from "../../services/shoes";
 import { hero1 } from "../../assets";
 import { Link } from "react-router-dom";
+import useUsername from "../../hooks/useUsername";
 
 export interface Shoes {
   id: number;
@@ -14,6 +15,8 @@ export interface Shoes {
 }
 
 const Hero = () => {
+  const { username } = useUsername();
+
   const [sliders, setSliders] = useState<Shoes>({
     id: 1,
     name: "Nike Dunk High",
@@ -50,13 +53,15 @@ const Hero = () => {
             Occasion and Lifestyle.
           </p>
 
-          <div className="w-44">
-            <Link to={"/login"}>
-              <p className="rounded text-white w-44 h-11 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2 btn-bg">
-                Join us Now
-              </p>
-            </Link>
-          </div>
+          {!username && (
+            <div className="w-44">
+              <Link to={"/login"}>
+                <p className="rounded text-white w-44 h-11 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2 btn-bg">
+                  Join us Now
+                </p>
+              </Link>
+            </div>
+          )}
 
           <h1
             className="font-extrabold text-3xl mt-10 lg:block hidden"
