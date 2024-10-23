@@ -39,6 +39,9 @@ const Register = () => {
     useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
 
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [usernameError, setUsernameError] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -61,18 +64,46 @@ const Register = () => {
     };
 
     axios
-      .post(`${baseUrl}auth/pre-register`, RegData, {
+      .get(`${baseUrl}auth/check-username?username=${data.username}`, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then(() => {
-        navigate(`/verify-email?email=${data.email}`);
+        setUsernameError(false);
+        axios
+          .get(`${baseUrl}auth/check-email?email=${data.email}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then(() => {
+            setEmailError(false);
+            axios
+              .post(`${baseUrl}auth/pre-register`, RegData, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+              .then(() => {
+                navigate(`/verify-email?email=${data.email}`);
+              })
+              .catch((error) => {
+                setLoader(false);
+                console.log(error);
+                setRegisterError(true);
+              });
+          })
+          .catch((error) => {
+            setLoader(false);
+            console.log(error);
+            setEmailError(true);
+          });
       })
       .catch((error) => {
         setLoader(false);
         console.log(error);
-        setRegisterError(true);
+        setUsernameError(true);
       });
   };
 
@@ -93,9 +124,22 @@ const Register = () => {
             className="lg:bg-white lg:p-10 pb-10 px-6 rounded-r-xl overflow-hidden"
             onSubmit={handleSubmit(onSubmit)}
           >
+            {/* Register Error */}
             {registerError && (
               <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak font-poppins">
                 &nbsp; Something went wrong.
+              </p>
+            )}
+            {/* Email error */}
+            {emailError && (
+              <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak font-poppins">
+                &nbsp; Email already exist.
+              </p>
+            )}
+            {/* Username Error */}
+            {usernameError && (
+              <p className="text-sm text-white mb-5 bg-red-700 rounded ps-2 py-2 text-center bi-heartbreak font-poppins">
+                &nbsp; Username already exist.
               </p>
             )}
 
