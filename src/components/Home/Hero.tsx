@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import SVG from "./SVG";
-import "./wave.css";
 import shoes from "../../services/shoes";
 import { hero1 } from "../../assets";
 import { Link } from "react-router-dom";
