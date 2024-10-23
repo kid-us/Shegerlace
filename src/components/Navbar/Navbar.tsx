@@ -154,7 +154,7 @@ const Navbar = () => {
                       <button
                         onClick={() => {
                           localStorage.clear();
-                          navigate("/login");
+                          navigate("/");
                         }}
                         className="text-sm font-bold text-red-500 hover:text-gray-500"
                       >
