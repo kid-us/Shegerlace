@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../Button/Button";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { logo_sm } from "../../assets";
+import baseUrl from "../../services/request";
 
 const schema = z.object({
   password: z.string().min(8, {
@@ -47,13 +48,13 @@ const CheckEmail = () => {
 
       const reset = {
         token: token,
-        new_password: data.password,
+        password: data.password,
       };
 
       console.log(reset);
 
       axios
-        .put(`/api/v1/auth/reset`, reset, {
+        .post(`${baseUrl}auth/reset-password`, reset, {
           headers: {
             "Content-Type": "application/json",
           },

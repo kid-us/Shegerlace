@@ -36,7 +36,7 @@ const ForgotPassword = () => {
     setLoader(true);
     axios
       .post(
-        `${baseUrl}auth/reset-verify?email=${data.email}`,
+        `${baseUrl}auth/reset-request?email=${data.email}`,
         {},
         {
           headers: {
