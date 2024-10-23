@@ -7,13 +7,15 @@ import axios from "axios";
 import baseUrl from "../../services/request";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import useAuth from "../../stores/useAuth";
+import Loader from "../Button/Loader";
 
 const schema = z.object({
   phone: z.string().min(10, { message: "Phone number required." }),
   password: z.string().min(4, {
     message: "Password required and must be greater than 4 chars.",
   }),
-  usernames: z
+  username: z
     .string()
     .min(3, { message: "Username required and must be greater than 3 chars." })
     .regex(/^[A-Za-z0-9 ]+$/, {
@@ -29,17 +31,14 @@ const Setting = () => {
 
   const access_token = localStorage.getItem("token");
 
-  const phone_numberNum = "0993866658";
-  const usernameName = "Lorem";
+  const { email, phone_number, username } = useAuth();
 
   const [passwordType, setPasswordType] = useState(true);
 
-  const [phone, setPhone] = useState<string>(
-    phone_numberNum ? phone_numberNum : ""
-  );
-  const [userName, setUserName] = useState<string>(
-    usernameName ? usernameName : ""
-  );
+  const [phone, setPhone] = useState<string>(phone_number ? phone_number : "");
+  const [userName, setUserName] = useState<string>(username ? username : "");
+  const [emailAddress, setEmailAddress] = useState<string>(email ? email : "");
+
   const [loader, setLoader] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<boolean>(false);
 
@@ -48,51 +47,59 @@ const Setting = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    setPhone(phone_numberNum || "");
-    setUserName(usernameName || "");
-  }, [phone_numberNum, usernameName]);
-
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const handleCheckUsername = (username: string) => {
-    axios
-      .get(`${baseUrl}/auth/check-username?username=${username}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      })
-      .catch(() => {
-        setUsernameError(true);
-      });
-  };
+  useEffect(() => {
+    setPhone(phone_number || "");
+    setUserName(username || "");
+    setEmailAddress(email || "");
+    // Set Value
+    setValue("phone", phone_number || "");
+    setValue("username", username || "");
+  }, [phone_number, username, email]);
 
   const onSubmit = (data: FieldValues) => {
-    setLoader(true);
-
     const updateData = {
+      phone_number: data.phone,
       username: data.username,
       password: data.password,
     };
 
+    setLoader(true);
+
     axios
-      .put(`${baseUrl}/auth/update`, updateData, {
+      .get(`${baseUrl}auth/check-username?username=${data.username}`, {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
       })
       .then(() => {
-        window.location.reload();
+        setUsernameError(false);
+        axios
+          .put(`${baseUrl}auth/update`, updateData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${access_token}`,
+            },
+          })
+          .then(() => {
+            setLoader(false);
+            window.location.reload();
+          })
+          .catch((error) => {
+            setLoader(false);
+            console.log(error);
+          });
       })
       .catch((error) => {
-        setLoader(false);
         console.log(error);
+        setLoader(false);
+        setUsernameError(true);
       });
   };
 
@@ -108,8 +115,8 @@ const Setting = () => {
           {/* <!-- Category Form --> */}
           <p className="text-black font-bold text-xs">
             <span className="bi-quote text-black text"></span>
-            You can change your Username and Password Separately or Both at the
-            same Time!
+            You can change your Username, Phone Number and Password Separately
+            or Both at the same Time!
             <span className="bi-quote text-black"></span>
           </p>
 
@@ -127,22 +134,39 @@ const Setting = () => {
               </div>
               <div className="col-span-11 border-l border-gray-300 w-full">
                 <input
-                  {...register("usernames")}
+                  {...register("username")}
                   type="text"
-                  name="usernames"
+                  name="username"
                   className={`focus:outline-none px-3 bg-white h-full placeholder:text-gray-500 text-md w-full`}
                   placeholder="Username"
                   value={userName}
                   onChange={(e) => setUserName(e.currentTarget.value)}
-                  onBlur={(e) => handleCheckUsername(e.currentTarget.value)}
                 />
               </div>
             </div>
-            {errors.usernames && (
+            {errors.username && (
               <p className="text-xs mb-5 text-red-700 rounded ps-1">
-                {errors.usernames.message}
+                {errors.username.message}
               </p>
             )}
+
+            {/* Email */}
+            <div className="lg:bg-primary bg-white rounded-md overflow-hidden lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+              <div className="col-span-2 bg-gray-300">
+                <p className="bi-envelope-fill text-2xl text-center pt-3"></p>
+              </div>
+              <div className="col-span-11 border-l border-gray-300 w-full">
+                <input
+                  type="text"
+                  name="email"
+                  className={`focus:outline-none px-3 h-full placeholder:text-gray-500 text-md w-full bg-gray-300`}
+                  placeholder="Username"
+                  value={emailAddress}
+                  onChange={(e) => setEmailAddress(e.currentTarget.value)}
+                  readOnly
+                />
+              </div>
+            </div>
 
             {/* Phone */}
             <div className="bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
@@ -200,9 +224,7 @@ const Setting = () => {
 
             <div className="mt-8 text-center">
               {loader ? (
-                <p className="py-3 text-black btn-bg w-full rounded flex justify-center font-poppins text-lg shadow shadow-zinc-950">
-                  <span className="loader rounded"></span>
-                </p>
+                <Loader />
               ) : (
                 <button className="py-3 text-black btn-bg w-full rounded font-poppins text-lg shadow shadow-zinc-950">
                   Update
