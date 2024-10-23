@@ -67,7 +67,11 @@ const Search = ({ onClose }: Props) => {
               <p className="lg:text-sm mb-5">Popular searched shoes</p>
               <div className="space-y-2">
                 {shoes.map((s) => (
-                  <Link key={s.id} to={"/"} className="block font-semibold">
+                  <Link
+                    key={s.id}
+                    to={`/search/${s.name}`}
+                    className="block font-semibold"
+                  >
                     {s.name}
                   </Link>
                 ))}
