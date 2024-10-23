@@ -7,8 +7,6 @@ interface Props {
 }
 
 const SmallImage = ({ images, mainImg }: Props) => {
-  console.log(images.length);
-
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     containScroll: "trimSnaps",
