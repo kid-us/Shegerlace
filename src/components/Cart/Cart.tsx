@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
 import { useNavigate } from "react-router-dom";
+import useUsername from "../../hooks/useUsername";
 
 interface Props {
   onCart: () => void;
@@ -9,6 +10,8 @@ interface Props {
 const Cart = ({ onCart }: Props) => {
   const navigate = useNavigate();
   const [error, setError] = useState<boolean>(false);
+
+  const { username } = useUsername();
 
   const {
     cart,
@@ -177,14 +180,23 @@ const Cart = ({ onCart }: Props) => {
               Clear Bag
               <span className="bi-trash-fill ms-3 text-white"></span>
             </button>
-
-            <button
-              onClick={() => handleCheckout()}
-              className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center"
-            >
-              Checkout
-              <span className="bi-check text-xl text-white"></span>
-            </button>
+            {!username ? (
+              <button
+                onClick={() => (window.location.href = "/login")}
+                className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center"
+              >
+                Checkout
+                <span className="bi-check text-xl text-white"></span>
+              </button>
+            ) : (
+              <button
+                onClick={() => handleCheckout()}
+                className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center"
+              >
+                Checkout
+                <span className="bi-check text-xl text-white"></span>
+              </button>
+            )}
           </div>
         </div>
       </div>

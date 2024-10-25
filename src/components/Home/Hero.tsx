@@ -46,7 +46,7 @@ const Hero = () => {
           <h1 className="font-cousine font-extrabold lg:text-5xl text-3xl uppercase">
             Unleash Your Sole, Discover Your Style.
           </h1>
-          <p className="font-bold lg:text-lg mt-3">
+          <p className="lg:text-lg mt-3 text-gray-700">
             Discover the Perfect Pair: Explore Our Extensive Collection of
             Stylish and Comfortable Footwear, Available Online for Every
             Occasion and Lifestyle.

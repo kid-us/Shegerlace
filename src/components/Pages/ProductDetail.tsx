@@ -263,7 +263,7 @@ const ProductDetail = () => {
               {/* Button */}
               <div className="mt-6 space-y-4">
                 {/* Order */}
-                {username ? (
+                {!username ? (
                   <button
                     onClick={() =>
                       size === 0

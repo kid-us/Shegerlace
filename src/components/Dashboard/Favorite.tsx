@@ -6,8 +6,11 @@ import useFavorite from "../../hooks/useFavorite";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import baseUrl from "../../services/request";
+import useAuth from "../../stores/useAuth";
 
 const Favorite = () => {
+  const { username } = useAuth();
+
   const { addToCart, cart } = useCartStore();
 
   const { favorite } = useFavorite();
@@ -72,7 +75,7 @@ const Favorite = () => {
       <Navbar />
       <div className="container mx-auto lg:px-0 px-4">
         <p className="mt-8 text-lg">
-          Welcome back <span className="text-color font-bold">Lorem</span>
+          Welcome back <span className="text-color font-bold">{username}</span>
         </p>
 
         <div className="flex my-5 gap-x-10">

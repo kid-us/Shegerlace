@@ -2,7 +2,6 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import baseUrl from "../../services/request";
 import { AllShoes, StockShoes } from "../../hooks/useStock";
-import { Link } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 
 interface Props {
@@ -10,6 +9,11 @@ interface Props {
 }
 const SimilarItem = ({ brand }: Props) => {
   const [stock, setStock] = useState<StockShoes[]>([]);
+
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     axios
@@ -60,13 +64,16 @@ const SimilarItem = ({ brand }: Props) => {
       {/* Large Device */}
       <div className="lg:flex hidden gap-x-3 overflow-x-scroll scrollbar-hide mt-5 snap-x snap-mandatory mb-20 ps-1">
         {stock.map((s) => (
-          <Link key={s.id} to={`/${s.uid}`}>
+          <button
+            key={s.id}
+            onClick={() => (window.location.href = `/shoes/${s.uid}`)}
+          >
             <img
               src={s.main_picture}
               alt="shoes"
               className="bg-white h-80 w-full  object-cover snap-center rounded"
             />
-          </Link>
+          </button>
         ))}
       </div>
 
@@ -80,13 +87,16 @@ const SimilarItem = ({ brand }: Props) => {
                 key={s.id}
                 className="embla__slide w-[99vw] flex-shrink-0 relative border border-gray-300 rounded-lg p-2"
               >
-                <Link key={s.id} to={`/${s.uid}`}>
+                <button
+                  key={s.id}
+                  onClick={() => (window.location.href = `/shoes/${s.uid}`)}
+                >
                   <img
                     src={s.main_picture}
                     alt="shoes"
                     className="bg-white h-80 w-full object-cover snap-center rounded"
                   />
-                </Link>
+                </button>
               </div>
             ))}
           </div>
