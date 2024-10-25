@@ -8,6 +8,7 @@ import account from "./account.jpg";
 import logo_lg from "./logo_large.png";
 import logo_sm from "./logo_small.png";
 import notFound from "./404.png";
+import cod from "./cash-on-delivery.png";
 
 export {
   hero1,
@@ -20,4 +21,5 @@ export {
   logo_lg,
   logo_sm,
   notFound,
+  cod,
 };

@@ -13,10 +13,14 @@ import { ShoeInfo } from "./ProductDetail";
 import baseUrl from "../../services/request";
 import { StockShoes } from "../../hooks/useStock";
 import Loading from "../Loading/Loading";
+import { cod } from "../../assets";
 
 const schema = z.object({
   name: z.string().min(3, {
     message: "Please insert your name.",
+  }),
+  phone: z.string().min(10, {
+    message: "Phone number must be 10 chars.",
   }),
   address: z.string().min(3, {
     message: "Address must be at least than 5 chars.",
@@ -42,6 +46,7 @@ const Checkout = () => {
 
   const [shoe, setShoe] = useState<StockShoes>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [paidDate, setPaidDate] = useState<Date | null>(null);
 
   // Scroll to top
   useEffect(() => {
@@ -86,11 +91,40 @@ const Checkout = () => {
 
   const [loader, setLoader] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [dateError, setDateError] = useState(false);
+  const [minDate, setMinDate] = useState<string>("");
+  const [kfleKetema, setKfleKetema] = useState<string>("bole");
+
+  // Date Input
+  useEffect(() => {
+    // Get today's date
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    // Format the date as YYYY-MM-DD
+    const formattedDate = `${year}-${month}-${day}`;
+    // Set the min date to today's date
+    setMinDate(formattedDate);
+  }, []);
 
   // On form Submit
   const onSubmit = (data: FieldValues) => {
-    setLoader(true);
+    if (paidDate === null) {
+      setDateError(true);
+      return;
+    }
+    const date = new Date(paidDate);
 
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-indexed month
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as YYYY-MM-DD
+    const formattedDate = `${year}-${month}-${day}`;
+
+    setLoader(true);
     // Cart
     const cartItems = cart.map((c) => ({
       id: c.id,
@@ -104,6 +138,9 @@ const Checkout = () => {
     const orderData = {
       customer_name: data.name,
       address: data.address,
+      phone_number: data.phone,
+      kfle_ketema: kfleKetema,
+      delivery_date: formattedDate,
       order_items: id === "cart" ? cartItems : singleItems,
     };
 
@@ -220,6 +257,14 @@ const Checkout = () => {
               information to deliver the product.
             </p>
 
+            <hr className="my-4 border-gray-300" />
+            <p className="text-2xl text-center font-bold uppercase">
+              Cash on Delivery
+            </p>
+            <div className="flex justify-center">
+              <img src={cod} alt="Cod" className="w-24" />
+            </div>
+
             <hr className="mt-4 border-gray-300" />
 
             {/* Form */}
@@ -236,13 +281,52 @@ const Checkout = () => {
                   {...register("name")}
                   name="name"
                   type="text"
-                  className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
+                  className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white"
                 />
                 {errors.name && (
                   <p className="text-xs text-red-600 mb-5 mt-2">
                     {errors.name.message}
                   </p>
                 )}
+              </div>
+
+              {/* Phone */}
+              <div className="my-4">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm mb-2 text-gray-600"
+                >
+                  Phone Number
+                </label>
+                <input
+                  {...register("phone")}
+                  type="min"
+                  className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white"
+                  maxLength={10}
+                  placeholder="09.../07..."
+                />
+                {errors.phone && (
+                  <p className="text-xs text-red-600 mb-5 mt-2">
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Kfle Ketema */}
+              <div className="my-4">
+                <label
+                  htmlFor="kfle-ketema"
+                  className="block text-sm mb-2 text-gray-600"
+                >
+                  Kfle Ketema
+                </label>
+                <select
+                  className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white font-poppins"
+                  onChange={(e) => setKfleKetema(e.target.value)}
+                >
+                  <option value="bole">Bole</option>
+                  <option value="yeka">Yeka</option>
+                </select>
               </div>
 
               {/* Address */}
@@ -256,8 +340,8 @@ const Checkout = () => {
                 <input
                   {...register("address")}
                   type="text"
-                  className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
-                  maxLength={100}
+                  className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white"
+                  maxLength={10}
                 />
                 {errors.address && (
                   <p className="text-xs text-red-600 mb-5 mt-2">
@@ -266,7 +350,28 @@ const Checkout = () => {
                 )}
               </div>
 
-              {/* promo */}
+              {/* Date */}
+              <div className="my-4">
+                <label
+                  htmlFor="date"
+                  className="block text-sm mb-2 text-gray-600"
+                >
+                  Delivery Date
+                </label>
+                <input
+                  type="date"
+                  className="rounded focus:outline-none bg-white shadow h-12 w-full text-gray-800 px-5"
+                  onChange={(e) => setPaidDate(new Date(e.target.value))}
+                  min={minDate}
+                />
+                {dateError && (
+                  <p className="text-xs text-red-600 mb-5 mt-2">
+                    Date required
+                  </p>
+                )}
+              </div>
+
+              {/* Promo */}
               <div className="my-4">
                 <label
                   htmlFor="id"
@@ -277,7 +382,7 @@ const Checkout = () => {
                 <input
                   {...register("promo")}
                   type="text"
-                  className="rounded focus:outline-none shadow shadow-zinc-900 h-14 w-full text-gray-800 px-5 bg-white"
+                  className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white"
                 />
                 {errors.promo && (
                   <p className="text-xs text-red-600 mb-5 mt-2">
@@ -289,7 +394,7 @@ const Checkout = () => {
               {/* Button */}
               <div className="mt-8">
                 {loader ? <Loader /> : <Button label="Order" />}
-                <p className="text-xs text-gray-500 mt-4">
+                <p className="text-xs text-gray-500 mt-4 text-center">
                   Your personal data will be used to process your order.
                 </p>
               </div>
