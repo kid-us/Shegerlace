@@ -139,6 +139,11 @@ const MyOrders = () => {
                           {o.status}
                         </p>
                       </div>
+                      {o.status === "pending" && (
+                        <button className="bg-red-500 w-full rounded text-center py-2 mt-5 text-white shadow">
+                          Cancel
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))

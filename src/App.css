@@ -115,3 +115,26 @@ input[type="number"] {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+}
+
+.h1 {
+  font-size: 5em;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #556064;
+  text-shadow: 0 0 0 #09ecf8;
+  transition: all 250ms;
+}
+
+.h1:hover {
+  text-shadow: 4px 4px 0 #fff;
+  transform: translate(-2px, -2px);
+}

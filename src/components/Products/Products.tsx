@@ -149,7 +149,7 @@ const Products = () => {
       {/* Loading */}
       {loading && <Loading />}
 
-      <div className="grid lg:grid-cols-3 px-2 py-5 gap-x-5 gap-y-5">
+      <div className="grid lg:grid-cols-3 lg:px-2 px-5 py-5 lg:gap-5 gap-8">
         {/* simpleLoading */}
         {simpleLoading ? (
           <div className="bg col-span-3 h-[60dvh]">
@@ -177,11 +177,11 @@ const Products = () => {
                   <img
                     src={shoe.main_picture}
                     alt="Shoe"
-                    className={`h-64 w-full object-contain -rotate-[20deg] hover:rotate-0`}
+                    className={`lg:h-64 h-60 w-full object-contain -rotate-[20deg] hover:rotate-0`}
                   />
                 </div>
 
-                <div className="mt-4 leading-tight">
+                <div className="lg:mt-4 mt-2 leading-tight">
                   <div className="flex justify-between">
                     <p className="font-extrabold text-lg">{shoe.name}</p>
                     <button

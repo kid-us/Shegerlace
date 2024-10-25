@@ -40,12 +40,14 @@ const Hero = () => {
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2">
+    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10">
       <div className="flex h-full items-center pt-10 lg:ps-28 lg:px-0 px-4">
         <div>
-          <h1 className="font-cousine font-extrabold lg:text-5xl text-3xl uppercase">
-            Unleash Your Sole, Discover Your Style.
-          </h1>
+          <div className="wrapper">
+            <h1 className="h1 font-cousine font-extrabold lg:text-5xl text-3xl uppercase">
+              Unleash Your Sole, Discover Your Style.
+            </h1>
+          </div>
           <p className="lg:text-lg mt-3 text-gray-700">
             Discover the Perfect Pair: Explore Our Extensive Collection of
             Stylish and Comfortable Footwear, Available Online for Every
