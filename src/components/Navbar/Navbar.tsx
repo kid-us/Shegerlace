@@ -57,7 +57,7 @@ const Navbar = () => {
 
       {/* Cart */}
       {onCart && <Cart onCart={() => setOnCart(false)} />}
-      <header className={`sticky top-0 bg z-40 lg:shadow shadow-md`}>
+      <header className={`sticky top-0 bg z-40 lg:shadow shadow shadow-black`}>
         <nav className={`lg:mx-24 ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
           <div className="flex justify-between border-b border-gray-100 pb-4">
             {/* Logo */}
