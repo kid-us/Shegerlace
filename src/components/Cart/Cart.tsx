@@ -35,8 +35,6 @@ const Cart = ({ onCart }: Props) => {
 
   //   Change Quantity
   const handleQuantityChange = (id: number, quantity: number) => {
-    console.log(quantity);
-
     if (quantity > 0) {
       updateCartItemQuantity(id, quantity);
     }
@@ -113,13 +111,15 @@ const Cart = ({ onCart }: Props) => {
                     {c.price}br
                   </p>
                 </div>
-
+                {/* Quantity */}
                 <div>
                   <p className="text-white pt-1 text-xs">Quantity</p>
                   <div className="flex mt-2">
                     <button
                       onClick={() => handleQuantityChange(c.id, c.quantity - 1)}
-                      className="bi-dash btn-bg h-9 text-white rounded-l w-8 shadow shadow-zinc-900"
+                      className={`bi-dash ${
+                        c.quantity === 1 ? "bg-gray-400" : "btn-bg"
+                      } h-9 text-white rounded-l w-8 shadow shadow-zinc-900`}
                     ></button>
                     <input
                       type="number"
@@ -130,11 +130,20 @@ const Cart = ({ onCart }: Props) => {
                       min={1}
                     />
                     <button
-                      onClick={() => handleQuantityChange(c.id, c.quantity + 1)}
-                      className="bi-plus btn-bg h-9 text-white rounded-r w-8 shadow shadow-zinc-900"
+                      onClick={() =>
+                        c.quantity < Number(c.stock) &&
+                        handleQuantityChange(c.id, c.quantity + 1)
+                      }
+                      className={`bi-plus ${
+                        c.quantity === Number(c.stock)
+                          ? "bg-gray-400"
+                          : "btn-bg"
+                      }  h-9 text-white rounded-r w-8 shadow shadow-zinc-900`}
                     ></button>
+                    {/*  */}
                   </div>
                 </div>
+                {/* Size */}
                 <div>
                   <p className="text-white pt-1 text-xs">Size</p>
                   <select

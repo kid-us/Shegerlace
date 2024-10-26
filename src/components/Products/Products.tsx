@@ -193,6 +193,7 @@ const Products = () => {
                           size: 0,
                           img: shoe.main_picture,
                           price: shoe.price,
+                          stock: shoe.stock,
                         });
                       }}
                       className={`font-extrabold text-2xl w-9 h-9 ${

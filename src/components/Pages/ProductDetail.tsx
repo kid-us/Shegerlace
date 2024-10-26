@@ -106,6 +106,7 @@ const ProductDetail = () => {
           size,
           img: shoe.main_picture,
           price: Number(shoe.price),
+          stock: shoe.stock,
         });
       }
     }
@@ -245,7 +246,7 @@ const ProductDetail = () => {
                   className={`bi-dash ${
                     quantity === 1 ? "bg-gray-400" : "btn-bg"
                   } h-12 rounded-l text-xl`}
-                  disabled={quantity === 1} // Disable if quantity is at minimum
+                  disabled={quantity === 1}
                 ></button>
                 <div className="col-span-4 h-12">
                   <input
