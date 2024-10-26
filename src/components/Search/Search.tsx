@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { logo_sm } from "../../assets";
 import { useState } from "react";
 
@@ -69,13 +68,13 @@ const Search = ({ onClose }: Props) => {
               <p className="lg:text-sm mb-5">Popular searched shoes</p>
               <div className="space-y-2">
                 {shoes.map((s) => (
-                  <Link
+                  <button
                     key={s.id}
-                    to={`/search/${s.name}`}
+                    onClick={() => (window.location.href = `/search/${s.name}`)}
                     className="block font-semibold"
                   >
                     {s.name}
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>
