@@ -91,7 +91,7 @@ const Menu = ({ menu, onMenu, username }: Props) => {
                 path == "/setting" && "text-color"
               } font-bold font-cousine text-lg block`}
             >
-              Setting
+              My Profile
             </Link>
           </div>
         )}
