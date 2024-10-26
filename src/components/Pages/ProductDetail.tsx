@@ -241,8 +241,11 @@ const ProductDetail = () => {
               <p className="mt-8 mb-2 text-sm">Quantity</p>
               <div className="grid grid-cols-6 lg:w-72 shadow shadow-zinc-900 rounded">
                 <button
-                  onClick={() => quantity !== 1 && setQuantity(quantity - 1)}
-                  className="bi-dash btn-bg h-12 rounded-l text-xl"
+                  onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                  className={`bi-dash ${
+                    quantity === 1 ? "bg-gray-400" : "btn-bg"
+                  } h-12 rounded-l text-xl`}
+                  disabled={quantity === 1} // Disable if quantity is at minimum
                 ></button>
                 <div className="col-span-4 h-12">
                   <input
@@ -251,12 +254,18 @@ const ProductDetail = () => {
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.currentTarget.value))}
                     min={1}
+                    max={shoe?.stock}
                     readOnly
                   />
                 </div>
                 <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="bi-plus btn-bg h-12 rounded-r text-xl"
+                  onClick={() =>
+                    quantity < Number(shoe?.stock) && setQuantity(quantity + 1)
+                  }
+                  className={`bi-plus ${
+                    quantity === Number(shoe?.stock) ? "bg-gray-400" : "btn-bg"
+                  } h-12 rounded-r text-xl`}
+                  disabled={quantity >= Number(shoe?.stock)}
                 ></button>
               </div>
 

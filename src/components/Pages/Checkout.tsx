@@ -15,6 +15,25 @@ import { StockShoes } from "../../hooks/useStock";
 import Loading from "../Loading/Loading";
 import { cod } from "../../assets";
 
+interface KK {
+  id: number;
+  name: string;
+}
+
+const kKetema: KK[] = [
+  { id: 1, name: "Addis Ketema" },
+  { id: 2, name: "Akaki Kality" },
+  { id: 3, name: "Arada" },
+  { id: 4, name: "Bole" },
+  { id: 5, name: "Gullele" },
+  { id: 6, name: "Kirkos" },
+  { id: 7, name: "Kolfe Keranio" },
+  { id: 8, name: "Lideta" },
+  { id: 9, name: "Nifas Silk-Lafto" },
+  { id: 10, name: "Yeka" },
+  { id: 11, name: "Lemi Kura" },
+];
+
 const schema = z.object({
   name: z.string().min(3, {
     message: "Please insert your name.",
@@ -143,6 +162,8 @@ const Checkout = () => {
       delivery_date: formattedDate,
       order_items: id === "cart" ? cartItems : singleItems,
     };
+
+    console.log(orderData);
 
     axios
       .post(`${baseUrl}order/create`, orderData, {
@@ -324,8 +345,11 @@ const Checkout = () => {
                   className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white font-poppins"
                   onChange={(e) => setKfleKetema(e.target.value)}
                 >
-                  <option value="bole">Bole</option>
-                  <option value="yeka">Yeka</option>
+                  {kKetema.map((kk) => (
+                    <option key={kk.id} value={kk.name}>
+                      {kk.name}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -341,7 +365,6 @@ const Checkout = () => {
                   {...register("address")}
                   type="text"
                   className="rounded focus:outline-none shadow h-12 w-full text-gray-800 px-5 bg-white"
-                  maxLength={10}
                 />
                 {errors.address && (
                   <p className="text-xs text-red-600 mb-5 mt-2">
