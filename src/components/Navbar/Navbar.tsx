@@ -155,6 +155,7 @@ const Navbar = () => {
                         onClick={() => {
                           localStorage.clear();
                           navigate("/");
+                          setDropdown(false);
                         }}
                         className="text-sm font-bold text-red-500 hover:text-gray-500"
                       >
