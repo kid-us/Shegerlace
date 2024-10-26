@@ -123,57 +123,61 @@ const Mens = () => {
 
         {stock.length > 0 ? (
           <div className="grid lg:grid-cols-3 gap-8 mt-10">
-            {stock.map((shoe) => (
-              <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
-                <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleFavorite(shoe.id);
-                    }}
-                    className={`${
-                      favoriteShoe.includes(shoe.id)
-                        ? "bi-heart-fill"
-                        : "bi-heart"
-                    } absolute top-7 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
-                  ></button>
-
-                  <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner overflow-hidden">
-                    <img
-                      src={shoe.main_picture}
-                      alt="Shoe"
-                      className={`h-64 w-full object-contain -rotate-[20deg] hover:rotate-0`}
-                    />
-                  </div>
-
-                  <div className="mt-4 leading-tight">
-                    <div className="flex justify-between">
-                      <p className="font-extrabold text-lg">{shoe.name}</p>
+            {stock.map(
+              (shoe) =>
+                Number(shoe.stock) > 0 && (
+                  <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
+                    <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5">
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          addToCart({
-                            id: shoe.id,
-                            quantity: 1,
-                            size: 0,
-                            img: shoe.main_picture,
-                            price: shoe.price,
-                          });
+                          handleFavorite(shoe.id);
                         }}
-                        className={`font-extrabold text-2xl w-9 h-9 ${
-                          cart.some((c) => c.id === shoe.id)
-                            ? "bi-bag-fill text-white bg-cyan-600 rounded-full  text-lg"
-                            : "bi-bag"
-                        }`}
+                        className={`${
+                          favoriteShoe.includes(shoe.id)
+                            ? "bi-heart-fill"
+                            : "bi-heart"
+                        } absolute top-7 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
                       ></button>
+
+                      <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner overflow-hidden">
+                        <img
+                          src={shoe.main_picture}
+                          alt="Shoe"
+                          className={`h-64 w-full object-contain -rotate-[20deg] hover:rotate-0`}
+                        />
+                      </div>
+
+                      <div className="mt-4 leading-tight">
+                        <div className="flex justify-between">
+                          <p className="font-extrabold text-lg">{shoe.name}</p>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              addToCart({
+                                id: shoe.id,
+                                quantity: 1,
+                                size: 0,
+                                img: shoe.main_picture,
+                                price: shoe.price,
+                                stock: shoe.stock,
+                              });
+                            }}
+                            className={`font-extrabold text-2xl w-9 h-9 ${
+                              cart.some((c) => c.id === shoe.id)
+                                ? "bi-bag-fill text-white bg-cyan-600 rounded-full  text-lg"
+                                : "bi-bag"
+                            }`}
+                          ></button>
+                        </div>
+                        <p>
+                          <span className="bi-cash me-1"></span> {shoe.price}br
+                        </p>
+                      </div>
                     </div>
-                    <p>
-                      <span className="bi-cash me-1"></span> {shoe.price}br
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                  </Link>
+                )
+            )}
           </div>
         ) : (
           <div className="mt-5 h-[40dvh]">

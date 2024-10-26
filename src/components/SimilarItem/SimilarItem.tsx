@@ -63,18 +63,21 @@ const SimilarItem = ({ brand }: Props) => {
     <>
       {/* Large Device */}
       <div className="lg:flex hidden gap-x-3 overflow-x-scroll scrollbar-hide mt-5 snap-x snap-mandatory mb-20 ps-1">
-        {stock.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => (window.location.href = `/shoes/${s.uid}`)}
-          >
-            <img
-              src={s.main_picture}
-              alt="shoes"
-              className="bg-white h-80 w-full  object-cover snap-center rounded"
-            />
-          </button>
-        ))}
+        {stock.map(
+          (s) =>
+            Number(s.stock) > 0 && (
+              <button
+                key={s.id}
+                onClick={() => (window.location.href = `/shoes/${s.uid}`)}
+              >
+                <img
+                  src={s.main_picture}
+                  alt="shoes"
+                  className="bg-white h-80 w-full  object-cover snap-center rounded"
+                />
+              </button>
+            )
+        )}
       </div>
 
       {/* Small device */}
@@ -82,23 +85,27 @@ const SimilarItem = ({ brand }: Props) => {
         {/* Prevents overflow */}
         <div className="embla" ref={emblaRef}>
           <div className="embla__container flex">
-            {stock.map((s) => (
-              <div
-                key={s.id}
-                className="embla__slide w-[99vw] flex-shrink-0 relative border border-gray-300 rounded-lg p-2"
-              >
-                <button
-                  key={s.id}
-                  onClick={() => (window.location.href = `/shoes/${s.uid}`)}
-                >
-                  <img
-                    src={s.main_picture}
-                    alt="shoes"
-                    className="bg-white h-80 w-full object-cover snap-center rounded"
-                  />
-                </button>
-              </div>
-            ))}
+            {stock.map(
+              (s) =>
+                Number(s.stock) > 0 && (
+                  <button
+                    key={s.id}
+                    onClick={() => (window.location.href = `/shoes/${s.uid}`)}
+                    className="embla__slide w-[99vw] flex-shrink-0 relative border border-gray-300 rounded-lg p-2"
+                  >
+                    <button
+                      key={s.id}
+                      onClick={() => (window.location.href = `/shoes/${s.uid}`)}
+                    >
+                      <img
+                        src={s.main_picture}
+                        alt="shoes"
+                        className="bg-white h-80 w-full object-cover snap-center rounded"
+                      />
+                    </button>
+                  </button>
+                )
+            )}
           </div>
         </div>
         {/* Dots for navigation */}
