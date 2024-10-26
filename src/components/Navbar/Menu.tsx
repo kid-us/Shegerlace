@@ -124,11 +124,18 @@ const Menu = ({ menu, onMenu, username }: Props) => {
               Logout
             </button>
           ) : (
-            <Link to={"/login"}>
-              <p className="font-poppins text-white py-[6px] btn-bg rounded-lg w-32 text-center">
-                Login
-              </p>
-            </Link>
+            <div className="flex justify-start gap-x-6">
+              <Link to={"/login"}>
+                <p className="font-poppins text-black py-[6px] rounded">
+                  Login
+                </p>
+              </Link>
+              <Link to={"/register"}>
+                <p className="font-poppins text-white py-[6px] shadow btn-bg rounded w-32 text-center">
+                  Register
+                </p>
+              </Link>
+            </div>
           )}
         </div>
       </div>
