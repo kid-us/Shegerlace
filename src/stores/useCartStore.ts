@@ -6,7 +6,7 @@ export interface CartItem {
   size: number | string;
   price: string | number;
   img: string;
-  stock: string | number;
+  stock?: string | number;
 }
 
 interface CartState {
