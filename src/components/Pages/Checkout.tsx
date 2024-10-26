@@ -52,6 +52,8 @@ type FormData = z.infer<typeof schema>;
 const Checkout = () => {
   const { id } = useParams();
 
+  const { clearCart } = useCartStore();
+
   const access_token = localStorage.getItem("token");
 
   const navigate = useNavigate();
@@ -163,8 +165,6 @@ const Checkout = () => {
       order_items: id === "cart" ? cartItems : singleItems,
     };
 
-    console.log(orderData);
-
     axios
       .post(`${baseUrl}order/create`, orderData, {
         headers: {
@@ -174,9 +174,10 @@ const Checkout = () => {
       })
       .then(() => {
         setSuccess(true);
+        clearCart();
         setTimeout(() => {
           navigate("/my-orders");
-        }, 3000);
+        }, 5000);
       })
       .catch((error) => {
         setLoader(false);
@@ -188,7 +189,7 @@ const Checkout = () => {
     <>
       {loading && <Loading />}
 
-      {/* Payment Done */}
+      {/* Success */}
       {success && (
         <>
           <div className="overlay top-0 z-50"></div>
@@ -199,9 +200,9 @@ const Checkout = () => {
                 <p className="text-2xl bi-check-circle-fill text-green-500 text-end"></p>
               </div>
               <p className="text-sm text-black my-5">
-                Your request is being processed. Once we verify your payment,
-                you will be granted access to track your order in your dashboard
-                page. Stay tuned!
+                Your request is being processed. Once we verify your order, you
+                will be granted access to track your order in My Orders page.
+                Stay tuned!
               </p>
             </div>
           </div>
