@@ -9,6 +9,7 @@ import Button from "../Button/Button";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { logo_sm } from "../../assets";
 import baseUrl from "../../services/request";
+import Loader from "../Button/Loader";
 
 const schema = z.object({
   password: z.string().min(8, {
@@ -38,6 +39,7 @@ const CheckEmail = () => {
   const searchParams = new URLSearchParams(location.search);
   const emailAddress = searchParams.get("email");
   const token = searchParams.get("token");
+  const [loader, setLoader] = useState<boolean>(false);
 
   // New Password
   const onSubmit = (data: FieldValues) => {
@@ -51,7 +53,7 @@ const CheckEmail = () => {
         password: data.password,
       };
 
-      console.log(reset);
+      setLoader(true);
 
       axios
         .post(`${baseUrl}auth/reset-password`, reset, {
@@ -63,6 +65,7 @@ const CheckEmail = () => {
           navigate("/login");
         })
         .catch((error) => {
+          setLoader(false);
           console.log(error);
         });
     }
@@ -150,8 +153,9 @@ const CheckEmail = () => {
                       Password does not match!
                     </p>
                   )}
+
                   {/* Button */}
-                  <Button label="Create Password" />
+                  {loader ? <Loader /> : <Button label="Create Password" />}
                 </form>
               </>
             )}

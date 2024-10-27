@@ -44,8 +44,7 @@ const ForgotPassword = () => {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         navigate(`/reset-password?email=${data.email}`);
       })
       .catch((error) => {
