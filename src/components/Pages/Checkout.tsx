@@ -163,6 +163,7 @@ const Checkout = () => {
       kfle_ketema: kfleKetema,
       delivery_date: formattedDate,
       order_items: id === "cart" ? cartItems : singleItems,
+      promocode: data.promo,
     };
 
     axios
