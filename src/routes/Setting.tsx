@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import z from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import useAuth from "../../stores/useAuth";
-import Loader from "../Button/Loader";
+import baseUrl from "../services/request";
+import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
+import useAuth from "../stores/useAuth";
+import Loader from "../components/Button/Loader";
 
 const schema = z.object({
   phone: z.string().min(10, { message: "Phone number required." }),
@@ -106,7 +106,7 @@ const Setting = () => {
   return (
     <div className="h-[100dvh]">
       <Navbar />
-      <div className="container mx-auto flex justify-center items-center lg:h-[70dvh] h-[80dvh]">
+      <div className="flex justify-center items-center lg:h-[70dvh] h-[80dvh]">
         <div className="lg:w-[38%] w-full lg:px-2 px-5">
           <p className="lg:mt-5 lg:mb-4 text-xl font-poppins">
             Change on your account setting

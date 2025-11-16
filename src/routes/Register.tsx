@@ -1,14 +1,14 @@
-import { account, logo_sm } from "../../assets";
+import { account, logo_sm } from "../assets";
 import z from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import Button from "../Button/Button";
-import Loader from "../Button/Loader";
+import baseUrl from "../services/request";
+import useDocumentTitle from "../hooks/useDocumentTitle";
+import Button from "../components/Button/Button";
+import Loader from "../components/Button/Loader";
 
 const schema = z.object({
   password: z.string().min(4, {
@@ -109,7 +109,7 @@ const Register = () => {
 
   return (
     <div className="bg3">
-      <div className="container mx-auto flex justify-center items-center h-[100dvh]">
+      <div className="flex justify-center items-center h-[100dvh]">
         <div className="lg:grid grid-cols-2 lg:w-[80%] w-full px-2">
           <div className="col-span-2 mb-6 w-10 lg:ms-0 ms-5 lg:mt-0 mt-28">
             <Link to={"/"}>

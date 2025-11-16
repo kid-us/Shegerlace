@@ -1,17 +1,20 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import { AllShoes, StockShoes } from "../../hooks/useStock";
-import Loading from "../Loading/Loading";
-import { useCartStore } from "../../stores/useCartStore";
-import useFavorite from "../../hooks/useFavorite";
-import useUsername from "../../hooks/useUsername";
+import baseUrl from "../services/request";
+import { AllShoes, StockShoes } from "../hooks/useStock";
+import Loading from "../components/Loading/Loading";
+import { useCartStore } from "../stores/useCartStore";
+import useFavorite from "../hooks/useFavorite";
+import useUsername from "../hooks/useUsername";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
-const Search = () => {
-  const { id } = useParams();
+const Kids = () => {
+  // Title
+  const [title] = useState("Kids");
+  useDocumentTitle(title);
 
   const { username } = useUsername();
 
@@ -28,22 +31,22 @@ const Search = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
 
-  // Title
+  // Scroll to top
   useEffect(() => {
-    if (id) {
-      document.title = id;
-    }
-  }, [id]);
+    window.scrollTo(0, 0);
+  }, []);
 
   // Fetch searched shoes
   useEffect(() => {
     axios
-      .get<AllShoes>(`${baseUrl}store/search?query=${id}`, {
+      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Kid`, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
+        console.log(response.data);
+
         setLoading(false);
         setAllData(response.data);
         setStock(response.data.shoes);
@@ -115,8 +118,8 @@ const Search = () => {
 
       <Navbar />
 
-      <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
-        <p className="text-3xl font-bold">Search result "{id}"</p>
+      <div className="lg:px-0 px-3 lg:mt-10 mt-6">
+        <p className="text-xl font-bold">Kids</p>
 
         {stock.length > 0 ? (
           <div className="grid lg:grid-cols-3 gap-8 mt-10">
@@ -177,15 +180,10 @@ const Search = () => {
             )}
           </div>
         ) : (
-          <div className="col-span-3 lg:px-20 p-4 text-xl mt-10 bg-white rounded py-5">
-            <h1 className="font-bold text-4xl mb-5">
-              {" "}
-              Oppps! search not found
-            </h1>
+          <div className="mt-5 h-[40dvh]">
             <p>
-              It looks like we couldn’t find any results matching your search
-              criteria. Please try adjusting your filters or searching with
-              different terms, and we’ll help you find what you’re looking for!
+              It looks like we sell every kids's shoe. We will post the new ones
+              here, so stay tuned!
             </p>
           </div>
         )}
@@ -236,4 +234,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Kids;

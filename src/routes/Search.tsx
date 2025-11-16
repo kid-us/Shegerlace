@@ -1,20 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import { AllShoes, StockShoes } from "../../hooks/useStock";
-import Loading from "../Loading/Loading";
-import { useCartStore } from "../../stores/useCartStore";
-import useFavorite from "../../hooks/useFavorite";
-import useUsername from "../../hooks/useUsername";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import baseUrl from "../services/request";
+import { AllShoes, StockShoes } from "../hooks/useStock";
+import Loading from "../components/Loading/Loading";
+import { useCartStore } from "../stores/useCartStore";
+import useFavorite from "../hooks/useFavorite";
+import useUsername from "../hooks/useUsername";
 
-const Women = () => {
-  // Title
-  const [title] = useState("Women");
-  useDocumentTitle(title);
+const Search = () => {
+  const { id } = useParams();
 
   const { username } = useUsername();
 
@@ -31,22 +28,22 @@ const Women = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
 
-  // Scroll to top
+  // Title
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (id) {
+      document.title = id;
+    }
+  }, [id]);
 
   // Fetch searched shoes
   useEffect(() => {
     axios
-      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Women`, {
+      .get<AllShoes>(`${baseUrl}store/search?query=${id}`, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        console.log(response.data);
-
         setLoading(false);
         setAllData(response.data);
         setStock(response.data.shoes);
@@ -118,8 +115,8 @@ const Women = () => {
 
       <Navbar />
 
-      <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
-        <p className="text-xl font-bold">Women</p>
+      <div className="lg:px-0 px-3 lg:mt-10 mt-6">
+        <p className="text-3xl font-bold">Search result "{id}"</p>
 
         {stock.length > 0 ? (
           <div className="grid lg:grid-cols-3 gap-8 mt-10">
@@ -180,10 +177,15 @@ const Women = () => {
             )}
           </div>
         ) : (
-          <div className="mt-5 h-[40dvh]">
+          <div className="col-span-3 lg:px-20 p-4 text-xl mt-10 bg-white rounded py-5">
+            <h1 className="font-bold text-4xl mb-5">
+              {" "}
+              Oppps! search not found
+            </h1>
             <p>
-              It looks like we sell every women's shoe. We will post the new
-              ones here, so stay tuned!
+              It looks like we couldn’t find any results matching your search
+              criteria. Please try adjusting your filters or searching with
+              different terms, and we’ll help you find what you’re looking for!
             </p>
           </div>
         )}
@@ -234,4 +236,4 @@ const Women = () => {
   );
 };
 
-export default Women;
+export default Search;

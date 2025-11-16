@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import Navbar from "../Navbar/Navbar";
-import Loader from "../Button/Loader";
-import Button from "../Button/Button";
-import Footer from "../Footer/Footer";
-import { useCartStore } from "../../stores/useCartStore";
+import Navbar from "../components/Navbar/Navbar";
+import Loader from "../components/Button/Loader";
+import Button from "../components/Button/Button";
+import Footer from "../components/Footer/Footer";
+import { useCartStore } from "../stores/useCartStore";
 import axios from "axios";
 import { ShoeInfo } from "./ProductDetail";
-import baseUrl from "../../services/request";
-import { StockShoes } from "../../hooks/useStock";
-import Loading from "../Loading/Loading";
-import { cod } from "../../assets";
+import baseUrl from "../services/request";
+import { StockShoes } from "../hooks/useStock";
+import Loading from "../components/Loading/Loading";
+import { cod } from "../assets";
 
 interface KK {
   id: number;
@@ -212,7 +212,7 @@ const Checkout = () => {
 
       <Navbar />
 
-      <div className="container mx-auto">
+      <div>
         <div className="lg:grid grid-cols-2">
           {id !== "cart" ? (
             <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 text-white">

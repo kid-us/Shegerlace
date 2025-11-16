@@ -1,15 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import { AllShoes, StockShoes } from "../../hooks/useStock";
-import Loading from "../Loading/Loading";
-import { useCartStore } from "../../stores/useCartStore";
-import useFavorite from "../../hooks/useFavorite";
-import useUsername from "../../hooks/useUsername";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import baseUrl from "../services/request";
+import { AllShoes, StockShoes } from "../hooks/useStock";
+import Loading from "../components/Loading/Loading";
+import { useCartStore } from "../stores/useCartStore";
+import useFavorite from "../hooks/useFavorite";
+import useUsername from "../hooks/useUsername";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Mens = () => {
   // Title
@@ -118,7 +118,7 @@ const Mens = () => {
 
       <Navbar />
 
-      <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
+      <div className="lg:px-0 px-3 lg:mt-10 mt-6">
         <p className="text-xl font-bold">Mens</p>
 
         {stock.length > 0 ? (

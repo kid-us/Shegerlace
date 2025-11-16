@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Navbar from "../Navbar/Navbar";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { notFound } from "../../assets";
 import { Link } from "react-router-dom";
+import useDocumentTitle from "../hooks/useDocumentTitle";
+import Navbar from "../components/Navbar/Navbar";
+import { notFound } from "../assets";
 
 const Page404 = () => {
   // Title

@@ -40,8 +40,8 @@ const Hero = () => {
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2 lg :mt-0 mt-10">
-      <div className="flex h-full items-center pt-10 lg:ps-28 lg:px-0 px-4">
+    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10">
+      <div className="flex h-full items-center pt-10 lg:px-0 px-4">
         <div>
           <div className="wrapper">
             <h1 className="h1 font-cousine font-extrabold lg:text-5xl text-3xl uppercase">

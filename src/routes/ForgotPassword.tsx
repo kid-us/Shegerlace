@@ -1,14 +1,14 @@
 import z from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 import axios from "axios";
-import baseUrl from "../../services/request";
+import baseUrl from "../services/request";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
-import Loader from "../Button/Loader";
-import { logo_sm } from "../../assets";
+import Button from "../components/Button/Button";
+import Loader from "../components/Button/Loader";
+import { logo_sm } from "../assets";
 
 const schema = z.object({
   email: z.string().email({ message: "Email address required." }),
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="bg">
-      <div className="container mx-auto">
+      <div>
         <div className="flex justify-center items-center h-[100vh]">
           <div className="lg:w-[38%] w-full lg:px-2 px-5">
             <Link to={"/"}>

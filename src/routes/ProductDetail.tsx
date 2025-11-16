@@ -1,18 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-// import shoes from "../../services/shoes";
+import Navbar from "../components/Navbar/Navbar";
+// import shoes from "../services/shoes";
 import { useEffect, useState } from "react";
-import { useCartStore } from "../../stores/useCartStore";
-import Footer from "../Footer/Footer";
+import { useCartStore } from "../stores/useCartStore";
+import Footer from "../components/Footer/Footer";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import { StockShoes } from "../../hooks/useStock";
-import Loading from "../Loading/Loading";
-import Images from "../ProductDatail.tsx/Images";
-import useFavorite from "../../hooks/useFavorite";
-import useUsername from "../../hooks/useUsername";
-import SimilarItem from "../SimilarItem/SimilarItem";
-import SmallImage from "../Products/SmallImage";
+import baseUrl from "../services/request";
+import { StockShoes } from "../hooks/useStock";
+import Loading from "../components/Loading/Loading";
+import Images from "../components/ProductDatail.tsx/Images";
+import useFavorite from "../hooks/useFavorite";
+import useUsername from "../hooks/useUsername";
+import SimilarItem from "../components/SimilarItem/SimilarItem";
+import SmallImage from "../components/Products/SmallImage";
 
 export interface ShoeInfo {
   shoe: StockShoes;
@@ -182,7 +182,7 @@ const ProductDetail = () => {
       {/* Loading */}
       {loading && <Loading />}
       <Navbar />
-      <div className="container mx-auto">
+      <div>
         <div className="lg:grid grid-cols-5 gap-x-10 lg:mt-14 mt-8">
           {/* Images */}
           {shoe && (

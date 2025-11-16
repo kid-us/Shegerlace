@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { logo_lg } from "../../assets";
+import { logo_lg } from "../assets";
 
 const Verify: React.FC = () => {
   const [title] = useState("Verify Email");
@@ -22,7 +22,7 @@ const Verify: React.FC = () => {
 
   return (
     <div className="bg">
-      <div className="container mx-auto flex justify-center items-center h-[100dvh]">
+      <div className="flex justify-center items-center h-[100dvh]">
         <div className="lg:w-[38%] w-full lg:px-2 px-5">
           <div className="flex justify-center mb-10">
             <img src={logo_lg} alt="Logo" className="w-28" />

@@ -1,14 +1,14 @@
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
-import Button from "../Button/Button";
+import Button from "../components/Button/Button";
 import axios from "axios";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import baseUrl from "../../services/request";
-import Loader from "../Button/Loader";
+import useDocumentTitle from "../hooks/useDocumentTitle";
+import baseUrl from "../services/request";
+import Loader from "../components/Button/Loader";
 
 const schema = z.object({
   username: z
@@ -95,7 +95,7 @@ const ContactUs = () => {
         </>
       )}
 
-      <div className="lg:container mx-auto px-3 lg:mt-24 mt-10">
+      <div className="lg:container px-3 lg:mt-24 mt-10">
         <p className="text-4xl font-extrabold text-center">Let's chat!</p>
         <div className="flex justify-center">
           <div className="lg:w-[50%] w-full">

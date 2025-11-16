@@ -1,19 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import baseUrl from "../../services/request";
-import { AllShoes, StockShoes } from "../../hooks/useStock";
-import Loading from "../Loading/Loading";
-import { useCartStore } from "../../stores/useCartStore";
-import useFavorite from "../../hooks/useFavorite";
-import useUsername from "../../hooks/useUsername";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import baseUrl from "../services/request";
+import { AllShoes, StockShoes } from "../hooks/useStock";
+import Loading from "../components/Loading/Loading";
+import { useCartStore } from "../stores/useCartStore";
+import useFavorite from "../hooks/useFavorite";
+import useUsername from "../hooks/useUsername";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
-const Kids = () => {
+const Women = () => {
   // Title
-  const [title] = useState("Kids");
+  const [title] = useState("Women");
   useDocumentTitle(title);
 
   const { username } = useUsername();
@@ -39,7 +39,7 @@ const Kids = () => {
   // Fetch searched shoes
   useEffect(() => {
     axios
-      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Kid`, {
+      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Women`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -118,8 +118,8 @@ const Kids = () => {
 
       <Navbar />
 
-      <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
-        <p className="text-xl font-bold">Kids</p>
+      <div className="lg:px-0 px-3 lg:mt-10 mt-6">
+        <p className="text-xl font-bold">Women</p>
 
         {stock.length > 0 ? (
           <div className="grid lg:grid-cols-3 gap-8 mt-10">
@@ -182,8 +182,8 @@ const Kids = () => {
         ) : (
           <div className="mt-5 h-[40dvh]">
             <p>
-              It looks like we sell every kids's shoe. We will post the new ones
-              here, so stay tuned!
+              It looks like we sell every women's shoe. We will post the new
+              ones here, so stay tuned!
             </p>
           </div>
         )}
@@ -234,4 +234,4 @@ const Kids = () => {
   );
 };
 
-export default Kids;
+export default Women;

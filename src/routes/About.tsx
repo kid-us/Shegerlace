@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const About = () => {
   // Title
@@ -17,7 +17,7 @@ const About = () => {
     <div>
       <Navbar />
 
-      <div className="container mx-auto lg:px-0 px-3 lg:mt-10 mt-6">
+      <div className="lg:px-0 px-3 lg:mt-10 mt-6">
         <p className="mb-4 font-bold lg:text-2xl text-xl">About US</p>
         <p className="mb-4">
           Welcome to ShegerLace, your one-stop destination for stylish and

@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { baseUrl } from "../../services/request";
+// import { baseUrl } from "../services/request";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "../Button/Button";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { logo_sm } from "../../assets";
-import baseUrl from "../../services/request";
-import Loader from "../Button/Loader";
+import Button from "../components/Button/Button";
+import useDocumentTitle from "../hooks/useDocumentTitle";
+import { logo_sm } from "../assets";
+import baseUrl from "../services/request";
+import Loader from "../components/Button/Loader";
 
 const schema = z.object({
   password: z.string().min(8, {
