@@ -182,7 +182,7 @@ const Products = () => {
 
       {/* Pagination */}
       {allData.total_shoes >= ITEMS_PER_PAGE && (
-        <div className="flex justify-end mt-2">
+        <div className="flex justify-end mt-2 lg:me-0 me-5">
           <div className="flex gap-x-2">
             {/* prev */}
             <button

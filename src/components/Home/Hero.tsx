@@ -108,7 +108,7 @@ const Hero = () => {
         <img
           src={sliders.img}
           alt="hero"
-          className="animation-swing absolute inset-0 m-auto lg:-rotate-[20deg] -rotate-[25deg] lg:me-auto me-8"
+          className="animation-swing absolute inset-0 m-auto lg:-rotate-[20deg] -rotate-[25deg] lg:me-auto lg:w-auto w-[80%]"
         />
       </div>
 

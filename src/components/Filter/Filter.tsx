@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useBrand from "../../hooks/useBrand";
+import { brandShoes } from "../../hooks/useBrand";
 import { useFilter } from "../../stores/useFilter";
 
 export interface Size {
@@ -25,23 +25,35 @@ const price = [
   { id: 4, min: "5000", max: "6000" },
 ];
 
-// const size = [
-//   { id: 1, start: "36", end: "37" },
-//   { id: 2, start: "37", end: "38" },
-//   { id: 3, start: "39", end: "40" },
-//   { id: 4, start: "41", end: "42" },
-//   { id: 5, start: "43", end: "44" },
-// ];
+const size = [
+  { id: 1, start: "36", end: "37" },
+  { id: 2, start: "37", end: "38" },
+  { id: 3, start: "39", end: "40" },
+  { id: 4, start: "41", end: "42" },
+  { id: 5, start: "43", end: "44" },
+];
+
+const brandData: brandShoes[] = [
+  { id: 1, brand_names: "Nike" },
+  { id: 2, brand_names: "Adidas" },
+  { id: 3, brand_names: "Puma" },
+  { id: 4, brand_names: "New Balance" },
+  { id: 5, brand_names: "Vans" },
+  { id: 6, brand_names: "Converse" },
+  { id: 7, brand_names: "Jordan" },
+  { id: 8, brand_names: "Under Armour" },
+  { id: 9, brand_names: "Skechers" },
+];
 
 const Filter = () => {
-  const { brand } = useBrand();
+  // const { brand } = useBrand();
 
-  const { updateBrand, updateCategory, updatePrice } = useFilter();
+  const { updateBrand, updateCategory, updatePrice, updateSize } = useFilter();
 
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [priceFilter, setPriceFilter] = useState<Price | null>(null);
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
-  // const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
+  const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
 
   // Handle Brand Filter
   const handleBrandFilter = (filter: string) => {
@@ -65,16 +77,16 @@ const Filter = () => {
     }
   };
 
-  // // Handle Size
-  // const handleSizeFilter = (start: string, end: string) => {
-  //   if (start === sizeFilter?.start) {
-  //     setSizeFilter(null);
-  //     updateSize(null);
-  //   } else {
-  //     setSizeFilter({ start, end });
-  //     updateSize({ start, end });
-  //   }
-  // };
+  // Handle Size
+  const handleSizeFilter = (start: string, end: string) => {
+    if (start === sizeFilter?.start) {
+      setSizeFilter(null);
+      updateSize(null);
+    } else {
+      setSizeFilter({ start, end });
+      updateSize({ start, end });
+    }
+  };
 
   // Handle Price filter
   const handlePriceFilter = (min: string, max: string) => {
@@ -143,7 +155,7 @@ const Filter = () => {
       </div>
 
       {/* Size */}
-      {/* <p className="my-5 font-bold text-lg">Size</p>
+      <p className="my-5 font-bold text-lg">Size</p>
       {size.map((s) => (
         <div
           onClick={() => handleSizeFilter(s.start, s.end)}
@@ -157,12 +169,12 @@ const Filter = () => {
           ></button>
           <p>{s.start + " - " + s.end}</p>
         </div>
-      ))} */}
+      ))}
 
       {/* Brand */}
       <p className="my-5 font-bold text-lg">Brand</p>
       <div className="space-y-1">
-        {brand.map((b) => (
+        {brandData.map((b) => (
           <div
             onClick={() => handleBrandFilter(b.brand_names)}
             key={b.id}

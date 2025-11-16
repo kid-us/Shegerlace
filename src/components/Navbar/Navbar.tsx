@@ -1,15 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import menuNav from "../../services/navbar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Menu from "./Menu";
 import { useCartStore } from "../../stores/useCartStore";
 import Cart from "../Cart/Cart";
 import { logo_lg, logo_sm } from "../../assets";
 import Search from "../Search/Search";
-import axios from "axios";
-import { User } from "../Protected/Protected";
-import baseUrl from "../../services/request";
-import Loading from "../Loading/Loading";
+// import axios from "axios";
+// import { User } from "../Protected/Protected";
+// import baseUrl from "../../services/request";
+// import Loading from "../Loading/Loading";
 
 const Navbar = () => {
   const [menu, setMenu] = useState<boolean>(false);
@@ -18,37 +18,37 @@ const Navbar = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [search, setSearch] = useState<boolean>(false);
 
-  const access_token = localStorage.getItem("token");
+  // const access_token = localStorage.getItem("token");
 
-  const [username, setUsername] = useState<string | null>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [username, setUsername] = useState<string | null>("");
+  // const [loading, setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
   // Get username
-  useEffect(() => {
-    if (access_token) {
-      axios
-        .get<User>(`${baseUrl}auth/me`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((response) => {
-          setUsername(response.data.user.username);
-          setLoading(false);
-        })
-        .catch(() => {
-          setUsername(null);
-          setLoading(false);
-        });
-    } else {
-      setUsername(null);
-      setLoading(false);
-    }
-  }, [access_token]);
+  // useEffect(() => {
+  //   if (access_token) {
+  //     axios
+  //       .get<User>(`${baseUrl}auth/me`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${access_token}`,
+  //           "Access-Control-Allow-Origin": "*",
+  //         },
+  //       })
+  //       .then((response) => {
+  //         setUsername(response.data.user.username);
+  //         setLoading(false);
+  //       })
+  //       .catch(() => {
+  //         setUsername(null);
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     setUsername(null);
+  //     setLoading(false);
+  //   }
+  // }, [access_token]);
 
   return (
     <>
@@ -115,20 +115,20 @@ const Navbar = () => {
                 </div>
                 {/* Account */}
                 <div className="relative">
-                  {username ? (
+                  {/* {username ? (
                     <button onClick={() => setDropdown(!dropdown)}>
                       <p className="text-center pe-10 ps-2 font-bold transition-shadow duration-500 ease-in-out hover:shadow-none text-color font-cousine text-lg">
                         <span className="bi-person-fill me-2"></span>
                         {username}
                       </p>
                     </button>
-                  ) : (
-                    <Link to={"/login"}>
-                      <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
-                        Sign In
-                      </p>
-                    </Link>
-                  )}
+                  ) : ( */}
+                  <Link to={"/login"}>
+                    <p className="btn-bg rounded-lg text-center py-[8px] px-10 shadow shadow-zinc-900 text-white text-sm transition-shadow duration-500 ease-in-out hover:shadow-none">
+                      Sign In
+                    </p>
+                  </Link>
+                  {/* )} */}
 
                   {/* Dropdown */}
                   {dropdown && (
@@ -199,7 +199,7 @@ const Navbar = () => {
       {/* Menu */}
       {menu && (
         <Menu
-          username={username}
+          username={null}
           menu={menu}
           onMenu={(val: boolean) => setMenu(val)}
         />
