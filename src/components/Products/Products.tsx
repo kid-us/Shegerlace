@@ -7,6 +7,7 @@ import { useFilter } from "../../stores/useFilter";
 import { AllShoes } from "../../hooks/useStock";
 import useUsername from "../../hooks/useUsername";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import ShoeCard from "../Card/ShoeCard";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -121,56 +122,13 @@ const Products = () => {
       <div className="grid lg:grid-cols-3 lg:px-2 px-5 py-5 lg:gap-x-5 lg:gap-y-10 gap-8">
         {filteredShoes.length > 0 ? (
           filteredShoes.map((shoe) => (
-            <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
-              <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5 hover:shadow-none transition-all duration-300">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleFavorite(shoe.id);
-                  }}
-                  className={`${
-                    favoriteShoe.includes(shoe.id)
-                      ? "bi-heart-fill"
-                      : "bi-heart"
-                  } absolute top-2 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-1 w-20 h-20`}
-                ></button>
-
-                <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner overflow-hidden">
-                  <img
-                    src={shoe.main_picture}
-                    alt="Shoe"
-                    className={`lg:h-64 h-60 w-full object-contain transition-all duration-300 -rotate-[20deg] hover:rotate-0`}
-                  />
-                </div>
-
-                <div className="lg:mt-4 mt-2 leading-tight">
-                  <div className="flex justify-between">
-                    <p className="font-extrabold text-lg">{shoe.name}</p>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        addToCart({
-                          id: shoe.id,
-                          quantity: 1,
-                          size: 0,
-                          img: shoe.main_picture,
-                          price: shoe.price,
-                          stock: shoe.stock,
-                        });
-                      }}
-                      className={`font-extrabold text-2xl w-9 h-9 ${
-                        cart.some((c) => c.id === shoe.id)
-                          ? "bi-bag-fill text-white bg-cyan-600 rounded-full  text-lg"
-                          : "bi-bag"
-                      }`}
-                    ></button>
-                  </div>
-                  <p>
-                    <span className="bi-cash me-1"></span> {shoe.price}br
-                  </p>
-                </div>
-              </div>
-            </Link>
+            <ShoeCard
+              addToCart={addToCart}
+              cart={cart}
+              favoriteShoe={favoriteShoe}
+              handleFavorite={handleFavorite}
+              shoe={shoe}
+            />
           ))
         ) : (
           <p className="col-span-3 lg:px-20 p-4 text-xl mt-5 bg-white rounded py-5">
@@ -182,7 +140,7 @@ const Products = () => {
 
       {/* Pagination */}
       {allData.total_shoes >= ITEMS_PER_PAGE && (
-        <div className="flex justify-end mt-2 lg:me-0 me-5">
+        <div className="flex justify-end mt-10 lg:me-0 me-5">
           <div className="flex gap-x-2">
             {/* prev */}
             <button
@@ -192,12 +150,12 @@ const Products = () => {
                 !allData.has_prev
                   ? "bg-gray-400 text-white cursor-not-allowed"
                   : "btn-bg text-white"
-              } rounded text-sm p-1 hover:scale-105`}
+              } rounded-full text-sm p-2 hover:scale-105`}
             >
               <ChevronLeft />
             </button>
             {/* Current */}
-            <p className="bg-white w-14 rounded text-sm text-center pt-[6px]">
+            <p className="flex items-center justify-center mt-1 bg-white w-14 h-8 rounded text-sm text-center">
               {allData.current_page} of {allData.total_pages}
             </p>
             {/*next  */}
@@ -208,7 +166,7 @@ const Products = () => {
                 !allData.has_next
                   ? "bg-gray-400 text-white cursor-not-allowed"
                   : "btn-bg text-white"
-              } rounded text-sm p-1 hover:scale-105`}
+              } rounded-full text-sm p-2 hover:scale-105`}
             >
               <ChevronRight />
             </button>

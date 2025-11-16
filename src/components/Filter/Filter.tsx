@@ -2,6 +2,10 @@ import { useState } from "react";
 import { brandShoes } from "../../hooks/useBrand";
 import { useFilter } from "../../stores/useFilter";
 
+interface Props {
+  hideCategory?: boolean;
+}
+
 export interface Size {
   start: string;
   end: string;
@@ -45,9 +49,7 @@ const brandData: brandShoes[] = [
   { id: 9, brand_names: "Skechers" },
 ];
 
-const Filter = () => {
-  // const { brand } = useBrand();
-
+const Filter = ({ hideCategory = false }: Props) => {
   const { updateBrand, updateCategory, updatePrice, updateSize } = useFilter();
 
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
@@ -104,36 +106,37 @@ const Filter = () => {
       <p className="text-2xl mb-5 font-bold">Filter</p>
 
       {/* Category */}
-      <div className="space-y-1">
-        <p
-          onClick={() => {
-            setBrandFilter(null);
-            // setSizeFilter(null);
-            setPriceFilter(null);
-            setCategoryFilter(null);
-            updateBrand(null);
-            updateCategory(null);
-            updatePrice(null);
-          }}
-          className="cursor-pointer mb-2"
-        >
-          Default
-        </p>
-        {category.map((c) => (
-          <div
-            onClick={() => handleCategoryFilter(c.label)}
-            key={c.id}
-            className="cursor-pointer flex gap-x-3"
+      {!hideCategory && (
+        <div className="space-y-1">
+          <p
+            onClick={() => {
+              setBrandFilter(null);
+              setPriceFilter(null);
+              setCategoryFilter(null);
+              updateBrand(null);
+              updateCategory(null);
+              updatePrice(null);
+            }}
+            className="cursor-pointer mb-2"
           >
-            <button
-              className={`${
-                categoryFilter === c.label ? "btn-bg" : "bg-white"
-              } border border-gray-600 rounded h-5 w-5`}
-            ></button>
-            <p>{c.label}</p>
-          </div>
-        ))}
-      </div>
+            Default
+          </p>
+          {category.map((c) => (
+            <div
+              onClick={() => handleCategoryFilter(c.label)}
+              key={c.id}
+              className="cursor-pointer flex gap-x-3"
+            >
+              <button
+                className={`${
+                  categoryFilter === c.label ? "btn-bg" : "bg-white"
+                } border border-gray-600 rounded h-5 w-5`}
+              ></button>
+              <p>{c.label}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Price */}
       <p className="my-5 font-bold text-lg">Price</p>

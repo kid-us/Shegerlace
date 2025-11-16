@@ -401,5 +401,14 @@ export const getShoeById = (id: string): StockShoes | undefined => {
   );
 };
 
+// Helper function to get shoes by category
+export const getShoesByCategory = (category: string): StockShoes[] => {
+  return mockStockShoes.filter(
+    (shoe) =>
+      shoe.category.toLowerCase() === category.toLowerCase() &&
+      Number(shoe.stock) > 0
+  );
+};
+
 export default mockStockShoes;
 

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import SmFilter from "../components/Filter/SmFilter";
 import Footer from "../components/Footer/Footer";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import { kidPick, menPick, womenPick } from "../assets";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [title] = useState("Shegeralce");
@@ -24,6 +26,42 @@ const Home = () => {
       <Navbar />
       {/* Hero */}
       <Hero />
+
+      {/* Banners */}
+      <div className="grid lg:grid-cols-3 grid-cols-2 gap-1 mb-20">
+        <Link to={"/mens"} className="relative group overflow-hidden">
+          <p className="absolute z-10 h1-font bottom-2 left-2 text-white text-xl font-bold uppercase">
+            Men's
+          </p>
+          <img
+            src={menPick}
+            alt="Mens"
+            className="h-80 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
+          />
+        </Link>
+
+        <Link to={"/women"} className="relative group overflow-hidden">
+          <p className="absolute z-10 h1-font bottom-2 left-2 text-black text-xl font-bold uppercase">
+            Women's
+          </p>
+          <img
+            src={womenPick}
+            alt="Women's"
+            className="h-80 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
+          />
+        </Link>
+
+        <Link to={"/kids"} className="relative group overflow-hidden">
+          <p className="absolute z-10 h1-font bottom-2 left-2 text-black text-xl font-bold uppercase">
+            Kid's
+          </p>
+          <img
+            src={kidPick}
+            alt="Kids"
+            className="h-80 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
+          />
+        </Link>
+      </div>
 
       {/* Shoes */}
       <div className="lg:hidden flex justify-between lg:mt-0 mt-14 mb-5">

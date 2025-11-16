@@ -1,15 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar/Navbar";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import baseUrl from "../services/request";
-import { AllShoes, StockShoes } from "../hooks/useStock";
+import { useEffect, useMemo, useState } from "react";
+import { AllShoes } from "../hooks/useStock";
 import Loading from "../components/Loading/Loading";
 import { useCartStore } from "../stores/useCartStore";
 import useFavorite from "../hooks/useFavorite";
 import useUsername from "../hooks/useUsername";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import { mockStockShoes } from "../services/stockShoes";
+import Filter from "../components/Filter/Filter";
+import SmFilter from "../components/Filter/SmFilter";
+import { useFilter } from "../stores/useFilter";
+import ShoeCard from "../components/Card/ShoeCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Mens = () => {
   // Title
@@ -20,40 +24,100 @@ const Mens = () => {
 
   const { addToCart, cart } = useCartStore();
   const { favorite } = useFavorite();
-
-  const access_token = localStorage.getItem("token");
-
+  const { brand, price, size, updateCategory } = useFilter();
   const navigate = useNavigate();
 
-  const [allData, setAllData] = useState<AllShoes>();
-  const [stock, setStock] = useState<StockShoes[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [favoriteShoe, setFavoriteShoe] = useState<number[]>([]);
+  const [filter, setFilter] = useState<boolean>(false);
+
+  // Set category filter on mount
+  useEffect(() => {
+    updateCategory("Men");
+    return () => {
+      updateCategory(null);
+    };
+  }, [updateCategory]);
 
   // Scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Fetch searched shoes
-  useEffect(() => {
-    axios
-      .get<AllShoes>(`${baseUrl}store/get-shoes-by-filter?category=Men`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
+  // Filter and paginate shoes
+  const { filteredShoes, allData } = useMemo(() => {
+    let filtered = mockStockShoes.filter(
+      (shoe) => shoe.category.toLowerCase() === "men"
+    );
 
-        setLoading(false);
-        setAllData(response.data);
-        setStock(response.data.shoes);
-      })
-      .catch((error) => {
-        console.log(error);
+    // Apply brand filter
+    if (brand) {
+      filtered = filtered.filter(
+        (shoe) => shoe.brand.toLowerCase() === brand.toLowerCase()
+      );
+    }
+
+    // Apply price filter
+    if (price) {
+      const minPrice = Number(price.min);
+      const maxPrice = Number(price.max);
+      filtered = filtered.filter(
+        (shoe) => shoe.price >= minPrice && shoe.price <= maxPrice
+      );
+    }
+
+    // Apply size filter
+    if (size) {
+      const sizeStart = Number(size.start);
+      const sizeEnd = Number(size.end);
+      filtered = filtered.filter((shoe) => {
+        const [rangeStart, rangeEnd] = shoe.size_range.split("-").map(Number);
+        return (
+          (sizeStart >= rangeStart && sizeStart <= rangeEnd) ||
+          (sizeEnd >= rangeStart && sizeEnd <= rangeEnd) ||
+          (sizeStart <= rangeStart && sizeEnd >= rangeEnd)
+        );
       });
+    }
+
+    // Filter out items with stock <= 0
+    filtered = filtered.filter((shoe) => Number(shoe.stock) > 0);
+
+    // Calculate pagination
+    const ITEMS_PER_PAGE = 9;
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const paginatedShoes = filtered.slice(startIndex, endIndex);
+
+    const allDataResult: AllShoes = {
+      shoes: paginatedShoes,
+      current_page: page,
+      has_next: page < totalPages,
+      has_prev: page > 1,
+      next_num: page < totalPages ? page + 1 : null,
+      prev_num: page > 1 ? page - 1 : null,
+      total_pages: totalPages,
+      total_shoes: filtered.length,
+    };
+
+    return {
+      filteredShoes: paginatedShoes,
+      allData: allDataResult,
+    };
+  }, [brand, price, size, page]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [brand, price, size]);
+
+  // Set loading to false after initial load
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, []);
 
   // Set Favorites
@@ -68,43 +132,9 @@ const Mens = () => {
   const handleFavorite = (id: number) => {
     if (username) {
       if (favoriteShoe.includes(id)) {
-        // Remove the id from the state
-        axios
-          .post(
-            `${baseUrl}auth/remove-from-favorite?id=${id}`,
-            {},
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${access_token}`,
-              },
-            }
-          )
-          .then(() => {
-            setFavoriteShoe(favoriteShoe.filter((favId) => favId !== id));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        setFavoriteShoe(favoriteShoe.filter((favId) => favId !== id));
       } else {
-        // Add the id to the state
-        axios
-          .post(
-            `${baseUrl}auth/add-to-favorite?id=${id}`,
-            {},
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${access_token}`,
-              },
-            }
-          )
-          .then(() => {
-            setFavoriteShoe([...favoriteShoe, id]);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        setFavoriteShoe([...favoriteShoe, id]);
       }
     } else {
       navigate("/login");
@@ -113,120 +143,89 @@ const Mens = () => {
 
   return (
     <>
+      {filter && <SmFilter onFilter={() => setFilter(false)} />}
       {/* Loading */}
       {loading && <Loading />}
 
       <Navbar />
 
-      <div className="lg:px-0 px-3 lg:mt-10 mt-6">
-        <p className="text-xl font-bold">Mens</p>
+      {/* Filter button for mobile */}
+      <div className="lg:hidden flex justify-between lg:mt-0 mt-14 mb-5 px-3">
+        <h1 className="text-xl font-extrabold uppercase">Mens</h1>
+        <button onClick={() => setFilter(true)} className="me-2">
+          Filter <span className="bi-sliders text-lg ms-1"></span>
+        </button>
+      </div>
 
-        {stock.length > 0 ? (
-          <div className="grid lg:grid-cols-3 gap-8 mt-10">
-            {stock.map(
-              (shoe) =>
-                Number(shoe.stock) > 0 && (
-                  <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
-                    <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleFavorite(shoe.id);
-                        }}
-                        className={`${
-                          favoriteShoe.includes(shoe.id)
-                            ? "bi-heart-fill"
-                            : "bi-heart"
-                        } absolute top-7 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
-                      ></button>
+      <div className="lg:grid grid-cols-12 gap-x-5 lg:px-0 px-3 lg:mt-10 mt-6">
+        {/* Filter sidebar for desktop */}
+        <div className="lg:block hidden col-span-2 px-2 pt-6 self-start sticky top-[100px]">
+          <Filter hideCategory />
+        </div>
 
-                      <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner overflow-hidden">
-                        <img
-                          src={shoe.main_picture}
-                          alt="Shoe"
-                          className={`h-64 w-full object-contain -rotate-[20deg] hover:rotate-0`}
-                        />
-                      </div>
+        {/* Products */}
+        <div className="w-full lg:col-span-10">
+          <p className="text-xl font-bold lg:block hidden">Mens</p>
 
-                      <div className="mt-4 leading-tight">
-                        <div className="flex justify-between">
-                          <p className="font-extrabold text-lg">{shoe.name}</p>
-                          <button
-                            onClick={(e) => {
-                              e.preventDefault();
-                              addToCart({
-                                id: shoe.id,
-                                quantity: 1,
-                                size: 0,
-                                img: shoe.main_picture,
-                                price: shoe.price,
-                                stock: shoe.stock,
-                              });
-                            }}
-                            className={`font-extrabold text-2xl w-9 h-9 ${
-                              cart.some((c) => c.id === shoe.id)
-                                ? "bi-bag-fill text-white bg-cyan-600 rounded-full  text-lg"
-                                : "bi-bag"
-                            }`}
-                          ></button>
-                        </div>
-                        <p>
-                          <span className="bi-cash me-1"></span> {shoe.price}br
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                )
-            )}
-          </div>
-        ) : (
-          <div className="mt-5 h-[40dvh]">
-            <p>
-              It looks like we sell every men's shoe. We will post the new ones
-              here, so stay tuned!
-            </p>
-          </div>
-        )}
+          {filteredShoes.length > 0 ? (
+            <>
+              <div className="grid lg:grid-cols-3 gap-8 mt-10">
+                {filteredShoes.map((shoe) => (
+                  <ShoeCard
+                    addToCart={addToCart}
+                    cart={cart}
+                    favoriteShoe={favoriteShoe}
+                    handleFavorite={handleFavorite}
+                    shoe={shoe}
+                  />
+                ))}
+              </div>
 
-        {/* Pagination */}
-        {stock.length >= 10 && (
-          <div className="flex justify-end mt-2">
-            <div className="flex gap-x-2">
-              {/* prev */}
-              <button
-                onClick={() =>
-                  allData?.has_prev && setPage(allData ? page - 1 : 0)
-                }
-                disabled={allData?.has_prev === false ? true : false}
-                className={`${
-                  allData?.has_prev === false
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "btn-bg"
-                } w-20 font-poppins rounded text-sm h-7`}
-              >
-                Prev
-              </button>
-              {/* Current */}
-              <p className="bg-white w-14 font-poppins rounded text-sm h-7 text-center pt-[6px]">
-                {allData?.current_page} of {allData?.total_pages}
+              {/* Pagination */}
+              {allData.total_shoes >= 9 && (
+                <div className="flex justify-end mt-10 lg:me-0 me-5">
+                  <div className="flex gap-x-2">
+                    {/* prev */}
+                    <button
+                      onClick={() => allData.has_prev && setPage(page - 1)}
+                      disabled={!allData.has_prev}
+                      className={`${
+                        !allData.has_prev
+                          ? "bg-gray-400 text-white cursor-not-allowed"
+                          : "btn-bg text-white"
+                      } rounded-full text-sm p-2 hover:scale-105`}
+                    >
+                      <ChevronLeft />
+                    </button>
+                    {/* Current */}
+                    <p className="flex items-center justify-center mt-1 bg-white w-14 h-8 rounded text-sm text-center">
+                      {allData.current_page} of {allData.total_pages}
+                    </p>
+                    {/*next  */}
+                    <button
+                      onClick={() => allData.has_next && setPage(page + 1)}
+                      disabled={!allData.has_next}
+                      className={`${
+                        !allData.has_next
+                          ? "bg-gray-400 text-white cursor-not-allowed"
+                          : "btn-bg text-white"
+                      } rounded-full text-sm p-2 hover:scale-105`}
+                    >
+                      <ChevronRight />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="mt-5 h-[40dvh]">
+              <p>
+                It looks like we sell every men's shoe. We will post the new
+                ones here, so stay tuned!
               </p>
-              {/*next  */}
-              <button
-                onClick={() =>
-                  allData?.has_next && setPage(allData ? page + 1 : 0)
-                }
-                disabled={allData?.has_next === false ? true : false}
-                className={`${
-                  allData?.has_next === false
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "btn-bg"
-                } w-20 font-poppins rounded text-sm h-7`}
-              >
-                Next
-              </button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <Footer />
