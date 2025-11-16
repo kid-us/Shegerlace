@@ -3,8 +3,6 @@ import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { useCartStore } from "../stores/useCartStore";
 import Footer from "../components/Footer/Footer";
-// import axios from "axios"; // Commented out
-// import baseUrl from "../services/request"; // Commented out
 import { StockShoes } from "../hooks/useStock";
 import Loading from "../components/Loading/Loading";
 import Images from "../components/ProductDatail.tsx/Images";
@@ -13,6 +11,10 @@ import useUsername from "../hooks/useUsername";
 import SimilarItem from "../components/SimilarItem/SimilarItem";
 import SmallImage from "../components/Products/SmallImage";
 import { getShoeById } from "../services/stockShoes";
+
+export interface ShoeInfo {
+  shoe: StockShoes;
+}
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -233,29 +235,16 @@ const ProductDetail = () => {
               {/* Button */}
               <div className="mt-6 space-y-4">
                 {/* Order */}
-                {!username ? (
-                  <button
-                    onClick={() =>
-                      size === 0
-                        ? setError(true)
-                        : (window.location.href = `/login`)
-                    }
-                    className="btn-bg block text-center pt-1 font-bold font-poppins text-lg w-full rounded-lg lg:h-12 h-14 shadow-sm shadow-zinc-950 transition-all duration-300 hover:shadow-none"
-                  >
-                    Order
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      size === 0
-                        ? setError(true)
-                        : (window.location.href = `/checkout/${id}?size=${size}&qty=${quantity}`)
-                    }
-                    className="btn-bg block text-center pt-1 font-bold font-poppins text-lg w-full rounded-lg lg:h-12 h-14 shadow-sm shadow-zinc-950 transition-all duration-300 hover:shadow-none"
-                  >
-                    Order
-                  </button>
-                )}
+                <button
+                  onClick={() =>
+                    size === 0
+                      ? setError(true)
+                      : (window.location.href = `/checkout/${id}?size=${size}&qty=${quantity}`)
+                  }
+                  className="btn-bg block text-center pt-1 font-bold font-poppins text-lg w-full rounded-lg lg:h-12 h-14 shadow-sm shadow-zinc-950 transition-all duration-300 hover:shadow-none"
+                >
+                  Order
+                </button>
                 {/* Add to cart */}
                 <button
                   onClick={() => handleAddToBag()}

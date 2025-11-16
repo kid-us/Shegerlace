@@ -58,9 +58,9 @@ function App() {
       <Route
         path="/checkout/:id"
         element={
-          <Protected>
-            <Checkout />
-          </Protected>
+          // <Protected>
+          <Checkout />
+          // </Protected>
         }
       />
       <Route path="/mens" element={<Mens />} />
