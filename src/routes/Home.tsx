@@ -35,13 +35,15 @@ const Home = () => {
         </button>
       </div>
       <div className="lg:grid grid-cols-12 gap-x-5">
-        <div className="lg:block hidden sticky top-24 col-span-2  px-2 my-6">
+        <div className="lg:block hidden col-span-2 px-2 pt-6 self-start sticky top-[100px]">
           <Filter />
         </div>
+
         <div className="w-full lg:col-span-10">
           <Products />
         </div>
       </div>
+
       <Footer />
     </>
   );

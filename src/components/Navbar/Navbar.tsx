@@ -53,13 +53,13 @@ const Navbar = () => {
   return (
     <>
       {/* Loading */}
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
 
       {/* Cart */}
       {onCart && <Cart onCart={() => setOnCart(false)} />}
       <header className={`sticky top-0 bg z-40 shadow-gray-600`}>
         <nav className={` ${menu ? "border-b pb-5 px-3" : "px-3"}`}>
-          <div className="flex justify-between border-b border-gray-100 pb-4 lg:0 py-1">
+          <div className="flex justify-between border-b border-gray-200 lg:0 pb-2">
             {/* Logo */}
             <div>
               <Link
@@ -69,7 +69,7 @@ const Navbar = () => {
                 <img
                   src={logo_lg}
                   alt="Logo"
-                  className="lg:block hidden w-16 pt-2"
+                  className="lg:block hidden w-12 pt-2"
                 />
                 <img
                   src={logo_sm}

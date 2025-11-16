@@ -40,7 +40,7 @@ const Hero = () => {
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10">
+    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10 lg:pt-14 lg:pb-24">
       <div className="flex h-full items-center pt-10 lg:px-0 px-4">
         <div>
           <div className="wrapper">
