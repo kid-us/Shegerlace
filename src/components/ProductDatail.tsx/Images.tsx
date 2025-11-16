@@ -15,7 +15,7 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
               key={index}
               className={`${
                 activeImage === shoe ? "bg-gray-100" : "bg-white"
-              } rounded-lg mb-1 mx-4 shadow`}
+              } rounded-lg mb-1 mx-4 shadow overflow-hidden`}
             >
               <div
                 onMouseEnter={() => setActiveImage(shoe)}

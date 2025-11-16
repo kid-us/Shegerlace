@@ -115,8 +115,8 @@ const ProductDetail = () => {
   // Set Favorites
   useEffect(() => {
     if (favorite.length > 0) {
-      const favoriteIds = favorite.map((f) => f.id); // Extract IDs from the favorite array
-      setFavoriteShoe(favoriteIds); // Directly set the favoriteShoe state with the array of IDs
+      const favoriteIds = favorite.map((f) => f.id);
+      setFavoriteShoe(favoriteIds);
     }
   }, [favorite]);
 

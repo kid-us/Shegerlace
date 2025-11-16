@@ -162,7 +162,7 @@ const Kids = () => {
       <div className="lg:grid grid-cols-12 gap-x-5 lg:px-0 px-3 lg:mt-10 mt-6">
         {/* Filter sidebar for desktop */}
         <div className="lg:block hidden col-span-2 px-2 pt-6 self-start sticky top-[100px]">
-          <Filter hideCategory />
+          <Filter hideCategory kidsSize />
         </div>
 
         {/* Products */}

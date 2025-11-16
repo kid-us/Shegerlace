@@ -49,7 +49,7 @@ const ShoeCard = ({
         {/* Details */}
         <div className="lg:mt-4 mt-2 leading-tight">
           <div className="flex justify-between items-center">
-            <p className="font-extrabold text-xl">{shoe.name}</p>
+            <p className="font-extrabold text-xl line-clamp-1">{shoe.name}</p>
 
             {/* Add to Cart */}
             <button

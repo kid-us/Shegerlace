@@ -4,6 +4,7 @@ import { useFilter } from "../../stores/useFilter";
 
 interface Props {
   hideCategory?: boolean;
+  kidsSize?: boolean;
 }
 
 export interface Size {
@@ -35,6 +36,13 @@ const size = [
   { id: 3, start: "39", end: "40" },
   { id: 4, start: "41", end: "42" },
   { id: 5, start: "43", end: "44" },
+];
+
+const kidsSize = [
+  { id: 1, start: "30", end: "31" },
+  { id: 2, start: "32", end: "33" },
+  { id: 3, start: "34", end: "35" },
+  { id: 4, start: "36", end: "37" },
 ];
 
 const brandData: brandShoes[] = [
@@ -158,20 +166,35 @@ const Filter = ({ hideCategory = false }: Props) => {
 
       {/* Size */}
       <p className="my-5 font-bold text-lg">Size</p>
-      {size.map((s) => (
-        <div
-          onClick={() => handleSizeFilter(s.start, s.end)}
-          key={s.id}
-          className="cursor-pointer flex gap-x-3"
-        >
-          <button
-            className={`${
-              sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
-            } border border-gray-600 rounded h-5 w-5`}
-          ></button>
-          <p>{s.start + " - " + s.end}</p>
-        </div>
-      ))}
+      {kidsSize
+        ? kidsSize.map((s) => (
+            <div
+              onClick={() => handleSizeFilter(s.start, s.end)}
+              key={s.id}
+              className="cursor-pointer flex gap-x-3"
+            >
+              <button
+                className={`${
+                  sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
+                } border border-gray-600 rounded h-5 w-5`}
+              ></button>
+              <p>{s.start + " - " + s.end}</p>
+            </div>
+          ))
+        : size.map((s) => (
+            <div
+              onClick={() => handleSizeFilter(s.start, s.end)}
+              key={s.id}
+              className="cursor-pointer flex gap-x-3"
+            >
+              <button
+                className={`${
+                  sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
+                } border border-gray-600 rounded h-5 w-5`}
+              ></button>
+              <p>{s.start + " - " + s.end}</p>
+            </div>
+          ))}
 
       {/* Brand */}
       <p className="my-5 font-bold text-lg">Brand</p>
