@@ -44,11 +44,11 @@ const Hero = () => {
       <div className="flex h-full items-center pt-10 lg:px-0 px-4">
         <div>
           <div className="wrapper">
-            <h1 className="h1 h1-font font-bold font-moonet lg:text-7xl text-3xl uppercase !leading-0">
+            <h1 className="h1-font font-medium lg:text-7xl text-3xl uppercase !leading-0">
               Unleash Your Sole, Discover Your Style.
             </h1>
           </div>
-          <p className="lg:text-lg mt-3 text-gray-500">
+          <p className="lg:text-lg mt-3 text-zinc-600">
             Discover the Perfect Pair: Explore Our Extensive Collection of
             Stylish and Comfortable Footwear, Available Online for Every
             Occasion and Lifestyle.
@@ -64,8 +64,8 @@ const Hero = () => {
             </div>
           )}
 
-          <h1
-            className="font-extrabold text-3xl mt-10 lg:block hidden"
+          {/* <h1
+            className="font-bold text-3xl mt-10 lg:block hidden text-black"
             style={{
               color: `#${sliders.color}`,
               textShadow:
@@ -73,10 +73,10 @@ const Hero = () => {
             }}
           >
             {sliders.name}
-          </h1>
+          </h1> */}
 
           {/* Lg Sliders */}
-          <div className="lg:flex w-[80%] hidden mt-10">
+          <div className="lg:flex w-[80%] hidden mt-14">
             {shoes.map((s, index) => (
               <div
                 key={s.color}

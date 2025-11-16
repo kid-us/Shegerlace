@@ -132,7 +132,7 @@ const Products = () => {
                     favoriteShoe.includes(shoe.id)
                       ? "bi-heart-fill"
                       : "bi-heart"
-                  } absolute top-7 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-2 w-20 h-20`}
+                  } absolute top-2 z-20 bg-transparent text-xl overflow-hidden cursor-default text-red-500 right-1 w-20 h-20`}
                 ></button>
 
                 <div className="flex justify-center bg rounded-2xl hover:rotate-0 shadow-inner overflow-hidden">

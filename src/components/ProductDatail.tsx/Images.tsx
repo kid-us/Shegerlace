@@ -25,7 +25,8 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
                   src={shoe}
                   alt="Shoe"
                   className={`${
-                    activeImage === shoe && "-rotate-[20deg]"
+                    activeImage === shoe &&
+                    "-rotate-[20deg] transition-all duration-300"
                   } h-[88.5px] w-16 object-contain`}
                 />
               </div>
@@ -35,7 +36,7 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
         <div className="col-span-4 w-full h-full">
           <img
             src={main}
-            className="bg-white w-full h-[600px] object-contain rounded-xl shadow"
+            className="bg-white w-full h-[600px] object-contain rounded-xl shadow transition-all duration-300"
             alt="Shoe"
           />
         </div>

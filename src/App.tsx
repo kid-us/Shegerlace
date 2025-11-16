@@ -20,6 +20,7 @@ import About from "./routes/About";
 import PrivacyPolicy from "./routes/PrivacyPolicy";
 import ContactUs from "./routes/ContactUs";
 import Page404 from "./routes/Page404";
+import Product from "./routes/ProductDetail";
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
         }
       />
       <Route path="/request" element={<ForgotPassword />} />
-      {/* <Route path="/shoes/:id" element={<Product />} /> */}
+      <Route path="/shoes/:id" element={<Product />} />
       <Route
         path="/checkout/:id"
         element={

@@ -394,5 +394,12 @@ export const mockStockShoes: StockShoes[] = [
   },
 ];
 
+// Helper function to get shoe by ID or UID
+export const getShoeById = (id: string): StockShoes | undefined => {
+  return mockStockShoes.find(
+    (shoe) => shoe.uid === id || shoe.id.toString() === id
+  );
+};
+
 export default mockStockShoes;
 

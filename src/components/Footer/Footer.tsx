@@ -30,7 +30,7 @@ const Footer = () => {
   return (
     <div className="bg-white mt-14 lg:pt-14 pt-8 pb-5 p-8">
       <div className="grid lg:grid-cols-6 grid-cols-2">
-        <div className="col-span-2 text-2xl font-bold lg:mb-0 mb-8">
+        <div className="col-span-2 text-2xl lg:mb-0 mb-8">
           <img src={logo_lg} alt="Logo" className="lg:w-28 w-24" />
         </div>
 
@@ -40,7 +40,7 @@ const Footer = () => {
             <Link
               key={nav.id}
               to={`${nav.path}`}
-              className="block font-bold mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
+              className="block mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
             >
               {nav.name}
             </Link>
@@ -55,7 +55,7 @@ const Footer = () => {
             <Link
               key={nav.id}
               to={`${nav.link}`}
-              className="block font-bold mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
+              className="block mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
             >
               {nav.name}
             </Link>
