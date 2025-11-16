@@ -35,7 +35,7 @@ const Hero = () => {
       }
     };
 
-    const timer = setTimeout(changeIntro, 10000);
+    const timer = setTimeout(changeIntro, 8000);
     return () => clearTimeout(timer);
   }, [shoes, sliders]);
 

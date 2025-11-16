@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import menuNav from "../../services/navbar";
 import { useState } from "react";
 import Menu from "./Menu";
@@ -84,13 +84,16 @@ const Navbar = () => {
             {/* Visible only on Large */}
             <div className="lg:flex md:flex hidden space-x-14 pt-6">
               {menuNav.map((nav) => (
-                <Link
-                  to={`${nav.link}`}
+                <NavLink
+                  to={nav.link}
                   key={nav.id}
-                  className="transition-transform duration-500 ease-in-out hover:-translate-y-1"
+                  className={({ isActive }) =>
+                    `transition-transform duration-500 ease-in-out hover:-translate-y-1 
+                  ${isActive ? "border-b-2 border-black" : ""}`
+                  }
                 >
                   {nav.name}
-                </Link>
+                </NavLink>
               ))}
             </div>
 

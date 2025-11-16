@@ -41,7 +41,7 @@ const Home = () => {
         </Link>
 
         <Link to={"/women"} className="relative group overflow-hidden">
-          <p className="absolute z-10 h1-font bottom-2 left-2 text-black text-xl font-bold uppercase">
+          <p className="absolute z-10 h1-font bottom-2 left-2 text-white text-xl font-bold uppercase">
             Women's
           </p>
           <img
@@ -52,7 +52,7 @@ const Home = () => {
         </Link>
 
         <Link to={"/kids"} className="relative group overflow-hidden">
-          <p className="absolute z-10 h1-font bottom-2 left-2 text-black text-xl font-bold uppercase">
+          <p className="absolute z-10 h1-font bottom-2 left-2 text-white text-xl font-bold uppercase">
             Kid's
           </p>
           <img
