@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import useFavorite from "../../hooks/useFavorite";
 import mockStockShoes from "../../services/stockShoes";

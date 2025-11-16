@@ -14,6 +14,7 @@ import SmFilter from "../components/Filter/SmFilter";
 import { useFilter } from "../stores/useFilter";
 import ShoeCard from "../components/Card/ShoeCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { mens } from "../assets";
 
 const Mens = () => {
   // Title
@@ -165,7 +166,15 @@ const Mens = () => {
 
         {/* Products */}
         <div className="w-full lg:col-span-10">
-          <p className="text-xl font-bold lg:block hidden">Mens</p>
+          <p className="text-xl font-bold lg:block hidden">
+            Mens ({filteredShoes.length})
+          </p>
+
+          <img
+            src={mens}
+            alt="Kids"
+            className="mt-8 rounded lg:h-[370px] object-cover"
+          />
 
           {filteredShoes.length > 0 ? (
             <>

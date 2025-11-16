@@ -64,7 +64,7 @@ const ShoeCard = ({
                   stock: shoe.stock,
                 });
               }}
-              className={`font-extrabold text-2xl w-9 h-9 ${
+              className={`font-extrabold text-xl w-9 h-9 ${
                 cart.some((c) => c.id === shoe.id)
                   ? "bi-bag-fill text-white bg-cyan-600 rounded-full text-lg"
                   : "bi-bag"
@@ -72,7 +72,7 @@ const ShoeCard = ({
             ></button>
           </div>
 
-          <p className="text-lg">{shoe.price} ETB</p>
+          <p className="">{shoe.price} ETB</p>
         </div>
       </div>
     </Link>

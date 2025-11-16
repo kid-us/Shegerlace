@@ -46,7 +46,6 @@ const brandData: brandShoes[] = [
   { id: 6, brand_names: "Converse" },
   { id: 7, brand_names: "Jordan" },
   { id: 8, brand_names: "Under Armour" },
-  { id: 9, brand_names: "Skechers" },
 ];
 
 const Filter = ({ hideCategory = false }: Props) => {
