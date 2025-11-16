@@ -83,7 +83,7 @@ const ForgotPassword = () => {
               </p>
 
               {/* Email */}
-              <div className="bg-white overflow-hidden rounded-md mb-3 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+              <div className="bg-white overflow-hidden rounded-md mb-3 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
                 <div className="col-span-2">
                   <p className="bi-envelope-fill text-2xl text-center pt-3"></p>
                 </div>

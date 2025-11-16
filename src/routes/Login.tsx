@@ -63,6 +63,7 @@ const Login = () => {
         setLoader(false);
       });
   };
+  
   return (
     <div className="bg">
       <div className="flex justify-center items-center h-[100dvh] w-full">
@@ -92,7 +93,7 @@ const Login = () => {
               </p>
             )}
             {/* Username */}
-            <div className="lg:bg-primary bg-white rounded-md overflow-hidden lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white rounded-md overflow-hidden lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-person-fill text-2xl text-center pt-3"></p>
               </div>
@@ -113,7 +114,7 @@ const Login = () => {
             )}
 
             {/* Password */}
-            <div className="lg:bg-primary bg-white rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-lock-fill text-2xl text-center pt-3"></p>
               </div>

@@ -40,11 +40,11 @@ const Hero = () => {
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10 lg:pt-14 lg:pb-24">
+    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10 lg:pt-8 lg:pb-24">
       <div className="flex h-full items-center pt-10 lg:px-0 px-4">
         <div>
           <div className="wrapper">
-            <h1 className="h1 font-cousine font-extrabold lg:text-5xl text-3xl uppercase">
+            <h1 className="h1 h1-font font-bold font-moonet lg:text-7xl text-3xl uppercase !leading-0">
               Unleash Your Sole, Discover Your Style.
             </h1>
           </div>

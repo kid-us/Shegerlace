@@ -25,6 +25,10 @@ export default {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
+      fontFamily: {
+        sans: ["Cabin", "sans-serif"],
+        moonet: ["Moonet", "sans-serif"],
+      },
       gridTemplateColumns: {
         13: "repeat(13, minmax(0, 1fr))",
         16: "repeat(16, minmax(0, 1fr))",

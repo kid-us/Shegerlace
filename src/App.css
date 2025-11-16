@@ -1,51 +1,14 @@
-/* Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
-/* Nanum */
-/* @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700");
-
-html {
+body {
+  background-color: #f2ecdc;
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: #f2ecdc;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Poppins", sans-serif;
-}
-
-p,
-label,
-button,
-input {
-  font-family: "Poppins", sans-serif !important;
-}
-
-.font-poppins {
-  font-family: "Poppins", sans-serif !important;
-}
-
-a {
-  font-family: "Cousine", monospace;
-}
-
-a:hover {
-  font-family: "Cousine", monospace;
+.h1-font {
+  font-family: "moonet";
 }
 
 .bg {
   background-color: #f2ecdc;
-}
-
-.font-cousine {
-  font-family: "Cousine", monospace !important;
 }
 
 .btn-bg {
@@ -123,8 +86,8 @@ input[type="number"] {
   gap: 3em;
 }
 
-.h1 {
-  font-size: 5em;
+/* .h1 {
+  font-size: 5em !important;
   text-decoration: none;
   text-transform: uppercase;
   line-height: 1;
@@ -132,9 +95,10 @@ input[type="number"] {
   -webkit-text-stroke: 1.5px #556064;
   text-shadow: 0 0 0 #09ecf8;
   transition: all 250ms;
+  font-family: "moonet";
 }
 
 .h1:hover {
   text-shadow: 4px 4px 0 #fff;
   transform: translate(-2px, -2px);
-}
+} */

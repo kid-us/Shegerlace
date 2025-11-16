@@ -122,7 +122,7 @@ const Products = () => {
         {filteredShoes.length > 0 ? (
           filteredShoes.map((shoe) => (
             <Link to={`/shoes/${shoe.uid}`} key={shoe.uid}>
-              <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5">
+              <div className="relative bg-gray-50 rounded-2xl shadow shadow-zinc-500 p-5 hover:shadow-none transition-all duration-300">
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -139,7 +139,7 @@ const Products = () => {
                   <img
                     src={shoe.main_picture}
                     alt="Shoe"
-                    className={`lg:h-64 h-60 w-full object-contain -rotate-[20deg] hover:rotate-0`}
+                    className={`lg:h-64 h-60 w-full object-contain transition-all duration-300 -rotate-[20deg] hover:rotate-0`}
                   />
                 </div>
 

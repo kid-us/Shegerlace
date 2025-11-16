@@ -144,7 +144,7 @@ const Register = () => {
             )}
 
             {/* Username */}
-            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-person-fill text-2xl text-center pt-3"></p>
               </div>
@@ -165,7 +165,7 @@ const Register = () => {
             )}
 
             {/* Email */}
-            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-envelope-fill text-2xl text-center pt-3"></p>
               </div>
@@ -186,7 +186,7 @@ const Register = () => {
             )}
 
             {/* Phone */}
-            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-telephone-fill text-2xl text-center pt-3"></p>
               </div>
@@ -207,7 +207,7 @@ const Register = () => {
             )}
 
             {/* Password */}
-            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white overflow-hidden rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-lock-fill text-2xl text-center pt-3"></p>
               </div>
@@ -238,7 +238,7 @@ const Register = () => {
             )}
 
             {/* Confirm Password */}
-            <div className="lg:bg-primary bg-white rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow shadow-zinc-900">
+            <div className="lg:bg-primary bg-white rounded-md lg:mb-4 mb-4 grid grid-cols-13 h-14 shadow-sm shadow-zinc-900">
               <div className="col-span-2">
                 <p className="bi-lock-fill text-2xl text-center pt-3"></p>
               </div>
