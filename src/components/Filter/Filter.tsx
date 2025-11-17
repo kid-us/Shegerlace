@@ -124,7 +124,7 @@ const Filter = ({ hideCategory = false }: Props) => {
               updateCategory(null);
               updatePrice(null);
             }}
-            className="cursor-pointer mb-2"
+            className="text-zinc-600 mb-2"
           >
             Default
           </p>
@@ -146,7 +146,7 @@ const Filter = ({ hideCategory = false }: Props) => {
       )}
 
       {/* Price */}
-      <p className="my-5 font-bold text-lg">Price</p>
+      <p className="my-5 text-zinc-600 text-lg">Price</p>
       <div className="space-y-1">
         {price.map((p) => (
           <div
@@ -165,7 +165,7 @@ const Filter = ({ hideCategory = false }: Props) => {
       </div>
 
       {/* Size */}
-      <p className="my-5 font-bold text-lg">Size</p>
+      <p className="my-5 text-zinc-600 text-lg">Size</p>
       {kidsSize
         ? kidsSize.map((s) => (
             <div
@@ -197,7 +197,7 @@ const Filter = ({ hideCategory = false }: Props) => {
           ))}
 
       {/* Brand */}
-      <p className="my-5 font-bold text-lg">Brand</p>
+      <p className="my-5 text-zinc-600 text-lg">Brand</p>
       <div className="space-y-1">
         {brandData.map((b) => (
           <div

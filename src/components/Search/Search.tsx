@@ -38,14 +38,14 @@ const Search = ({ onClose }: Props) => {
       <div className="fixed top-0 h-[100dvh] left-0 w-full z-30 bg-neutral-900/70"></div>
 
       <div
-        className={`animate__animated ${animationClass} fixed top-0 left-0 w-full lg:h-[50%] h-full z-40 bg-white`}
+        className={`animate__animated ${animationClass} fixed top-0 left-0 w-full lg:h-[30%] h-full z-40 bg-white`}
       >
         <div className="grid grid-cols-12 lg:gap-x-20 gap-x-3 lg:px-32 px-3 lg:pt-8 pt-3">
           <div className="lg:block hidden lg:col-span-2">
             <img src={logo_sm} alt="Logo" className="w-14" />
           </div>
 
-          <div className="lg:col-span-8 col-span-11 overflow-hidden">
+          <div className="lg:col-span-8 col-span-11 overflow-hidden mt-3">
             <div className="relative overflow-hidden">
               <input
                 type="search"
@@ -80,7 +80,7 @@ const Search = ({ onClose }: Props) => {
             </div>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 mt-3">
             <button
               onClick={handleClose}
               className="bi-x-lg text-red-600 text-xl pt-3"

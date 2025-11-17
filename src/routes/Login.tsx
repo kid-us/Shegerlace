@@ -63,7 +63,7 @@ const Login = () => {
         setLoader(false);
       });
   };
-  
+
   return (
     <div className="bg">
       <div className="flex justify-center items-center h-[100dvh] w-full">
@@ -104,6 +104,7 @@ const Login = () => {
                   name="username"
                   className={`focus:outline-none px-3 lg:bg-primary md:bg-white bg-white h-full placeholder:text-gray-500 text-md w-full`}
                   placeholder="Username"
+                  autoComplete="off"
                 />
               </div>
             </div>
@@ -125,6 +126,7 @@ const Login = () => {
                   name="password"
                   className={`focus:outline-none px-3 lg:bg-primary bg-white h-full placeholder:text-gray-500 text-md w-full`}
                   placeholder="Password"
+                  autoComplete="off"
                 />
               </div>
               <div

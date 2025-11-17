@@ -26,7 +26,7 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
                   alt="Shoe"
                   className={`${
                     activeImage === shoe &&
-                    "-rotate-[20deg] transition-all duration-300"
+                    "scale-125 transition-all duration-300"
                   } h-[88.5px] w-16 object-contain`}
                 />
               </div>

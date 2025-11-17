@@ -150,7 +150,7 @@ const Products = () => {
                 !allData.has_prev
                   ? "bg-gray-400 text-white cursor-not-allowed"
                   : "btn-bg text-white"
-              } rounded-full text-sm p-2 hover:scale-105`}
+              } rounded text-sm p-2 hover:scale-105`}
             >
               <ChevronLeft />
             </button>
@@ -166,7 +166,7 @@ const Products = () => {
                 !allData.has_next
                   ? "bg-gray-400 text-white cursor-not-allowed"
                   : "btn-bg text-white"
-              } rounded-full text-sm p-2 hover:scale-105`}
+              } rounded text-sm p-2 hover:scale-105`}
             >
               <ChevronRight />
             </button>
