@@ -1,26 +1,26 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "animate.css";
-import Home from "./components/Pages/Home";
-import Login from "./components/Pages/Login";
-import Register from "./components/Pages/Register";
-import ForgotPassword from "./components/Pages/ForgotPassword";
-import Verify from "./components/Pages/Verify";
-import Product from "./components/Pages/ProductDetail";
-import Checkout from "./components/Pages/Checkout";
+import Home from "./routes/Home";
+import Login from "./routes/Login";
+import Verify from "./routes/Verify";
+import Register from "./routes/Register";
+import Protected from "./components/Protected/Protected";
 import MyOrders from "./components/Dashboard/Orders";
 import Favorite from "./components/Dashboard/Favorite";
-import Setting from "./components/Pages/Setting";
-import Page404 from "./components/Pages/Page404";
-import About from "./components/Pages/About";
-import PrivacyPolicy from "./components/Pages/PrivacyPolicy";
-import CheckEmail from "./components/Pages/CheckEmail";
-import ContactUs from "./components/Pages/ContactUs";
-import Protected from "./components/Protected/Protected";
-import Search from "./components/Pages/Search";
-import Mens from "./components/Pages/Mens";
-import Women from "./components/Pages/Women";
-import Kids from "./components/Pages/Kids";
+import Setting from "./routes/Setting";
+import ForgotPassword from "./routes/ForgotPassword";
+import Checkout from "./routes/Checkout";
+import Mens from "./routes/Mens";
+import Women from "./routes/Women";
+import Kids from "./routes/Kids";
+import Search from "./routes/Search";
+import CheckEmail from "./routes/CheckEmail";
+import About from "./routes/About";
+import PrivacyPolicy from "./routes/PrivacyPolicy";
+import ContactUs from "./routes/ContactUs";
+import Page404 from "./routes/Page404";
+import Product from "./routes/ProductDetail";
 
 function App() {
   return (
@@ -58,9 +58,9 @@ function App() {
       <Route
         path="/checkout/:id"
         element={
-          <Protected>
-            <Checkout />
-          </Protected>
+          // <Protected>
+          <Checkout />
+          // </Protected>
         }
       />
       <Route path="/mens" element={<Mens />} />

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useCartStore } from "../../stores/useCartStore";
 import { useNavigate } from "react-router-dom";
-import useUsername from "../../hooks/useUsername";
 
 interface Props {
   onCart: () => void;
@@ -10,8 +9,6 @@ interface Props {
 const Cart = ({ onCart }: Props) => {
   const navigate = useNavigate();
   const [error, setError] = useState<boolean>(false);
-
-  const { username } = useUsername();
 
   const {
     cart,
@@ -75,14 +72,15 @@ const Cart = ({ onCart }: Props) => {
     <>
       <div
         onClick={() => handleClose()}
-        className="overlay w-full h-full z-30"
+        className="overlay w-full h-full z-50"
       ></div>
       <div
-        className={`fixed z-30 bottom-0 right-0 bg-white lg:w-[28%] w-full lg:h-[91vh] h-full rounded-tl-xl px-3
+        className={`fixed z-50 bottom-0 right-0 bg-white lg:w-fit lg:max-w-[28%] w-full h-full rounded-tl-xl flex flex-col
             animate__animated ${animationClass}
             `}
       >
-        <div className="flex justify-between mb-5 px-3 pt-5">
+        {/* Header */}
+        <div className="flex justify-between mb-5 px-3 pt-5 flex-shrink-0">
           <p className="text-xl">
             Cart
             <span className="text-red-600 ms-2">{cart.length}</span>
@@ -92,8 +90,10 @@ const Cart = ({ onCart }: Props) => {
             className="bi-x bg-black text-white rounded w-6 h-6 shadow shadow-zinc-900"
           ></button>
         </div>
-        <div className="relative h-full">
-          <div className="bg-primary h-[70%] shadow-inner w-full px-3 pt-6 rounded-lg overflow-y-scroll">
+
+        {/* Cart Items Section - Takes remaining space */}
+        <div className="flex-1 overflow-hidden flex flex-col min-h-0">
+          <div className="bg-primary shadow-inner w-full px-3 pt-6 rounded-lg overflow-y-auto flex-1">
             {/* Cart Items */}
             {cart.map((c) => (
               <div
@@ -169,43 +169,56 @@ const Cart = ({ onCart }: Props) => {
               </div>
             ))}
           </div>
+        </div>
 
+        {/* Footer Section - Fixed at bottom */}
+        <div className="flex-shrink-0 px-4 pb-4 pt-2 bg-white border-t">
           {/* Size Error */}
           {error && (
-            <p className="bg-red-500 mt-2 text-sm text-center rounded ps-2 text-white">
+            <p className="bg-red-500 mb-2 text-sm text-center rounded ps-2 text-white py-1">
               Please select a shoe size.
             </p>
           )}
 
-          {/* Button */}
-          <div className="mt-3 px-1 h-[30%]">
+          {/* Quantity and Total Price */}
+          <div className="mb-4">
+            <div className="flex justify-between font-semibold text-lg">
+              <p>Quantity</p>
+              <p> x {cart.reduce((acc, curr) => acc + curr.quantity, 0)}</p>
+            </div>
+            <div className="flex justify-between text-xl font-semibold mt-2">
+              <p>Total Price</p>
+              <p>
+                {cart.reduce(
+                  (acc, curr) => acc + Number(curr.price) * curr.quantity,
+                  0
+                )}{" "}
+                ETB
+              </p>
+            </div>
+          </div>
+
+          <hr className="my-3" />
+
+          {/* CTA Buttons */}
+          <div className="space-y-3">
             <button
               onClick={() => {
                 handleClose();
                 clearCart();
               }}
-              className="bg-red-500 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900"
+              className="bg-red-500 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 hover:shadow-none transition-all"
             >
-              Clear Bag
+              Clear Cart
               <span className="bi-trash-fill ms-3 text-white"></span>
             </button>
-            {!username ? (
-              <button
-                onClick={() => (window.location.href = "/login")}
-                className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center"
-              >
-                Checkout
-                <span className="bi-check text-xl text-white"></span>
-              </button>
-            ) : (
-              <button
-                onClick={() => handleCheckout()}
-                className="bg-green-500 mt-3 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 text-center"
-              >
-                Checkout
-                <span className="bi-check text-xl text-white"></span>
-              </button>
-            )}
+            <button
+              onClick={() => handleCheckout()}
+              className="bg-green-500 w-full rounded font-bold text-white h-11 shadow shadow-zinc-900 hover:shadow-none transition-all text-center"
+            >
+              Checkout
+              <span className="bi-check text-xl text-white"></span>
+            </button>
           </div>
         </div>
       </div>

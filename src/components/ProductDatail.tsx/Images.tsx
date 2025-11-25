@@ -15,7 +15,7 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
               key={index}
               className={`${
                 activeImage === shoe ? "bg-gray-100" : "bg-white"
-              } rounded-lg mb-1 mx-4 shadow`}
+              } rounded-lg mb-1 mx-4 shadow overflow-hidden`}
             >
               <div
                 onMouseEnter={() => setActiveImage(shoe)}
@@ -25,7 +25,8 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
                   src={shoe}
                   alt="Shoe"
                   className={`${
-                    activeImage === shoe && "-rotate-[20deg]"
+                    activeImage === shoe &&
+                    "scale-125 transition-all duration-300"
                   } h-[88.5px] w-16 object-contain`}
                 />
               </div>
@@ -35,7 +36,7 @@ const Images = ({ images, main, activeImage, setActiveImage }: Props) => {
         <div className="col-span-4 w-full h-full">
           <img
             src={main}
-            className="bg-white w-full h-[600px] object-contain rounded-xl shadow"
+            className="bg-white w-full h-[600px] object-contain rounded-xl shadow transition-all duration-300"
             alt="Shoe"
           />
         </div>

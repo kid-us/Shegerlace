@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Font Face Declarations */
+@font-face {
+  font-family: "Cabin";
+  src: url("/fonts/Cabin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moonet";
+  src: url("/fonts/Bingar.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    font-family: "Cabin", sans-serif;
+  }
+}

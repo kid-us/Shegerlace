@@ -1,4 +1,9 @@
-import { hero1, hero2, hero3, hero4, hero5, hero6 } from "../assets";
+import { hero1 } from "../assets";
+import ua2Main from "../assets/shoes/under_armour/2/main.png";
+import nb2Main from "../assets/shoes/new_balance/2/main.png";
+import converse4Main from "../assets/shoes/converse/4/main.png";
+import puma6Main from "../assets/shoes/puma/6/main.png";
+import jordan4Main from "../assets/shoes/jordan/4/main.png";
 
 interface Shoes {
   id: number;
@@ -18,37 +23,37 @@ const shoes: Shoes[] = [
   },
   {
     id: 2,
-    name: "Nike Dunk High",
-    color: "864E2D",
-    img: hero2,
+    name: "Ait Jordan",
+    color: "000000",
+    img: jordan4Main,
     price: 2999,
   },
   {
     id: 3,
-    name: "Nike Dunk High",
-    color: "92C6D9",
-    img: hero3,
+    name: "Puma",
+    color: "c2a53c",
+    img: puma6Main,
     price: 2999,
   },
   {
     id: 4,
-    name: "Air Jordan 3 Retro",
-    color: "373C3F",
-    img: hero4,
+    name: "All Star",
+    color: "fffeee",
+    img: converse4Main,
     price: 4999,
   },
   {
     id: 5,
-    name: "Nike Dunk Low SE",
-    color: "F56F00",
-    img: hero5,
+    name: "Under Armour",
+    color: "676767",
+    img: ua2Main,
     price: 3999,
   },
   {
     id: 6,
-    name: "Air Jordan 1 Mid SE",
-    color: "A9A3A2",
-    img: hero6,
+    name: "New Balance 42",
+    color: "65564e",
+    img: nb2Main,
     price: 5999,
   },
 ];

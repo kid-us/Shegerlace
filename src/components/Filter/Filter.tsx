@@ -1,6 +1,11 @@
 import { useState } from "react";
-import useBrand from "../../hooks/useBrand";
+import { brandShoes } from "../../hooks/useBrand";
 import { useFilter } from "../../stores/useFilter";
+
+interface Props {
+  hideCategory?: boolean;
+  kidsSize?: boolean;
+}
 
 export interface Size {
   start: string;
@@ -25,23 +30,39 @@ const price = [
   { id: 4, min: "5000", max: "6000" },
 ];
 
-// const size = [
-//   { id: 1, start: "36", end: "37" },
-//   { id: 2, start: "37", end: "38" },
-//   { id: 3, start: "39", end: "40" },
-//   { id: 4, start: "41", end: "42" },
-//   { id: 5, start: "43", end: "44" },
-// ];
+const size = [
+  { id: 1, start: "36", end: "37" },
+  { id: 2, start: "37", end: "38" },
+  { id: 3, start: "39", end: "40" },
+  { id: 4, start: "41", end: "42" },
+  { id: 5, start: "43", end: "44" },
+];
 
-const Filter = () => {
-  const { brand } = useBrand();
+const kidsSize = [
+  { id: 1, start: "30", end: "31" },
+  { id: 2, start: "32", end: "33" },
+  { id: 3, start: "34", end: "35" },
+  { id: 4, start: "36", end: "37" },
+];
 
-  const { updateBrand, updateCategory, updatePrice } = useFilter();
+const brandData: brandShoes[] = [
+  { id: 1, brand_names: "Nike" },
+  { id: 2, brand_names: "Adidas" },
+  { id: 3, brand_names: "Puma" },
+  { id: 4, brand_names: "New Balance" },
+  { id: 5, brand_names: "Vans" },
+  { id: 6, brand_names: "Converse" },
+  { id: 7, brand_names: "Jordan" },
+  { id: 8, brand_names: "Under Armour" },
+];
+
+const Filter = ({ hideCategory = false }: Props) => {
+  const { updateBrand, updateCategory, updatePrice, updateSize } = useFilter();
 
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [priceFilter, setPriceFilter] = useState<Price | null>(null);
   const [brandFilter, setBrandFilter] = useState<string | null>(null);
-  // const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
+  const [sizeFilter, setSizeFilter] = useState<Size | null>(null);
 
   // Handle Brand Filter
   const handleBrandFilter = (filter: string) => {
@@ -65,16 +86,16 @@ const Filter = () => {
     }
   };
 
-  // // Handle Size
-  // const handleSizeFilter = (start: string, end: string) => {
-  //   if (start === sizeFilter?.start) {
-  //     setSizeFilter(null);
-  //     updateSize(null);
-  //   } else {
-  //     setSizeFilter({ start, end });
-  //     updateSize({ start, end });
-  //   }
-  // };
+  // Handle Size
+  const handleSizeFilter = (start: string, end: string) => {
+    if (start === sizeFilter?.start) {
+      setSizeFilter(null);
+      updateSize(null);
+    } else {
+      setSizeFilter({ start, end });
+      updateSize({ start, end });
+    }
+  };
 
   // Handle Price filter
   const handlePriceFilter = (min: string, max: string) => {
@@ -92,39 +113,40 @@ const Filter = () => {
       <p className="text-2xl mb-5 font-bold">Filter</p>
 
       {/* Category */}
-      <div className="space-y-1">
-        <p
-          onClick={() => {
-            setBrandFilter(null);
-            // setSizeFilter(null);
-            setPriceFilter(null);
-            setCategoryFilter(null);
-            updateBrand(null);
-            updateCategory(null);
-            updatePrice(null);
-          }}
-          className="cursor-pointer mb-2"
-        >
-          Default
-        </p>
-        {category.map((c) => (
-          <div
-            onClick={() => handleCategoryFilter(c.label)}
-            key={c.id}
-            className="cursor-pointer flex gap-x-3"
+      {!hideCategory && (
+        <div className="space-y-1">
+          <p
+            onClick={() => {
+              setBrandFilter(null);
+              setPriceFilter(null);
+              setCategoryFilter(null);
+              updateBrand(null);
+              updateCategory(null);
+              updatePrice(null);
+            }}
+            className="text-zinc-600 mb-2"
           >
-            <button
-              className={`${
-                categoryFilter === c.label ? "btn-bg" : "bg-white"
-              } border border-gray-600 rounded h-5 w-5`}
-            ></button>
-            <p>{c.label}</p>
-          </div>
-        ))}
-      </div>
+            Default
+          </p>
+          {category.map((c) => (
+            <div
+              onClick={() => handleCategoryFilter(c.label)}
+              key={c.id}
+              className="cursor-pointer flex gap-x-3"
+            >
+              <button
+                className={`${
+                  categoryFilter === c.label ? "btn-bg" : "bg-white"
+                } border border-gray-600 rounded h-5 w-5`}
+              ></button>
+              <p>{c.label}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Price */}
-      <p className="my-5 font-bold text-lg">Price</p>
+      <p className="my-5 text-zinc-600 text-lg">Price</p>
       <div className="space-y-1">
         {price.map((p) => (
           <div
@@ -143,26 +165,41 @@ const Filter = () => {
       </div>
 
       {/* Size */}
-      {/* <p className="my-5 font-bold text-lg">Size</p>
-      {size.map((s) => (
-        <div
-          onClick={() => handleSizeFilter(s.start, s.end)}
-          key={s.id}
-          className="cursor-pointer flex gap-x-3"
-        >
-          <button
-            className={`${
-              sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
-            } border border-gray-600 rounded h-5 w-5`}
-          ></button>
-          <p>{s.start + " - " + s.end}</p>
-        </div>
-      ))} */}
+      <p className="my-5 text-zinc-600 text-lg">Size</p>
+      {kidsSize
+        ? kidsSize.map((s) => (
+            <div
+              onClick={() => handleSizeFilter(s.start, s.end)}
+              key={s.id}
+              className="cursor-pointer flex gap-x-3"
+            >
+              <button
+                className={`${
+                  sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
+                } border border-gray-600 rounded h-5 w-5`}
+              ></button>
+              <p>{s.start + " - " + s.end}</p>
+            </div>
+          ))
+        : size.map((s) => (
+            <div
+              onClick={() => handleSizeFilter(s.start, s.end)}
+              key={s.id}
+              className="cursor-pointer flex gap-x-3"
+            >
+              <button
+                className={`${
+                  sizeFilter?.start === s.start ? "btn-bg" : "bg-white"
+                } border border-gray-600 rounded h-5 w-5`}
+              ></button>
+              <p>{s.start + " - " + s.end}</p>
+            </div>
+          ))}
 
       {/* Brand */}
-      <p className="my-5 font-bold text-lg">Brand</p>
+      <p className="my-5 text-zinc-600 text-lg">Brand</p>
       <div className="space-y-1">
-        {brand.map((b) => (
+        {brandData.map((b) => (
           <div
             onClick={() => handleBrandFilter(b.brand_names)}
             key={b.id}

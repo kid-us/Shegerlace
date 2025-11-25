@@ -28,43 +28,42 @@ const items: Footer[] = [
 
 const Footer = () => {
   return (
-    <div className="w-full bg-white mt-14 lg:pt-14 pt-8 pb-5 px-4">
-      <div className="container mx-auto">
-        <div className="grid lg:grid-cols-6 grid-cols-2">
-          <div className="col-span-2 text-2xl font-bold lg:mb-0 mb-8">
-            <img src={logo_lg} alt="Logo" className="lg:w-28 w-24" />
-          </div>
-
-          <div>
-            <p className="font-bold mb-4 lg:text-lg text-gray-500">Company</p>
-            {items.map((nav) => (
-              <Link
-                key={nav.id}
-                to={`${nav.path}`}
-                className="block font-bold mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
-              >
-                {nav.name}
-              </Link>
-            ))}
-          </div>
-
-          <div className="lg:block hidden"></div>
-
-          <div>
-            <p className="font-bold mb-4 lg:text-lg text-gray-500">Explore</p>
-            {menuNav.map((nav) => (
-              <Link
-                key={nav.id}
-                to={`${nav.link}`}
-                className="block font-bold mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
-              >
-                {nav.name}
-              </Link>
-            ))}
-          </div>
+    <div className="bg-white mt-14 lg:pt-14 pt-8 pb-5 p-8">
+      <div className="grid lg:grid-cols-6 grid-cols-2">
+        <div className="col-span-2 text-2xl lg:mb-0 mb-8">
+          <img src={logo_lg} alt="Logo" className="lg:w-28 w-24" />
         </div>
-        <div className="lg:flex justify-between lg:mt-0 mt-5">
-          {/* <div className="flex gap-x-5">
+
+        <div>
+          <p className="font-bold mb-4 lg:text-lg text-gray-500">Company</p>
+          {items.map((nav) => (
+            <Link
+              key={nav.id}
+              to={`${nav.path}`}
+              className="block mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
+            >
+              {nav.name}
+            </Link>
+          ))}
+        </div>
+
+        <div className="lg:block hidden"></div>
+
+        <div>
+          <p className="font-bold mb-4 lg:text-lg text-gray-500">Explore</p>
+          {menuNav.map((nav) => (
+            <Link
+              key={nav.id}
+              to={`${nav.link}`}
+              className="block mb-2 lg:text-md text-sm overflow-hidden hover:text-gray-500"
+            >
+              {nav.name}
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="lg:flex justify-between lg:mt-0 mt-5">
+        {/* <div className="flex gap-x-5">
             <p className="font-bold lg:text-md text-sm">Follow us</p>
             <div className="flex gap-x-4">
               <Link to={"/"} className="bi-telegram text-lg text-cyan-500" />
@@ -72,10 +71,9 @@ const Footer = () => {
               <Link to={"/"} className="bi-facebook text-lg text-blue-600" />
             </div>
           </div> */}
-          <p className="lg:text-sm lg:mt-0 mt-3 font-bold text-xs">
-            <span>&copy;</span> 2024 Shegerlace
-          </p>
-        </div>
+        <p className="lg:text-sm lg:mt-0 mt-3 text-xs">
+          <span>&copy;</span> 2024 Shegerlace
+        </p>
       </div>
     </div>
   );

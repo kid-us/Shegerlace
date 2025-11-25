@@ -35,20 +35,20 @@ const Hero = () => {
       }
     };
 
-    const timer = setTimeout(changeIntro, 10000);
+    const timer = setTimeout(changeIntro, 8000);
     return () => clearTimeout(timer);
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2 lg :mt-0 mt-10">
-      <div className="flex h-full items-center pt-10 lg:ps-28 lg:px-0 px-4">
+    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10 lg:pt-8 lg:pb-24">
+      <div className="flex h-full items-center pt-10 lg:px-0 px-4">
         <div>
           <div className="wrapper">
-            <h1 className="h1 font-cousine font-extrabold lg:text-5xl text-3xl uppercase">
+            <h1 className="h1-font font-medium lg:text-7xl text-3xl uppercase !leading-0">
               Unleash Your Sole, Discover Your Style.
             </h1>
           </div>
-          <p className="lg:text-lg mt-3 text-gray-500">
+          <p className="lg:text-lg mt-3 text-zinc-600">
             Discover the Perfect Pair: Explore Our Extensive Collection of
             Stylish and Comfortable Footwear, Available Online for Every
             Occasion and Lifestyle.
@@ -64,8 +64,8 @@ const Hero = () => {
             </div>
           )}
 
-          <h1
-            className="font-extrabold text-3xl mt-10 lg:block hidden"
+          {/* <h1
+            className="font-bold text-3xl mt-10 lg:block hidden text-black"
             style={{
               color: `#${sliders.color}`,
               textShadow:
@@ -73,10 +73,10 @@ const Hero = () => {
             }}
           >
             {sliders.name}
-          </h1>
+          </h1> */}
 
           {/* Lg Sliders */}
-          <div className="lg:flex w-[80%] hidden mt-10">
+          <div className="lg:flex w-[80%] hidden mt-14">
             {shoes.map((s, index) => (
               <div
                 key={s.color}
@@ -108,7 +108,7 @@ const Hero = () => {
         <img
           src={sliders.img}
           alt="hero"
-          className="animation-swing absolute inset-0 m-auto lg:-rotate-[20deg] -rotate-[25deg] lg:me-auto me-8"
+          className="animation-swing absolute inset-0 m-auto lg:-rotate-[20deg] -rotate-[25deg] lg:me-auto lg:w-auto w-[80%]"
         />
       </div>
 

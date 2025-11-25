@@ -9,6 +9,13 @@ import logo_lg from "./logo_large.png";
 import logo_sm from "./logo_small.png";
 import notFound from "./404.png";
 import cod from "./cash-on-delivery.png";
+import mens from "./mens.jpg";
+import womens from "./womens.jpg";
+import kids from "./kids.webp";
+
+import womenPick from "./women-pick.jpg";
+import menPick from "./mens-pick.webp";
+import kidPick from "./kids-pick.jpg";
 
 export {
   hero1,
@@ -22,4 +29,11 @@ export {
   logo_sm,
   notFound,
   cod,
+  // Banners
+  kidPick,
+  kids,
+  menPick,
+  mens,
+  womenPick,
+  womens,
 };
