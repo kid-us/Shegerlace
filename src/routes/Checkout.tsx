@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,8 +51,6 @@ const Checkout = () => {
   const { id } = useParams();
 
   const { clearCart, cart } = useCartStore();
-
-  const navigate = useNavigate();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -156,6 +154,8 @@ const Checkout = () => {
       promocode: data.promo,
     };
 
+    console.log(orderData);
+
     // Mock response
     // console.log("Order data (mock):", orderData);
     setTimeout(() => {
@@ -200,11 +200,11 @@ const Checkout = () => {
 
       <Navbar />
 
-      <div className="">
+      <div className="md:mt-0 mt-10">
         <div className="lg:grid grid-cols-2">
           {id !== "cart" ? (
             <div className="lg:px-20 lg:sticky top-20 self-start border-r border-gray-300 text-white">
-              <div className="lg:py-16 md:py-16 px-3 py-5 text-black">
+              <div className="lg:py-16 md:py-16 px-5 py-5 text-black">
                 <h1 className="text-3xl font-semibold">{shoe?.name}</h1>
                 <p className=" text-2xl mt-3 font-semibold">
                   {shoe?.price} ETB
@@ -213,7 +213,11 @@ const Checkout = () => {
                 <p className=" text-lg mt-2">Size: {size}</p>
 
                 <div className="flex justify-center bg-white mt-4 rounded-xl overflow-hidden shadow">
-                  <img src={shoe?.main_picture} alt="Shoe" className="h-96" />
+                  <img
+                    src={shoe?.main_picture}
+                    alt="Shoe"
+                    className="md:h-96 md:scale-100 scale-90"
+                  />
                 </div>
               </div>
             </div>
