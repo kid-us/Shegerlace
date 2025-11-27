@@ -150,12 +150,12 @@ const Products = () => {
                 !allData.has_prev
                   ? "bg-gray-400 text-white cursor-not-allowed"
                   : "btn-bg text-white"
-              } rounded text-sm p-2 hover:scale-105`}
+              } rounded text-sm p-1 h-8 hover:scale-105`}
             >
               <ChevronLeft />
             </button>
             {/* Current */}
-            <p className="flex items-center justify-center mt-1 bg-white w-14 h-8 rounded text-sm text-center">
+            <p className="flex items-center justify-center bg-white w-14 h-8 rounded text-sm text-center">
               {allData.current_page} of {allData.total_pages}
             </p>
             {/*next  */}
@@ -166,7 +166,7 @@ const Products = () => {
                 !allData.has_next
                   ? "bg-gray-400 text-white cursor-not-allowed"
                   : "btn-bg text-white"
-              } rounded text-sm p-2 hover:scale-105`}
+              } rounded text-sm p-1 h-8 hover:scale-105`}
             >
               <ChevronRight />
             </button>

@@ -42,7 +42,7 @@ const ShoeCard = ({
           <img
             src={shoe.main_picture}
             alt={shoe.name}
-            className="lg:h-64 h-60 w-full object-contain transition-all duration-400 -rotate-[20deg] group-hover:rotate-0 hover:rotate-0"
+            className="h-60 w-full object-contain transition-all duration-400 -rotate-[20deg] group-hover:rotate-0 hover:rotate-0"
           />
         </div>
 
