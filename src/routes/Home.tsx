@@ -28,7 +28,7 @@ const Home = () => {
       <Hero />
 
       {/* Banners */}
-      <div className="grid lg:grid-cols-3 grid-cols-2 gap-1 mb-20">
+      <div className="grid lg:grid-cols-3 grid-cols-2 gap-1 mb-20 lg:px-0 px-5">
         <Link to={"/mens"} className="relative group overflow-hidden">
           <p className="absolute z-10 h1-font bottom-2 left-2 text-white text-xl font-bold uppercase">
             Men's
@@ -36,7 +36,7 @@ const Home = () => {
           <img
             src={menPick}
             alt="Mens"
-            className="h-80 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
+            className="lg:h-80 md:72 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
           />
         </Link>
 
@@ -47,7 +47,7 @@ const Home = () => {
           <img
             src={womenPick}
             alt="Women's"
-            className="h-80 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
+            className="lg:h-80 md:72 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
           />
         </Link>
 
@@ -58,13 +58,13 @@ const Home = () => {
           <img
             src={kidPick}
             alt="Kids"
-            className="h-80 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
+            className="lg:h-80 md:72 object-cover w-full grayscale-[100%] transition-transform duration-500 group-hover:scale-110"
           />
         </Link>
       </div>
 
       {/* Shoes */}
-      <div className="lg:hidden flex justify-between lg:mt-0 mt-14 mb-5">
+      <div className="lg:hidden flex justify-between lg:mt-0 mt-14 mb-5 px-4">
         <h1 className="mx-2 lg:text-3xl text-xl font-extrabold uppercase">
           Shop By Classics
         </h1>
@@ -77,7 +77,7 @@ const Home = () => {
           <Filter />
         </div>
 
-        <div className="w-full lg:col-span-10">
+        <div className="w-full md:col-span-10">
           <Products />
         </div>
       </div>

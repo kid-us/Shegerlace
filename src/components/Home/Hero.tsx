@@ -40,22 +40,22 @@ const Hero = () => {
   }, [shoes, sliders]);
 
   return (
-    <div className="lg:grid grid-cols-2 lg:mt-0 mt-10 lg:pt-8 lg:pb-24">
+    <div className="md:grid grid-cols-2 lg:mt-0 mt-10 lg:pt-8 pb-24">
       <div className="flex h-full items-center pt-10 lg:px-0 px-4">
         <div>
           <div className="wrapper">
-            <h1 className="h1-font font-medium lg:text-7xl text-3xl uppercase !leading-0">
+            <h1 className="h1-font font-medium lg:text-7xl md:text-6xl text-5xl uppercase !leading-0">
               Unleash Your Sole, Discover Your Style.
             </h1>
           </div>
-          <p className="lg:text-lg mt-3 text-zinc-600">
+          <p className="md:text-lg mt-3 text-zinc-600 leading-5">
             Discover the Perfect Pair: Explore Our Extensive Collection of
             Stylish and Comfortable Footwear, Available Online for Every
             Occasion and Lifestyle.
           </p>
 
           {!username && (
-            <div className="w-44">
+            <div className="w-44 md:mb-0 mb-10">
               <Link to={"/login"}>
                 <p className="rounded text-white w-44 h-11 shadow shadow-zinc-950 hover:shadow-none text-center mt-5 pt-2 btn-bg">
                   Join us Now

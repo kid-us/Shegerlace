@@ -119,7 +119,7 @@ const Products = () => {
 
   return (
     <>
-      <div className="grid lg:grid-cols-3 lg:px-2 px-5 py-5 lg:gap-x-5 lg:gap-y-10 gap-8">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:px-2 px-5 py-5 lg:gap-x-5 lg:gap-y-10 gap-8">
         {filteredShoes.length > 0 ? (
           filteredShoes.map((shoe) => (
             <ShoeCard
